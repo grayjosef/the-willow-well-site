@@ -194,13 +194,14 @@ function Italic({ children }) {
   return <span className="italic" style={{ fontFamily: "var(--font-italic)", fontWeight: 400 }}>{children}</span>;
 }
 
-function PrimaryCTA({ href, children, variant = "bronze" }) {
+function PrimaryCTA({ href, children, variant = "bronze", external = false }) {
   const base = "group inline-flex items-center justify-center gap-3.5 px-7 py-[18px] text-[12px] font-medium uppercase tracking-[0.16em] transition-all duration-300";
   const styles = variant === "bronze"
     ? "bg-[var(--c-bronze)] text-[var(--c-ink-deep)] hover:bg-[var(--c-rainfog)]"
     : "bg-[var(--c-porcelain-soft)] text-[var(--c-ink)] hover:bg-[var(--c-bronze)]";
+  const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
   return (
-    <a href={href} className={`${base} ${styles}`}>
+    <a href={href} className={`${base} ${styles}`} {...externalProps}>
       <span>{children}</span>
       <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
     </a>
@@ -285,7 +286,80 @@ function Header() {
 
 function Hero() {
   return (
-    <section id="hero" className="relative overflow-hidden text-[var(--c-rainfog)]"
+    <div id="hero">
+      {/* Desktop hero (>= lg / 1024px) — original centered watermark layout */}
+      <div className="hidden lg:block">
+<section className="relative min-h-[980px] overflow-hidden text-[var(--c-rainfog)]"
+      style={{
+        background: `
+          radial-gradient(80% 60% at 50% 100%, rgba(166,128,90,0.18), transparent 60%),
+          radial-gradient(50% 40% at 80% 20%, rgba(123,147,138,0.25), transparent 60%),
+          radial-gradient(60% 50% at 15% 30%, rgba(63,95,100,0.6), transparent 70%),
+          linear-gradient(180deg, #0F1A1C 0%, #1A2628 60%, #0F1A1C 100%)`,
+      }}>
+      {/* noise */}
+      <div className="noise-overlay relative" aria-hidden />
+      {/* contour lines */}
+      <div className="pointer-events-none absolute inset-0 z-[1] opacity-40" aria-hidden>
+        <svg viewBox="0 0 1600 900" preserveAspectRatio="none" className="h-full w-full">
+          <g fill="none" stroke="rgba(199,212,207,0.18)" strokeWidth="0.6">
+            <path d="M0 720 Q 400 600 800 700 T 1600 660" />
+            <path d="M0 760 Q 400 640 800 740 T 1600 700" />
+            <path d="M0 800 Q 400 680 800 780 T 1600 740" />
+            <path d="M0 840 Q 400 720 800 820 T 1600 780" />
+            <path d="M0 880 Q 400 760 800 860 T 1600 820" />
+            <path d="M0 200 Q 400 120 800 180 T 1600 160" opacity="0.6" />
+            <path d="M0 160 Q 400  80 800 140 T 1600 120" opacity="0.4" />
+          </g>
+        </svg>
+      </div>
+      {/* breathing orb */}
+      <div aria-hidden className="anim-breathe pointer-events-none absolute left-1/2 top-[55%] z-[1] h-[680px] w-[680px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+        style={{ background: "radial-gradient(circle at 50% 40%, rgba(199,212,207,0.25), rgba(77,113,119,0.1) 40%, transparent 70%)", filter: "blur(2px)" }} />
+      {/* drifting compass mark — positioned below H1, inside the orb halo */}
+      <div aria-hidden className="anim-drift pointer-events-none absolute left-1/2 top-[62%] z-[2] h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2" style={{ color: "rgba(199,212,207,0.32)" }}>
+        <Mark className="h-full w-full" />
+      </div>
+
+      <div className="relative z-[5] mx-auto max-w-7xl px-14">
+        <Header />
+
+        <div className="flex flex-col items-center pt-36 text-center">
+          <Eyebrow flank>Somatic Strategy · Durham, NC · Est. 2024</Eyebrow>
+
+          <h1 className="anim-fade-up mt-9 max-w-[14ch] font-display text-[72px] font-extralight leading-[0.9] tracking-[-0.035em] text-[var(--c-porcelain-soft)] sm:text-[96px] md:text-[124px] lg:text-[152px]">
+            Clarity and capacity<br />
+            begin in the <span style={{ fontFamily: "var(--font-italic)", color: "var(--c-bronze)", fontWeight: 400 }}>body.</span>
+          </h1>
+
+          <p className="anim-fade-up mt-12 max-w-[600px] text-[18px] leading-[1.55] text-[var(--c-eucalyptus)]" style={{ animationDelay: ".2s" }}>
+            Operational infrastructure for leaders and teams who are excellent at their work — and running on fumes. Workshops, cohort programs, and retreats that build capacity that lasts.
+          </p>
+
+          <div className="anim-fade-up mt-14 flex flex-col items-center gap-6 sm:flex-row" style={{ animationDelay: ".4s" }}>
+            <PrimaryCTA href="#book">Book a Discovery Call</PrimaryCTA>
+            <GhostCTA href="#method">See the method</GhostCTA>
+          </div>
+        </div>
+      </div>
+
+      {/* bottom rail */}
+      <div className="absolute bottom-8 left-0 right-0 z-[5] flex items-center justify-between px-6 sm:px-14 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--c-willow)]" style={{ fontFamily: "var(--font-mono)" }}>
+        <div className="inline-flex items-center gap-2.5">
+          <svg viewBox="0 0 24 24" className="anim-fall h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M12 5 L12 19 M6 13 L12 19 L18 13" />
+          </svg>
+          <span>Scroll · The Premise</span>
+        </div>
+        <div className="hidden sm:block">For high-performing teams · CHRO · L&amp;D · ESO</div>
+        <div>01 / 09</div>
+      </div>
+    </section>
+      </div>
+
+      {/* Mobile + tablet hero (< lg / 1024px) — asymmetric layout with rotating stamp */}
+      <div className="lg:hidden">
+<section className="relative overflow-hidden text-[var(--c-rainfog)]"
       style={{
         background: `
           radial-gradient(80% 60% at 50% 100%, rgba(166,128,90,0.18), transparent 60%),
@@ -383,6 +457,8 @@ function Hero() {
         </div>
       </div>
     </section>
+      </div>
+    </div>
   );
 }
 
@@ -695,7 +771,7 @@ function Book() {
         <p className="mx-auto mb-14 mt-12 max-w-[48ch] font-display text-[18px] font-light leading-[1.55] text-[var(--c-eucalyptus)]">
           Every engagement starts with a 20-minute discovery call. No pitch. Just a real conversation about whether the fit is right.
         </p>
-        <PrimaryCTA href="mailto:info@thewillowwellco.com?subject=Discovery%20Call%20Request">Book a Discovery Call</PrimaryCTA>
+        <PrimaryCTA href="https://calendar.app.google/AnYvsxTmKY3vbrxV7" external>Book a Discovery Call</PrimaryCTA>
         <p className="mt-8 text-[18px] text-[var(--c-willow)]" style={{ fontFamily: "var(--font-italic)", fontStyle: "italic" }}>
           Same-week engagements are reviewed by request only.
         </p>
