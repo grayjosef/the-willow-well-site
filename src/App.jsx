@@ -209,7 +209,7 @@ function PrimaryCTA({ href, children, variant = "bronze" }) {
 
 function GhostCTA({ href, children }) {
   return (
-    <a href={href} className="inline-flex items-center gap-2 border-b border-[var(--c-bronze)] pb-1.5 text-[12px] font-medium uppercase tracking-[0.16em] text-[var(--c-eucalyptus)] transition-colors duration-300 hover:text-[var(--c-bronze)]">
+    <a href={href} className="inline-flex items-center gap-2 border-b border-[var(--c-bronze)] py-3 min-h-[44px] text-[12px] font-medium uppercase tracking-[0.16em] text-[var(--c-eucalyptus)] transition-colors duration-300 hover:text-[var(--c-bronze)]">
       {children}
     </a>
   );
@@ -230,9 +230,9 @@ function Header() {
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 border-b border-[var(--c-eucalyptus)]/12 px-6 py-6 sm:px-14">
           <a href="#top" aria-label="The Willow Well — home" className="inline-flex items-center gap-3 text-[var(--c-rainfog)]">
             <span aria-hidden="true"><Mark className="h-7 w-7" /></span>
-            <span className="font-display text-[15px] font-light uppercase tracking-[0.18em]">The Willow Well</span>
+            <span className="font-display text-[13px] sm:text-[15px] font-light uppercase tracking-[0.18em]">The Willow Well</span>
           </a>
-          <nav className="hidden md:block" aria-label="Primary">
+          <nav className="hidden lg:block" aria-label="Primary">
             <ul className="flex items-center gap-10">
               {NAV_ITEMS.slice(0, -1).map((item) => (
                 <li key={item.id}>
@@ -254,7 +254,7 @@ function Header() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             onClick={() => setOpen((o) => !o)}
-            className="md:hidden inline-flex h-10 w-10 items-center justify-center border border-[var(--c-eucalyptus)]/30 text-[var(--c-rainfog)]"
+            className="lg:hidden inline-flex h-11 w-11 items-center justify-center border border-[var(--c-eucalyptus)]/30 text-[var(--c-rainfog)]"
           >
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
               {open ? <path d="M6 6 L18 18 M18 6 L6 18" /> : <path d="M4 8 L20 8 M4 16 L20 16" />}
@@ -262,11 +262,11 @@ function Header() {
           </button>
         </div>
         {open && (
-          <div id="mobile-menu" className="md:hidden border-b border-[var(--c-eucalyptus)]/15 bg-[#0F1A1C]/95 backdrop-blur">
+          <div id="mobile-menu" className="lg:hidden border-b border-[var(--c-eucalyptus)]/15 bg-[#0F1A1C]/95 backdrop-blur">
             <ul className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-6">
               {NAV_ITEMS.map((item) => (
                 <li key={item.id}>
-                  <a href={`#${item.id}`} onClick={() => setOpen(false)} className="block py-2 text-[14px] uppercase tracking-[0.14em] text-[var(--c-eucalyptus)]">
+                  <a href={`#${item.id}`} onClick={() => setOpen(false)} className="flex items-center min-h-[44px] py-3 text-[14px] uppercase tracking-[0.14em] text-[var(--c-eucalyptus)]">
                     {item.label}
                   </a>
                 </li>
@@ -342,8 +342,8 @@ function Hero() {
           </div>
 
           {/* RIGHT — meta column with rotating stamp */}
-          <aside className="anim-fade-up flex flex-col items-start gap-8 border-t border-[var(--c-eucalyptus)]/20 pt-9 lg:items-end lg:border-l lg:border-t-0 lg:pl-9 lg:pt-0 lg:text-right" style={{ animationDelay: ".55s" }}>
-            <div className="relative inline-flex h-[136px] w-[136px] items-center justify-center rounded-full border border-[var(--c-eucalyptus)]/35 text-[var(--c-eucalyptus)]">
+          <aside className="anim-fade-up flex flex-col items-center text-center gap-8 border-t border-[var(--c-eucalyptus)]/20 pt-9 lg:items-end lg:text-right lg:border-l lg:border-t-0 lg:pl-9 lg:pt-0" style={{ animationDelay: ".55s" }}>
+            <div className="relative inline-flex h-[112px] w-[112px] lg:h-[136px] lg:w-[136px] items-center justify-center rounded-full border border-[var(--c-eucalyptus)]/35 text-[var(--c-eucalyptus)]">
               <svg viewBox="0 0 140 140" className="anim-rot absolute inset-0 h-full w-full" aria-hidden="true">
                 <defs>
                   <path id="stamp-path" d="M 70,70 m -54,0 a 54,54 0 1,1 108,0 a 54,54 0 1,1 -108,0" />
@@ -371,7 +371,7 @@ function Hero() {
         </div>
 
         {/* hero footer row — 4 columns of buyer types */}
-        <div className="anim-fade-up grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 border-t border-[var(--c-eucalyptus)]/20 pt-9 pb-16" style={{ animationDelay: ".7s" }}>
+        <div className="anim-fade-up grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 border-t border-[var(--c-eucalyptus)]/20 pt-9 pb-16" style={{ animationDelay: ".7s" }}>
           {HERO_FOOTROW.map((item) => (
             <div key={item.lab}>
               <span className="block mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--c-willow)]" style={{ fontFamily: "var(--font-mono)" }}>{item.lab}</span>
@@ -511,7 +511,7 @@ function Services() {
               </h3>
               <p className="mt-2 mb-6 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--c-sea-text)]" style={{ fontFamily: "var(--font-mono)" }}>{s.fmt}</p>
               <p className="mb-9 text-[15px] leading-[1.55] text-[var(--c-sea-text)]">{s.body}</p>
-              <a href="#book" className="inline-flex items-center gap-2 border-b border-[var(--c-sea-deep)] pb-1 text-[11px] font-medium uppercase tracking-[0.18em] text-[var(--c-sea-deep)] transition-colors hover:border-[var(--c-bronze)] hover:text-[var(--c-bronze)]">
+              <a href="#book" className="inline-flex items-center gap-2 border-b border-[var(--c-sea-deep)] pt-3 pb-2 min-h-[44px] text-[12px] font-medium uppercase tracking-[0.18em] text-[var(--c-sea-deep)] transition-colors hover:border-[var(--c-bronze)] hover:text-[var(--c-bronze)]">
                 Let's Talk <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
               </a>
             </article>
@@ -539,7 +539,7 @@ function Fit() {
               Who this<br />is <Italic><span style={{ color: "var(--c-bronze)" }}>for.</span></Italic>
             </h2>
           </div>
-          <p className="max-w-[32ch] md:text-right font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--c-willow)]" style={{ fontFamily: "var(--font-mono)" }}>
+          <p className="max-w-[36ch] md:text-right text-[14px] leading-[1.55] text-[var(--c-sea-text)]">
             Three buyer types. Named directly because seeing yourself recognized is the first conversion.
           </p>
         </div>
@@ -725,7 +725,7 @@ function Footer() {
   return (
     <footer className="bg-[#0A1214] py-12 text-[12px] tracking-[0.08em] text-[var(--c-willow)]">
       <div className="mx-auto flex max-w-7xl flex-col items-start gap-4 px-6 sm:px-14 sm:flex-row sm:items-center sm:justify-between">
-        <a href="#top" aria-label="The Willow Well — home" className="inline-flex items-center gap-3 text-[var(--c-rainfog)]">
+        <a href="#top" aria-label="The Willow Well — home" className="inline-flex items-center gap-3 py-2 text-[var(--c-rainfog)]">
           <span aria-hidden="true" className="text-[var(--c-bronze)]"><Mark className="h-6 w-6" /></span>
           <span>© 2026 The Willow Well · Somatic Strategy</span>
         </a>
