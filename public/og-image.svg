@@ -1,6 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="32" height="32">
-  <rect width="100" height="100" rx="14" ry="14" fill="#3F5F64"/>
-  <g style="color: #F4F2EC;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!-- Background: vignette gradient on dark sea glass -->
+  <defs>
+    <radialGradient id="vig" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#4D7177" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#3F5F64" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#1F3338" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#vig)"/>
+
+  <!-- Mark, centered, large -->
+  <g transform="translate(440.0, 110) scale(3.2)" style="color: #F4F2EC;">
     <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="0.75" />
       
       <text x="50" y="11" text-anchor="middle" font-family="var(--font-display, Georgia, serif)" font-size="4" font-weight="600" fill="currentColor" stroke="none" letter-spacing="0.25">N</text>
@@ -75,4 +85,20 @@
       <path d="M68.16 72.44 Q66.2 71.54 65.5 69.49 Q67.46 70.4 68.16 72.44 Z" fill="currentColor" stroke="none" />
       <path d="M65.5 73.68 Q64.71 71.84 65.5 70 Q66.29 71.84 65.5 73.68 Z" fill="currentColor" stroke="none" />
   </g>
+
+  <!-- Wordmark -->
+  <text x="600.0" y="500" text-anchor="middle"
+        font-family="Cormorant Garamond, Georgia, serif"
+        font-size="64" font-weight="300" letter-spacing="9"
+        fill="#F4F2EC">THE WILLOW WELL</text>
+
+  <!-- Bronze rule -->
+  <line x1="560.0" y1="535" x2="640.0" y2="535"
+        stroke="#B5895E" stroke-width="1"/>
+
+  <!-- Tagline -->
+  <text x="600.0" y="575" text-anchor="middle"
+        font-family="Instrument Serif, Georgia, serif"
+        font-size="26" font-style="italic" font-weight="400"
+        fill="#C7D4CF">Somatic Strategy for Clarity &amp; Capacity</text>
 </svg>

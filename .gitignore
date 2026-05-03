@@ -9,3 +9,14 @@ src/index.css.bak2
 src/App.jsx.bak3
 src/index.css.bak3
 src/App.jsx.bak4
+<<<<<<< Updated upstream
+=======
+src/App.jsx.bak5
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
+>>>>>>> Stashed changes
+index.html.bak
