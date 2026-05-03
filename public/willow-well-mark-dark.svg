@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="The Willow Well mark" style="color:#F4F2EC">
+<rect width="100" height="100" fill="#3F5F64"/>
+<circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="0.75" />
+      
+      <text x="50" y="11" text-anchor="middle" font-family="var(--font-display, Georgia, serif)" font-size="4" font-weight="600" fill="currentColor" stroke="none" letter-spacing="0.25">N</text>
+      <text x="90.5" y="51.25" text-anchor="middle" font-family="var(--font-display, Georgia, serif)" font-size="4" font-weight="600" fill="currentColor" stroke="none" letter-spacing="0.25">E</text>
+      <text x="50" y="91.75" text-anchor="middle" font-family="var(--font-display, Georgia, serif)" font-size="4" font-weight="600" fill="currentColor" stroke="none" letter-spacing="0.25">S</text>
+      <text x="9.5" y="51.25" text-anchor="middle" font-family="var(--font-display, Georgia, serif)" font-size="4" font-weight="600" fill="currentColor" stroke="none" letter-spacing="0.25">W</text>
+      
+      <polygon points="50,15 47.75,20.5 52.25,20.5" fill="currentColor" stroke="none" />
+      
+      <path d="M50 17 L50 83" fill="none" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" />
+      <path d="M48.25 84.5 L51.75 84.5" fill="none" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" />
+      <path d="M32.5 68.75 C32 45 34.5 32.5 42.5 27.5 C47 24.75 53 24.75 57.5 27.5 C65.5 32.5 68 45 67.5 68.75" fill="none" stroke="currentColor" stroke-width="0.65" stroke-linecap="round" />
+      <path d="M47.5 30.5 Q47.4 51.81 47.25 69.25" fill="none" stroke="currentColor" stroke-width="0.35" stroke-linecap="round" />
+      <path d="M52.5 30.5 Q52.6 51.81 52.75 69.25" fill="none" stroke="currentColor" stroke-width="0.35" stroke-linecap="round" />
+      <path d="M43 37.5 Q42.9 55.38 42.75 70" fill="none" stroke="currentColor" stroke-width="0.33" stroke-linecap="round" />
+      <path d="M57 37.5 Q57.1 55.38 57.25 70" fill="none" stroke="currentColor" stroke-width="0.33" stroke-linecap="round" />
+      <path d="M38 47.5 Q37.9 59.88 37.75 70" fill="none" stroke="currentColor" stroke-width="0.33" stroke-linecap="round" />
+      <path d="M62 47.5 Q62.1 59.88 62.25 70" fill="none" stroke="currentColor" stroke-width="0.33" stroke-linecap="round" />
+      <path d="M34.5 58.75 Q34.5 64.94 34.5 70" fill="none" stroke="currentColor" stroke-width="0.3" stroke-linecap="round" />
+      <path d="M65.5 58.75 Q65.5 64.94 65.5 70" fill="none" stroke="currentColor" stroke-width="0.3" stroke-linecap="round" />
+      
+      <path d="M45.33 41.24 Q45.89 39.6 47.46 38.87 Q46.9 40.51 45.33 41.24 Z" fill="currentColor" stroke="none" />
+      <path d="M49.64 45.68 Q48.01 44.92 47.43 43.23 Q49.06 43.98 49.64 45.68 Z" fill="currentColor" stroke="none" />
+      <path d="M45.13 50.03 Q45.72 48.27 47.41 47.49 Q46.81 49.25 45.13 50.03 Z" fill="currentColor" stroke="none" />
+      <path d="M49.74 54.29 Q48 53.49 47.38 51.67 Q49.12 52.48 49.74 54.29 Z" fill="currentColor" stroke="none" />
+      <path d="M44.92 58.46 Q45.56 56.59 47.35 55.76 Q46.72 57.63 44.92 58.46 Z" fill="currentColor" stroke="none" />
+      <path d="M49.83 62.55 Q47.98 61.69 47.33 59.76 Q49.18 60.62 49.83 62.55 Z" fill="currentColor" stroke="none" />
+      <path d="M44.71 66.54 Q45.39 64.55 47.3 63.67 Q46.62 65.66 44.71 66.54 Z" fill="currentColor" stroke="none" />
+      <path d="M49.92 70.45 Q47.96 69.54 47.26 67.5 Q49.23 68.4 49.92 70.45 Z" fill="currentColor" stroke="none" />
+      <path d="M47.25 72.93 Q46.46 71.09 47.25 69.25 Q48.04 71.09 47.25 72.93 Z" fill="currentColor" stroke="none" />
+      <path d="M54.67 41.24 Q53.1 40.51 52.54 38.87 Q54.11 39.6 54.67 41.24 Z" fill="currentColor" stroke="none" />
+      <path d="M50.36 45.68 Q50.94 43.98 52.57 43.23 Q51.99 44.92 50.36 45.68 Z" fill="currentColor" stroke="none" />
+      <path d="M54.87 50.03 Q53.19 49.25 52.59 47.49 Q54.28 48.27 54.87 50.03 Z" fill="currentColor" stroke="none" />
+      <path d="M50.26 54.29 Q50.88 52.48 52.62 51.67 Q52 53.49 50.26 54.29 Z" fill="currentColor" stroke="none" />
+      <path d="M55.08 58.46 Q53.28 57.63 52.65 55.76 Q54.44 56.59 55.08 58.46 Z" fill="currentColor" stroke="none" />
+      <path d="M50.17 62.55 Q50.82 60.62 52.67 59.76 Q52.02 61.69 50.17 62.55 Z" fill="currentColor" stroke="none" />
+      <path d="M55.29 66.54 Q53.38 65.66 52.7 63.67 Q54.61 64.55 55.29 66.54 Z" fill="currentColor" stroke="none" />
+      <path d="M50.08 70.45 Q50.77 68.4 52.74 67.5 Q52.04 69.54 50.08 70.45 Z" fill="currentColor" stroke="none" />
+      <path d="M52.75 72.93 Q51.96 71.09 52.75 69.25 Q53.54 71.09 52.75 72.93 Z" fill="currentColor" stroke="none" />
+      <path d="M40.83 46.89 Q41.39 45.25 42.96 44.52 Q42.4 46.16 40.83 46.89 Z" fill="currentColor" stroke="none" />
+      <path d="M45.16 52.1 Q43.51 51.34 42.92 49.61 Q44.57 50.38 45.16 52.1 Z" fill="currentColor" stroke="none" />
+      <path d="M40.55 57.16 Q41.16 55.36 42.89 54.56 Q42.27 56.36 40.55 57.16 Z" fill="currentColor" stroke="none" />
+      <path d="M45.3 62.08 Q43.49 61.25 42.85 59.36 Q44.65 60.2 45.3 62.08 Z" fill="currentColor" stroke="none" />
+      <path d="M40.26 66.86 Q40.92 64.89 42.81 64.02 Q42.14 65.98 40.26 66.86 Z" fill="currentColor" stroke="none" />
+      <path d="M45.42 71.48 Q43.46 70.58 42.76 68.53 Q44.73 69.44 45.42 71.48 Z" fill="currentColor" stroke="none" />
+      <path d="M42.75 73.68 Q41.96 71.84 42.75 70 Q43.54 71.84 42.75 73.68 Z" fill="currentColor" stroke="none" />
+      <path d="M59.17 46.89 Q57.6 46.16 57.04 44.52 Q58.61 45.25 59.17 46.89 Z" fill="currentColor" stroke="none" />
+      <path d="M54.84 52.1 Q55.43 50.38 57.08 49.61 Q56.49 51.34 54.84 52.1 Z" fill="currentColor" stroke="none" />
+      <path d="M59.45 57.16 Q57.73 56.36 57.11 54.56 Q58.84 55.36 59.45 57.16 Z" fill="currentColor" stroke="none" />
+      <path d="M54.7 62.08 Q55.35 60.2 57.15 59.36 Q56.51 61.25 54.7 62.08 Z" fill="currentColor" stroke="none" />
+      <path d="M59.74 66.86 Q57.86 65.98 57.19 64.02 Q59.08 64.89 59.74 66.86 Z" fill="currentColor" stroke="none" />
+      <path d="M54.58 71.48 Q55.27 69.44 57.24 68.53 Q56.54 70.58 54.58 71.48 Z" fill="currentColor" stroke="none" />
+      <path d="M57.25 73.68 Q56.46 71.84 57.25 70 Q58.04 71.84 57.25 73.68 Z" fill="currentColor" stroke="none" />
+      <path d="M35.83 54.73 Q36.39 53.09 37.96 52.36 Q37.4 54 35.83 54.73 Z" fill="currentColor" stroke="none" />
+      <path d="M40.18 59.27 Q38.51 58.49 37.91 56.75 Q39.58 57.52 40.18 59.27 Z" fill="currentColor" stroke="none" />
+      <path d="M35.47 63.65 Q36.1 61.8 37.87 60.99 Q37.24 62.83 35.47 63.65 Z" fill="currentColor" stroke="none" />
+      <path d="M40.34 67.87 Q38.48 67.01 37.82 65.06 Q39.68 65.93 40.34 67.87 Z" fill="currentColor" stroke="none" />
+      <path d="M35.11 71.93 Q35.8 69.89 37.76 68.98 Q37.07 71.03 35.11 71.93 Z" fill="currentColor" stroke="none" />
+      <path d="M37.75 73.68 Q36.96 71.84 37.75 70 Q38.54 71.84 37.75 73.68 Z" fill="currentColor" stroke="none" />
+      <path d="M64.17 54.73 Q62.6 54 62.04 52.36 Q63.61 53.09 64.17 54.73 Z" fill="currentColor" stroke="none" />
+      <path d="M59.82 59.27 Q60.42 57.52 62.09 56.75 Q61.49 58.49 59.82 59.27 Z" fill="currentColor" stroke="none" />
+      <path d="M64.53 63.65 Q62.76 62.83 62.13 60.99 Q63.9 61.8 64.53 63.65 Z" fill="currentColor" stroke="none" />
+      <path d="M59.66 67.87 Q60.32 65.93 62.18 65.06 Q61.52 67.01 59.66 67.87 Z" fill="currentColor" stroke="none" />
+      <path d="M64.89 71.93 Q62.93 71.03 62.24 68.98 Q64.2 69.89 64.89 71.93 Z" fill="currentColor" stroke="none" />
+      <path d="M62.25 73.68 Q61.46 71.84 62.25 70 Q63.04 71.84 62.25 73.68 Z" fill="currentColor" stroke="none" />
+      <path d="M32.37 63.55 Q32.93 61.91 34.5 61.18 Q33.94 62.82 32.37 63.55 Z" fill="currentColor" stroke="none" />
+      <path d="M36.89 68.15 Q35.13 67.34 34.5 65.49 Q36.27 66.31 36.89 68.15 Z" fill="currentColor" stroke="none" />
+      <path d="M31.84 72.44 Q32.54 70.4 34.5 69.49 Q33.8 71.54 31.84 72.44 Z" fill="currentColor" stroke="none" />
+      <path d="M34.5 73.68 Q33.71 71.84 34.5 70 Q35.29 71.84 34.5 73.68 Z" fill="currentColor" stroke="none" />
+      <path d="M67.63 63.55 Q66.06 62.82 65.5 61.18 Q67.07 61.91 67.63 63.55 Z" fill="currentColor" stroke="none" />
+      <path d="M63.11 68.15 Q63.73 66.31 65.5 65.49 Q64.87 67.34 63.11 68.15 Z" fill="currentColor" stroke="none" />
+      <path d="M68.16 72.44 Q66.2 71.54 65.5 69.49 Q67.46 70.4 68.16 72.44 Z" fill="currentColor" stroke="none" />
+      <path d="M65.5 73.68 Q64.71 71.84 65.5 70 Q66.29 71.84 65.5 73.68 Z" fill="currentColor" stroke="none" />
+</svg>

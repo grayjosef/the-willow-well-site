@@ -1,458 +1,463 @@
 import React from "react";
 
+/* ============================================================
+   The Willow Well — Cinematic Atmosphere
+   Drop-in replacement for src/App.jsx
+   Keeps NAV_ITEMS / data shapes; switches the visual register to
+   the Cinematic direction (dark hero with breathing compass,
+   contour lines, light/dark cadence).
+   ============================================================ */
+
 const NAV_ITEMS = [
   { id: "method", label: "Method" },
-  { id: "services", label: "Services" },
+  { id: "services", label: "Engagements" },
   { id: "fit", label: "Fit" },
-  { id: "about", label: "About" },
+  { id: "about", label: "Lee" },
   { id: "book", label: "Book" },
 ];
 
 const ARC = [
-  {
-    n: "01",
-    title: "Arrive",
-    body: "Regulate the room. Nervous system first, before any agenda item.",
-  },
-  {
-    n: "02",
-    title: "Move",
-    body: "Somatic practice that shifts state through breath, body, and intentional movement.",
-  },
-  {
-    n: "03",
-    title: "Excavate",
-    body: "Strategic clarity work around values, patterns, and what is driving behavior.",
-  },
-  {
-    n: "04",
-    title: "Commit",
-    body: "Leave with a real tool and a real intention, not inspiration that evaporates.",
-  },
+  { n: "01", lab: "Movement One",   title: "Arrive",   italic: false, body: "Regulate the room. Nervous system first — before any agenda item is touched." },
+  { n: "02", lab: "Movement Two",   title: "Move",     italic: true,  body: "Somatic practice that shifts state — breath, body, intentional movement." },
+  { n: "03", lab: "Movement Three", title: "Excavate", italic: false, body: "Strategic clarity work — values, patterns, what's actually driving behavior." },
+  { n: "04", lab: "Movement Four",  title: "Commit",   italic: true,  body: "Leave with a real tool and a real intention — not inspiration that evaporates." },
 ];
 
 const SERVICES = [
-  {
-    n: "01",
-    kicker: "HALF-DAY · FULL-DAY",
-    title: "Workshops",
-    body:
-      "Intensives for corporate teams, accelerator cohorts, and organizational off-sites. Every session follows the Somatic Strategy arc and delivers a tool participants take back to work the same day. Custom-scoped for your context.",
-  },
-  {
-    n: "02",
-    kicker: "MULTI-MONTH",
-    title: "Cohort Programs",
-    body:
-      "Ongoing programs that build capacity over time. Designed for organizations ready to invest in their people beyond a single event — measurable behavioral change, not a one-off.",
-  },
-  {
-    n: "03",
-    kicker: "HALF-DAY · TWO-DAY",
-    title: "Retreats",
-    body:
-      "Immersive engagements for teams ready to do the deeper work: breathwork, somatic movement, values clarification, strategic wayfinding, closing ceremony. The engagements teams mark time by.",
-  },
+  { n: "i.",   kicker: "HALF-DAY · FULL-DAY · ON-SITE",  title: "Workshops",        italic: false, body: "Half-day and full-day intensives for corporate teams, accelerator cohorts, and organizational off-sites. Every session delivers a tool participants take back to work the same day." },
+  { n: "ii.",  kicker: "6 MONTHS · TWICE WEEKLY",         title: "Cohort Programs",  italic: true,  body: "Ongoing programs that build capacity over time. The Rooted Practice at Kate's Korner Learning Center is the model — measurable behavioral change." },
+  { n: "iii.", kicker: "HALF-DAY · TWO-DAY · IMMERSIVE", title: "Retreats",         italic: false, body: "Half-day to two-day immersive experiences for teams ready to do the deeper work. Breathwork, somatic movement, values clarification, strategic wayfinding." },
 ];
 
 const FIT = [
-  {
-    title: "High-growth companies",
-    body:
-      "People & Culture leaders, CHROs, and L&D directors at organizations where the team is excellent but running on fumes.",
-  },
-  {
-    title: "ESOs & accelerators",
-    body:
-      "Founder ecosystems and cohort programs that need their leaders to think clearly and decide confidently under pressure.",
-  },
-  {
-    title: "Mission-driven nonprofits",
-    body:
-      "Teams carrying the weight of the work — where compassion fatigue is a load-bearing wall, not a wellness footnote.",
-  },
+  { lab: "Audience · 01", title: "High-growth", italicTitle: "companies.", body: "Mid-to-large teams where People & Culture leaders watch their best people erode under sustained pressure — and where retention is now a performance problem." },
+  { lab: "Audience · 02", title: "ESOs &", italicTitle: "accelerator", suffix: " programs.", body: "Founder cohorts who need real tools for sustainable performance — not another panel on burnout. Lee is credible inside the founder ecosystem; this lands." },
+  { lab: "Audience · 03", title: "Mission-driven", italicTitle: "nonprofits.", body: "Organizations carrying compassion fatigue at the staff level. The work translates: capacity, clarity, sustainability — without the corporate framing." },
 ];
 
 const CREDENTIALS = [
-  "200RYT Yoga Certification",
-  "Certified Breathwork Facilitation",
-  "Martha Beck Wayfinder Coach, in training",
-  "Leadership Triangle Goodmon Fellow",
-  "Co-Chair, Member Engagement, Durham Rotary Club",
-  "Associate Director, Knox St Studios",
+  { l: "Founder",     v: "The Willow Well" },
+  { l: "Assoc. Dir.", v: "Knox St Studios" },
+  { l: "Yoga",        v: "200 RYT Certified" },
+  { l: "Breathwork",  v: "Certified Facilitator" },
+  { l: "Coaching",    v: "Martha Beck Wayfinder" },
+  { l: "Fellow",      v: "Goodmon · Leadership Triangle" },
 ];
 
-function PrimaryCTA({ href, children, className = "" }) {
-  return (
-    <a
-      href={href}
-      className={
-        "group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-full bg-[var(--c-sea)] px-7 py-4 text-sm font-medium tracking-wide text-[var(--c-porcelain)] shadow-[0_1px_0_rgba(255,255,255,0.25)_inset,0_8px_24px_-12px_rgba(77,113,119,0.55)] transition-colors duration-200 hover:bg-[var(--c-sea-deep)] focus-visible:bg-[var(--c-sea-deep)] " +
-        className
-      }
-    >
-      <span className="relative">{children}</span>
-      <span aria-hidden className="relative transition-transform duration-200 group-hover:translate-x-1">
-        →
-      </span>
-    </a>
-  );
-}
+/* ─────────────────────────────────────────────────────────────
+   Reusable atoms
+   ───────────────────────────────────────────────────────────── */
 
-function SecondaryCTA({ href, children, className = "" }) {
-  return (
-    <a
-      href={href}
-      className={
-        "inline-flex items-center justify-center gap-3 rounded-full border border-[var(--c-sea)]/25 bg-transparent px-7 py-4 text-sm font-medium tracking-wide text-[var(--c-sea)] transition-colors duration-200 hover:border-[var(--c-sea)]/50 hover:bg-[var(--c-eucalyptus)]/45 " +
-        className
-      }
-    >
-      {children}
-    </a>
-  );
-}
-
-function BronzeLink({ href, children }) {
-  return (
-    <a
-      href={href}
-      className="mt-8 inline-flex items-center gap-2 text-sm font-medium tracking-wide text-[var(--c-bronze)] transition-opacity duration-200 hover:opacity-80"
-    >
-      {children}
-      <span aria-hidden>→</span>
-    </a>
-  );
-}
-
-function SectionLabel({ children }) {
-  return (
-    <p className="text-xs font-medium uppercase tracking-[0.28em] text-[var(--c-willow)]">
-      {children}
-    </p>
-  );
-}
-
-function Rule() {
-  return <span aria-hidden className="inline-block h-px w-8 bg-[var(--c-willow)] align-middle" />;
-}
-
-function CompassWillow({ className = "h-6 w-6", tone = "sea" }) {
-  const stroke = tone === "porcelain" ? "var(--c-porcelain)" : "var(--c-sea)";
-  const leaf = tone === "porcelain" ? "var(--c-eucalyptus)" : "var(--c-willow)";
-  const tick = "var(--c-bronze)";
-
+function Mark({ className = "h-7 w-7" }) {
   return (
     <svg
-      viewBox="0 0 32 32"
-      role="img"
-      aria-label="Compass Willow mark"
+      viewBox="0 0 100 100"
       className={className}
+      role="img"
+      aria-label="The Willow Well mark"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="16" cy="16" r="12.5" fill="none" stroke={stroke} strokeWidth="1.1" />
-      <line x1="16" y1="3.5" x2="16" y2="6" stroke={tick} strokeWidth="1.4" strokeLinecap="round" />
-      <line x1="16" y1="26" x2="16" y2="28.5" stroke={stroke} strokeWidth="1" strokeLinecap="round" />
-      <line x1="3.5" y1="16" x2="6" y2="16" stroke={stroke} strokeWidth="1" strokeLinecap="round" />
-      <line x1="26" y1="16" x2="28.5" y2="16" stroke={stroke} strokeWidth="1" strokeLinecap="round" />
-      <path
-        d="M10 22 C 13 18, 14 14, 16 9 C 18 14, 19 18, 22 22"
-        fill="none"
-        stroke={leaf}
-        strokeWidth="1.1"
-        strokeLinecap="round"
-      />
-      <path d="M13.4 17.5 C 14.4 17.2, 15.3 16.6, 16 15.6" fill="none" stroke={leaf} strokeWidth="0.9" strokeLinecap="round" />
-      <path d="M18.6 17.5 C 17.6 17.2, 16.7 16.6, 16 15.6" fill="none" stroke={leaf} strokeWidth="0.9" strokeLinecap="round" />
-      <circle cx="16" cy="16" r="0.9" fill={tick} />
+      {/* Compass ring */}
+      <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="0.75" />
+      {/* Cardinal letters */}
+      <text x="50" y="11" textAnchor="middle" fontFamily="var(--font-display, Georgia, serif)" fontSize="4" fontWeight="600" fill="currentColor" stroke="none" letterSpacing="0.25">N</text>
+      <text x="90.5" y="51.25" textAnchor="middle" fontFamily="var(--font-display, Georgia, serif)" fontSize="4" fontWeight="600" fill="currentColor" stroke="none" letterSpacing="0.25">E</text>
+      <text x="50" y="91.75" textAnchor="middle" fontFamily="var(--font-display, Georgia, serif)" fontSize="4" fontWeight="600" fill="currentColor" stroke="none" letterSpacing="0.25">S</text>
+      <text x="9.5" y="51.25" textAnchor="middle" fontFamily="var(--font-display, Georgia, serif)" fontSize="4" fontWeight="600" fill="currentColor" stroke="none" letterSpacing="0.25">W</text>
+      {/* North arrow (filled) */}
+      <polygon points="50,15 47.75,20.5 52.25,20.5" fill="currentColor" stroke="none" />
+      {/* Spine, S tick, arch, hanging stems */}
+      <path d="M50 17 L50 83" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" />
+      <path d="M48.25 84.5 L51.75 84.5" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" />
+      <path d="M32.5 68.75 C32 45 34.5 32.5 42.5 27.5 C47 24.75 53 24.75 57.5 27.5 C65.5 32.5 68 45 67.5 68.75" fill="none" stroke="currentColor" strokeWidth="0.65" strokeLinecap="round" />
+      <path d="M47.5 30.5 Q47.4 51.81 47.25 69.25" fill="none" stroke="currentColor" strokeWidth="0.35" strokeLinecap="round" />
+      <path d="M52.5 30.5 Q52.6 51.81 52.75 69.25" fill="none" stroke="currentColor" strokeWidth="0.35" strokeLinecap="round" />
+      <path d="M43 37.5 Q42.9 55.38 42.75 70" fill="none" stroke="currentColor" strokeWidth="0.33" strokeLinecap="round" />
+      <path d="M57 37.5 Q57.1 55.38 57.25 70" fill="none" stroke="currentColor" strokeWidth="0.33" strokeLinecap="round" />
+      <path d="M38 47.5 Q37.9 59.88 37.75 70" fill="none" stroke="currentColor" strokeWidth="0.33" strokeLinecap="round" />
+      <path d="M62 47.5 Q62.1 59.88 62.25 70" fill="none" stroke="currentColor" strokeWidth="0.33" strokeLinecap="round" />
+      <path d="M34.5 58.75 Q34.5 64.94 34.5 70" fill="none" stroke="currentColor" strokeWidth="0.3" strokeLinecap="round" />
+      <path d="M65.5 58.75 Q65.5 64.94 65.5 70" fill="none" stroke="currentColor" strokeWidth="0.3" strokeLinecap="round" />
+      {/* Cascading willow leaves */}
+      <path d="M45.33 41.24 Q45.89 39.6 47.46 38.87 Q46.9 40.51 45.33 41.24 Z" fill="currentColor" stroke="none" />
+      <path d="M49.64 45.68 Q48.01 44.92 47.43 43.23 Q49.06 43.98 49.64 45.68 Z" fill="currentColor" stroke="none" />
+      <path d="M45.13 50.03 Q45.72 48.27 47.41 47.49 Q46.81 49.25 45.13 50.03 Z" fill="currentColor" stroke="none" />
+      <path d="M49.74 54.29 Q48 53.49 47.38 51.67 Q49.12 52.48 49.74 54.29 Z" fill="currentColor" stroke="none" />
+      <path d="M44.92 58.46 Q45.56 56.59 47.35 55.76 Q46.72 57.63 44.92 58.46 Z" fill="currentColor" stroke="none" />
+      <path d="M49.83 62.55 Q47.98 61.69 47.33 59.76 Q49.18 60.62 49.83 62.55 Z" fill="currentColor" stroke="none" />
+      <path d="M44.71 66.54 Q45.39 64.55 47.3 63.67 Q46.62 65.66 44.71 66.54 Z" fill="currentColor" stroke="none" />
+      <path d="M49.92 70.45 Q47.96 69.54 47.26 67.5 Q49.23 68.4 49.92 70.45 Z" fill="currentColor" stroke="none" />
+      <path d="M47.25 72.93 Q46.46 71.09 47.25 69.25 Q48.04 71.09 47.25 72.93 Z" fill="currentColor" stroke="none" />
+      <path d="M54.67 41.24 Q53.1 40.51 52.54 38.87 Q54.11 39.6 54.67 41.24 Z" fill="currentColor" stroke="none" />
+      <path d="M50.36 45.68 Q50.94 43.98 52.57 43.23 Q51.99 44.92 50.36 45.68 Z" fill="currentColor" stroke="none" />
+      <path d="M54.87 50.03 Q53.19 49.25 52.59 47.49 Q54.28 48.27 54.87 50.03 Z" fill="currentColor" stroke="none" />
+      <path d="M50.26 54.29 Q50.88 52.48 52.62 51.67 Q52 53.49 50.26 54.29 Z" fill="currentColor" stroke="none" />
+      <path d="M55.08 58.46 Q53.28 57.63 52.65 55.76 Q54.44 56.59 55.08 58.46 Z" fill="currentColor" stroke="none" />
+      <path d="M50.17 62.55 Q50.82 60.62 52.67 59.76 Q52.02 61.69 50.17 62.55 Z" fill="currentColor" stroke="none" />
+      <path d="M55.29 66.54 Q53.38 65.66 52.7 63.67 Q54.61 64.55 55.29 66.54 Z" fill="currentColor" stroke="none" />
+      <path d="M50.08 70.45 Q50.77 68.4 52.74 67.5 Q52.04 69.54 50.08 70.45 Z" fill="currentColor" stroke="none" />
+      <path d="M52.75 72.93 Q51.96 71.09 52.75 69.25 Q53.54 71.09 52.75 72.93 Z" fill="currentColor" stroke="none" />
+      <path d="M40.83 46.89 Q41.39 45.25 42.96 44.52 Q42.4 46.16 40.83 46.89 Z" fill="currentColor" stroke="none" />
+      <path d="M45.16 52.1 Q43.51 51.34 42.92 49.61 Q44.57 50.38 45.16 52.1 Z" fill="currentColor" stroke="none" />
+      <path d="M40.55 57.16 Q41.16 55.36 42.89 54.56 Q42.27 56.36 40.55 57.16 Z" fill="currentColor" stroke="none" />
+      <path d="M45.3 62.08 Q43.49 61.25 42.85 59.36 Q44.65 60.2 45.3 62.08 Z" fill="currentColor" stroke="none" />
+      <path d="M40.26 66.86 Q40.92 64.89 42.81 64.02 Q42.14 65.98 40.26 66.86 Z" fill="currentColor" stroke="none" />
+      <path d="M45.42 71.48 Q43.46 70.58 42.76 68.53 Q44.73 69.44 45.42 71.48 Z" fill="currentColor" stroke="none" />
+      <path d="M42.75 73.68 Q41.96 71.84 42.75 70 Q43.54 71.84 42.75 73.68 Z" fill="currentColor" stroke="none" />
+      <path d="M59.17 46.89 Q57.6 46.16 57.04 44.52 Q58.61 45.25 59.17 46.89 Z" fill="currentColor" stroke="none" />
+      <path d="M54.84 52.1 Q55.43 50.38 57.08 49.61 Q56.49 51.34 54.84 52.1 Z" fill="currentColor" stroke="none" />
+      <path d="M59.45 57.16 Q57.73 56.36 57.11 54.56 Q58.84 55.36 59.45 57.16 Z" fill="currentColor" stroke="none" />
+      <path d="M54.7 62.08 Q55.35 60.2 57.15 59.36 Q56.51 61.25 54.7 62.08 Z" fill="currentColor" stroke="none" />
+      <path d="M59.74 66.86 Q57.86 65.98 57.19 64.02 Q59.08 64.89 59.74 66.86 Z" fill="currentColor" stroke="none" />
+      <path d="M54.58 71.48 Q55.27 69.44 57.24 68.53 Q56.54 70.58 54.58 71.48 Z" fill="currentColor" stroke="none" />
+      <path d="M57.25 73.68 Q56.46 71.84 57.25 70 Q58.04 71.84 57.25 73.68 Z" fill="currentColor" stroke="none" />
+      <path d="M35.83 54.73 Q36.39 53.09 37.96 52.36 Q37.4 54 35.83 54.73 Z" fill="currentColor" stroke="none" />
+      <path d="M40.18 59.27 Q38.51 58.49 37.91 56.75 Q39.58 57.52 40.18 59.27 Z" fill="currentColor" stroke="none" />
+      <path d="M35.47 63.65 Q36.1 61.8 37.87 60.99 Q37.24 62.83 35.47 63.65 Z" fill="currentColor" stroke="none" />
+      <path d="M40.34 67.87 Q38.48 67.01 37.82 65.06 Q39.68 65.93 40.34 67.87 Z" fill="currentColor" stroke="none" />
+      <path d="M35.11 71.93 Q35.8 69.89 37.76 68.98 Q37.07 71.03 35.11 71.93 Z" fill="currentColor" stroke="none" />
+      <path d="M37.75 73.68 Q36.96 71.84 37.75 70 Q38.54 71.84 37.75 73.68 Z" fill="currentColor" stroke="none" />
+      <path d="M64.17 54.73 Q62.6 54 62.04 52.36 Q63.61 53.09 64.17 54.73 Z" fill="currentColor" stroke="none" />
+      <path d="M59.82 59.27 Q60.42 57.52 62.09 56.75 Q61.49 58.49 59.82 59.27 Z" fill="currentColor" stroke="none" />
+      <path d="M64.53 63.65 Q62.76 62.83 62.13 60.99 Q63.9 61.8 64.53 63.65 Z" fill="currentColor" stroke="none" />
+      <path d="M59.66 67.87 Q60.32 65.93 62.18 65.06 Q61.52 67.01 59.66 67.87 Z" fill="currentColor" stroke="none" />
+      <path d="M64.89 71.93 Q62.93 71.03 62.24 68.98 Q64.2 69.89 64.89 71.93 Z" fill="currentColor" stroke="none" />
+      <path d="M62.25 73.68 Q61.46 71.84 62.25 70 Q63.04 71.84 62.25 73.68 Z" fill="currentColor" stroke="none" />
+      <path d="M32.37 63.55 Q32.93 61.91 34.5 61.18 Q33.94 62.82 32.37 63.55 Z" fill="currentColor" stroke="none" />
+      <path d="M36.89 68.15 Q35.13 67.34 34.5 65.49 Q36.27 66.31 36.89 68.15 Z" fill="currentColor" stroke="none" />
+      <path d="M31.84 72.44 Q32.54 70.4 34.5 69.49 Q33.8 71.54 31.84 72.44 Z" fill="currentColor" stroke="none" />
+      <path d="M34.5 73.68 Q33.71 71.84 34.5 70 Q35.29 71.84 34.5 73.68 Z" fill="currentColor" stroke="none" />
+      <path d="M67.63 63.55 Q66.06 62.82 65.5 61.18 Q67.07 61.91 67.63 63.55 Z" fill="currentColor" stroke="none" />
+      <path d="M63.11 68.15 Q63.73 66.31 65.5 65.49 Q64.87 67.34 63.11 68.15 Z" fill="currentColor" stroke="none" />
+      <path d="M68.16 72.44 Q66.2 71.54 65.5 69.49 Q67.46 70.4 68.16 72.44 Z" fill="currentColor" stroke="none" />
+      <path d="M65.5 73.68 Q64.71 71.84 65.5 70 Q66.29 71.84 65.5 73.68 Z" fill="currentColor" stroke="none" />
     </svg>
   );
 }
 
+function Eyebrow({ children, tone = "bronze", flank = false }) {
+  const color = tone === "bronze" ? "text-[var(--c-bronze)]" : tone === "willow" ? "text-[var(--c-willow)]" : "text-[var(--c-sea-text)]";
+  return (
+    <p className={`font-mono text-[10px] uppercase tracking-[0.28em] ${color} inline-flex items-center gap-3.5`} style={{ fontFamily: "var(--font-mono)" }}>
+      {flank && <span aria-hidden className="inline-block h-px w-8 bg-[var(--c-bronze)]" />}
+      <span>{children}</span>
+      {flank && <span aria-hidden className="inline-block h-px w-8 bg-[var(--c-bronze)]" />}
+    </p>
+  );
+}
+
+function Italic({ children }) {
+  return <span className="italic" style={{ fontFamily: "var(--font-italic)", fontWeight: 400 }}>{children}</span>;
+}
+
+function PrimaryCTA({ href, children, variant = "bronze" }) {
+  const base = "group inline-flex items-center justify-center gap-3.5 px-7 py-[18px] text-[12px] font-medium uppercase tracking-[0.16em] transition-all duration-300";
+  const styles = variant === "bronze"
+    ? "bg-[var(--c-bronze)] text-[var(--c-ink-deep)] hover:bg-[var(--c-rainfog)]"
+    : "bg-[var(--c-porcelain-soft)] text-[var(--c-ink)] hover:bg-[var(--c-bronze)]";
+  return (
+    <a href={href} className={`${base} ${styles}`}>
+      <span>{children}</span>
+      <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+    </a>
+  );
+}
+
+function GhostCTA({ href, children, light = true }) {
+  return (
+    <a href={href} className={`inline-flex items-center gap-2 border-b pb-1.5 text-[12px] font-medium uppercase tracking-[0.16em] transition-colors duration-300 ${light ? "border-[var(--c-bronze)] text-[var(--c-porcelain-soft)] hover:text-[var(--c-bronze)]" : "border-[var(--c-bronze)] text-[var(--c-sea-text)] hover:text-[var(--c-bronze)]"}`}>
+      {children}
+    </a>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Header — sits inside the dark hero, transparent
+   ───────────────────────────────────────────────────────────── */
+
 function Header() {
   return (
     <>
-      <a
-        href="#hero"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-[var(--c-sea)] focus:px-4 focus:py-2 focus:text-xs focus:font-medium focus:tracking-[0.18em] focus:text-[var(--c-porcelain)]"
-      >
+      <a href="#hero" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-[var(--c-bronze)] focus:px-4 focus:py-2 focus:text-xs focus:uppercase focus:tracking-[0.18em] focus:text-[var(--c-ink-deep)]">
         Skip to content
       </a>
-
-      <header className="sticky top-0 z-40 border-b border-[var(--c-sea)]/10 bg-[var(--c-porcelain)]/85 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-5">
-          <a href="#top" className="group inline-flex items-baseline gap-3">
-            <CompassWillow className="h-5 w-5 translate-y-[3px]" />
-            <span className="font-display text-base tracking-[0.28em] text-[var(--c-sea)]">
-              THE&nbsp;WILLOW&nbsp;WELL
-            </span>
+      <header className="relative z-30">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 border-b border-[var(--c-eucalyptus)]/12 px-14 py-6">
+          <a href="#top" className="group inline-flex items-center gap-3 text-[var(--c-rainfog)]">
+            <Mark className="h-7 w-7" />
+            <span className="font-display text-[15px] font-light uppercase tracking-[0.18em]">The Willow Well</span>
           </a>
-
           <nav className="hidden md:block">
-            <ul className="flex items-center gap-7">
-              {NAV_ITEMS.map((item, i) => (
+            <ul className="flex items-center gap-10">
+              {NAV_ITEMS.slice(0, -1).map((item) => (
                 <li key={item.id}>
-                  <a
-                    href={`#${item.id}`}
-                    className={
-                      "relative text-sm tracking-wide transition-colors " +
-                      (i === 0
-                        ? "text-[var(--c-sea)]"
-                        : "text-[var(--c-sea)]/55 hover:text-[var(--c-sea)]")
-                    }
-                  >
+                  <a href={`#${item.id}`} className="text-[12px] uppercase tracking-[0.1em] text-[var(--c-eucalyptus)] transition-colors hover:text-[var(--c-bronze)]">
                     {item.label}
                   </a>
                 </li>
               ))}
+              <li>
+                <a href="#book" className="border border-[var(--c-eucalyptus)]/40 px-[18px] py-2.5 text-[11px] uppercase tracking-[0.16em] text-[var(--c-rainfog)] transition-all duration-300 hover:border-[var(--c-bronze)] hover:bg-[var(--c-bronze)] hover:text-[var(--c-ink-deep)]">
+                  Book a Call
+                </a>
+              </li>
             </ul>
           </nav>
-
-          <a
-            href="#book"
-            className="rounded-full border border-[var(--c-sea)]/25 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-[var(--c-sea)] transition-colors duration-200 hover:border-[var(--c-sea)]/50 hover:bg-[var(--c-eucalyptus)]/45"
-          >
-            Book Call
-          </a>
         </div>
       </header>
     </>
   );
 }
 
-function Footer() {
-  return (
-    <footer className="border-t border-[var(--c-sea)]/10 bg-[var(--c-porcelain)]">
-      <div className="mx-auto max-w-7xl px-6 py-14">
-        <div className="grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <a href="#top" className="group inline-flex items-baseline gap-3">
-              <CompassWillow className="h-5 w-5 translate-y-[3px]" />
-              <span className="font-display text-base tracking-[0.28em] text-[var(--c-sea)]">
-                THE&nbsp;WILLOW&nbsp;WELL
-              </span>
-            </a>
-            <p className="mt-5 max-w-md text-sm leading-7 text-[var(--c-sea-text)]/75">
-              Somatic Strategy for high-performing teams. Workshops, cohort programs, and
-              retreats, based in Durham, NC and available for travel.
-            </p>
-          </div>
-
-          <div className="lg:col-span-3">
-            <SectionLabel>Contact</SectionLabel>
-            <ul className="mt-4 space-y-2 text-sm text-[var(--c-sea-text)]/80">
-              <li>
-                <a href="mailto:info@thewillowwellco.com" className="transition-colors hover:text-[var(--c-bronze)]">
-                  info@thewillowwellco.com
-                </a>
-              </li>
-              <li>
-                <a href="tel:+19106912336" className="transition-colors hover:text-[var(--c-bronze)]">
-                  910.691.2336
-                </a>
-              </li>
-              <li>Durham, NC, available for travel</li>
-            </ul>
-          </div>
-
-          <div className="lg:col-span-4">
-            <SectionLabel>Navigate</SectionLabel>
-            <ul className="mt-4 grid grid-cols-2 gap-y-2 text-sm text-[var(--c-sea-text)]/80">
-              {NAV_ITEMS.map((item) => (
-                <li key={item.id}>
-                  <a
-                    href={`#${item.id}`}
-                    className="transition-colors hover:text-[var(--c-bronze)]"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="mt-12 flex flex-col gap-3 border-t border-[var(--c-eucalyptus)] pt-6 text-xs uppercase tracking-[0.22em] text-[var(--c-willow)] md:flex-row md:items-center md:justify-between">
-          <p>© 2026 The Willow Well</p>
-          <p>Clarity and capacity begin in the body.</p>
-        </div>
-      </div>
-    </footer>
-  );
-}
+/* ─────────────────────────────────────────────────────────────
+   Hero — cinematic dark with breathing orb + drifting compass
+   ───────────────────────────────────────────────────────────── */
 
 function Hero() {
   return (
-    <section id="hero" className="relative overflow-hidden texture-porcelain">
-      <div className="pointer-events-none absolute inset-0 opacity-[0.75]" aria-hidden />
-      <div className="relative mx-auto grid max-w-7xl gap-16 px-6 pb-28 pt-20 lg:grid-cols-12 lg:pb-36 lg:pt-28">
-        <div className="lg:col-span-8">
-          <div className="flex items-center gap-3">
-            <Rule />
-            <SectionLabel>Somatic Strategy for High-Performing Teams</SectionLabel>
-          </div>
-
-          <h1 className="mt-7 font-display text-[2.6rem] font-light leading-[1.04] tracking-[-0.02em] text-[var(--c-sea)] sm:text-[3.2rem] md:text-[3.8rem] lg:text-[4.4rem]">
-            Most organizations{" "}
-            <em className="font-normal italic text-[var(--c-bronze)]">optimize</em>{" "}
-            everything except the human doing the work.
-          </h1>
-
-          <p className="mt-8 max-w-2xl text-lg leading-[1.75] text-[var(--c-sea-text)]/85">
-            Workshops, cohort programs, and retreats designed to build capacity that
-            lasts for leaders and teams excellent at their work and running on fumes.
-          </p>
-
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <PrimaryCTA href="#book">Book a Discovery Call</PrimaryCTA>
-            <SecondaryCTA href="#services">Explore Services</SecondaryCTA>
-          </div>
-        </div>
-
-        <aside className="lg:col-span-4">
-          <div className="relative h-full min-h-[260px] overflow-hidden rounded-[2rem] bg-[var(--c-sea)] p-8 text-[var(--c-porcelain)] texture-sea">
-            <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.32em] text-[var(--c-bronze)]">
-              <span>Durham, NC</span>
-              <span className="text-[var(--c-eucalyptus)]/85">Est. 2024</span>
-            </div>
-            <div className="mt-12 flex justify-center">
-              <CompassWillow className="h-20 w-20 opacity-90" tone="porcelain" />
-            </div>
-            <p className="mt-12 font-display text-[1.25rem] font-light italic leading-snug text-[var(--c-porcelain)]/95">
-              Clarity and capacity begin in the body.
-            </p>
-            <p className="mt-6 text-[10px] uppercase tracking-[0.32em] text-[var(--c-eucalyptus)]/80">
-              A practice by Lee Gray
-            </p>
-          </div>
-        </aside>
+    <section id="hero" className="relative min-h-[980px] overflow-hidden text-[var(--c-rainfog)]"
+      style={{
+        background: `
+          radial-gradient(80% 60% at 50% 100%, rgba(166,128,90,0.18), transparent 60%),
+          radial-gradient(50% 40% at 80% 20%, rgba(123,147,138,0.25), transparent 60%),
+          radial-gradient(60% 50% at 15% 30%, rgba(63,95,100,0.6), transparent 70%),
+          linear-gradient(180deg, #0F1A1C 0%, #1A2628 60%, #0F1A1C 100%)`,
+      }}>
+      {/* noise */}
+      <div className="noise-overlay relative" aria-hidden />
+      {/* contour lines */}
+      <div className="pointer-events-none absolute inset-0 z-[1] opacity-40" aria-hidden>
+        <svg viewBox="0 0 1600 900" preserveAspectRatio="none" className="h-full w-full">
+          <g fill="none" stroke="rgba(199,212,207,0.18)" strokeWidth="0.6">
+            <path d="M0 720 Q 400 600 800 700 T 1600 660" />
+            <path d="M0 760 Q 400 640 800 740 T 1600 700" />
+            <path d="M0 800 Q 400 680 800 780 T 1600 740" />
+            <path d="M0 840 Q 400 720 800 820 T 1600 780" />
+            <path d="M0 880 Q 400 760 800 860 T 1600 820" />
+            <path d="M0 200 Q 400 120 800 180 T 1600 160" opacity="0.6" />
+            <path d="M0 160 Q 400  80 800 140 T 1600 120" opacity="0.4" />
+          </g>
+        </svg>
+      </div>
+      {/* breathing orb */}
+      <div aria-hidden className="anim-breathe pointer-events-none absolute left-1/2 top-[46%] z-[1] h-[680px] w-[680px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+        style={{ background: "radial-gradient(circle at 50% 40%, rgba(199,212,207,0.25), rgba(77,113,119,0.1) 40%, transparent 70%)", filter: "blur(2px)" }} />
+      {/* drifting compass mark behind wordmark */}
+      <div aria-hidden className="anim-drift pointer-events-none absolute left-1/2 top-[46%] z-[2] h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2" style={{ color: "rgba(199,212,207,0.55)" }}>
+        <Mark className="h-full w-full" />
       </div>
 
-      <div className="border-y border-[var(--c-sea)]/10 bg-[var(--c-rainfog)]/70">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-6 gap-y-2 px-6 py-5 text-[11px] uppercase tracking-[0.28em] text-[var(--c-sea)]/65">
-          <span>Workshops</span>
-          <span aria-hidden>·</span>
-          <span>Cohort Programs</span>
-          <span aria-hidden>·</span>
-          <span>Retreats</span>
-          <span aria-hidden>·</span>
-          <span>Available for travel</span>
+      <div className="relative z-[5] mx-auto max-w-7xl px-14">
+        <Header />
+
+        <div className="flex flex-col items-center pt-36 text-center">
+          <Eyebrow flank>Somatic Strategy · Durham, NC · Est. 2024</Eyebrow>
+
+          <h1 className="anim-fade-up mt-9 max-w-[14ch] font-display text-[72px] font-extralight leading-[0.9] tracking-[-0.035em] text-[var(--c-porcelain-soft)] sm:text-[96px] md:text-[124px] lg:text-[152px]">
+            Clarity and capacity<br />
+            begin in the <span style={{ fontFamily: "var(--font-italic)", color: "var(--c-bronze)", fontWeight: 400 }}>body.</span>
+          </h1>
+
+          <p className="anim-fade-up mt-12 max-w-[600px] text-[18px] leading-[1.55] text-[var(--c-eucalyptus)]" style={{ animationDelay: ".2s" }}>
+            Operational infrastructure for leaders and teams who are excellent at their work — and running on fumes. Workshops, cohort programs, and retreats that build capacity that lasts.
+          </p>
+
+          <div className="anim-fade-up mt-14 flex flex-col items-center gap-6 sm:flex-row" style={{ animationDelay: ".4s" }}>
+            <PrimaryCTA href="#book">Book a Discovery Call</PrimaryCTA>
+            <GhostCTA href="#method">See the method</GhostCTA>
+          </div>
         </div>
+      </div>
+
+      {/* bottom rail */}
+      <div className="absolute bottom-8 left-0 right-0 z-[5] flex items-center justify-between px-14 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--c-willow)]" style={{ fontFamily: "var(--font-mono)" }}>
+        <div className="inline-flex items-center gap-2.5">
+          <svg viewBox="0 0 24 24" className="anim-fall h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M12 5 L12 19 M6 13 L12 19 L18 13" />
+          </svg>
+          <span>Scroll · The Premise</span>
+        </div>
+        <div className="hidden sm:block">For high-performing teams · CHRO · L&amp;D · ESO</div>
+        <div>01 / 09</div>
       </div>
     </section>
   );
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Problem — light editorial
+   ───────────────────────────────────────────────────────────── */
 
 function Problem() {
   return (
-    <section id="problem" className="mx-auto max-w-5xl px-6 py-28 md:py-36">
-      <div className="flex items-center gap-3">
-        <Rule />
-        <SectionLabel>The Problem</SectionLabel>
+    <section id="problem" className="relative overflow-hidden bg-[var(--c-porcelain-soft)] py-44 text-[var(--c-ink)]">
+      <div aria-hidden className="pointer-events-none absolute -left-32 top-1/2 h-[600px] w-[600px] -translate-y-1/2 opacity-50 text-[var(--c-eucalyptus)]">
+        <Mark className="h-full w-full" />
       </div>
-      <p className="mt-8 font-display text-[1.9rem] font-light leading-[1.3] tracking-[-0.012em] text-[var(--c-sea)] md:text-[2.6rem]">
-        Your people aren’t underperforming. They’re{" "}
-        <span className="italic text-[var(--c-bronze)]">under-resourced</span> at the
-        nervous system level. And no amount of strategic planning fixes a dysregulated
-        team. Somatic Strategy is how you change that.
-      </p>
+      <div className="relative z-[2] mx-auto max-w-7xl px-14">
+        <div className="mb-20 flex items-center justify-between border-t border-[var(--c-sea)]/35 pt-6">
+          <Eyebrow tone="text">02 · The Premise</Eyebrow>
+          <Eyebrow tone="text">North · 02</Eyebrow>
+        </div>
+
+        <h2 className="max-w-[18ch] font-display text-[48px] font-extralight leading-[1.02] tracking-[-0.025em] text-[var(--c-ink)] md:text-[72px] lg:text-[96px]">
+          Your people aren't{" "}
+          <span className="relative text-[var(--c-willow)]">
+            underperforming.
+            <span aria-hidden className="absolute -left-[2%] -right-[2%] top-[54%] h-[3px] bg-[var(--c-bronze)]" />
+          </span>
+          <br />
+          They're <Italic><span style={{ color: "var(--c-bronze)" }}>under-resourced</span></Italic> — at the<br />
+          nervous system level.
+        </h2>
+
+        <p className="mt-20 max-w-[54ch] border-l-2 border-[var(--c-bronze)] pl-6 font-display text-[24px] font-light leading-[1.4] text-[var(--c-sea-text)]">
+          And no amount of strategic planning fixes a dysregulated team. Somatic Strategy is how you change that — by treating capacity as the upstream variable, not the lagging indicator.
+        </p>
+      </div>
     </section>
   );
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Method — dark second-act with horizontal arc
+   ───────────────────────────────────────────────────────────── */
 
 function Method() {
   return (
-    <section id="method" className="bg-[var(--c-sea)] text-[var(--c-porcelain)] texture-sea">
-      <div className="mx-auto max-w-7xl px-6 py-28 md:py-36">
-        <div className="grid gap-14 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <div className="flex items-center gap-3">
-              <span aria-hidden className="inline-block h-px w-8 bg-[var(--c-eucalyptus)]/70 align-middle" />
-              <p className="text-xs font-medium uppercase tracking-[0.28em] text-[var(--c-eucalyptus)]">
-                The Method
-              </p>
-            </div>
-            <h2 className="mt-7 font-display text-[2.4rem] font-light leading-[1.05] tracking-[-0.02em] text-[var(--c-porcelain)] md:text-[3rem]">
-              Somatic Strategy
+    <section id="method" className="relative overflow-hidden py-40 text-[var(--c-rainfog)]"
+      style={{ background: "linear-gradient(180deg,#0F1A1C 0%, #16252A 100%)" }}>
+      <div aria-hidden className="pointer-events-none absolute inset-0"
+        style={{ background: "radial-gradient(60% 80% at 50% 0%, rgba(166,128,90,0.12), transparent 70%)" }} />
+      <div className="relative mx-auto max-w-7xl px-14">
+        <div className="mb-28 grid items-end gap-20 lg:grid-cols-2">
+          <div>
+            <Eyebrow>03 · Somatic Strategy</Eyebrow>
+            <h2 className="mt-8 font-display text-[48px] font-extralight leading-[0.96] tracking-[-0.03em] text-[var(--c-porcelain-soft)] md:text-[64px] lg:text-[84px]">
+              Four movements.<br />
+              One <Italic><span style={{ color: "var(--c-bronze)" }}>arc.</span></Italic>
             </h2>
-            <p className="mt-6 text-lg leading-[1.85] text-[var(--c-porcelain)]/85">
-              Somatic Strategy builds organizational performance capacity through the
-              body by regulating the nervous system so leaders and teams can think
-              clearly, decide confidently, and sustain output without burning out.
-            </p>
-            <p className="mt-6 text-base leading-[1.85] text-[var(--c-eucalyptus)]/80">
-              Not a yoga class. Not executive coaching. Not corporate wellness.
-              Operational infrastructure for the human doing the work.
-            </p>
+          </div>
+          <p className="max-w-[46ch] text-[18px] leading-[1.55] text-[var(--c-eucalyptus)]">
+            The practice of building organizational performance capacity through the body — regulating the nervous system so leaders and teams can think clearly, decide confidently, and sustain output without burning out.{" "}
+            <span style={{ color: "var(--c-rainfog)" }}><Italic>Every engagement follows this arc.</Italic></span>
+          </p>
+        </div>
+
+        <div className="relative">
+          {/* dotted flowing arc */}
+          <div className="pointer-events-none absolute left-0 right-0 top-[62px] z-[1] h-[140px]">
+            <svg viewBox="0 0 1200 140" preserveAspectRatio="none" className="h-full w-full overflow-visible">
+              <path d="M 80 70 Q 380 10 600 70 T 1120 70" stroke="rgba(166,128,90,0.5)" strokeWidth="1" fill="none" strokeDasharray="3 5" />
+              <circle cx="80"   cy="70" r="3" fill="#A6805A" />
+              <circle cx="380"  cy="42" r="3" fill="#A6805A" />
+              <circle cx="680"  cy="62" r="3" fill="#A6805A" />
+              <circle cx="1120" cy="70" r="3" fill="#A6805A" />
+            </svg>
           </div>
 
-          <div className="lg:col-span-7">
-            <p className="text-xs font-medium uppercase tracking-[0.28em] text-[var(--c-eucalyptus)]">
-              The Arc
-            </p>
-            <ol className="mt-6 grid gap-px overflow-hidden rounded-3xl bg-[var(--c-porcelain)]/10 sm:grid-cols-2">
-              {ARC.map((step) => (
-                <li
-                  key={step.n}
-                  className="bg-[var(--c-sea)]/60 p-7 transition-colors hover:bg-[var(--c-sea-deep)]/60"
-                >
-                  <p className="font-display text-2xl font-light text-[var(--c-bronze)]">
-                    {step.n}
-                  </p>
-                  <h3 className="mt-3 font-display text-xl font-normal text-[var(--c-porcelain)]">
-                    {step.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-[1.75] text-[var(--c-porcelain)]/80">
-                    {step.body}
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </div>
+          <ol className="relative z-[2] grid gap-y-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0">
+            {ARC.map((step) => (
+              <li key={step.n} className="px-7 pt-8">
+                <div className="relative mb-9 flex h-[88px] w-[88px] items-center justify-center rounded-full border border-[var(--c-eucalyptus)]/30 backdrop-blur-sm"
+                  style={{ background: "linear-gradient(140deg, rgba(199,212,207,0.08), rgba(77,113,119,0.4))" }}>
+                  <span className="font-display text-[36px] font-light text-[var(--c-bronze)]" style={{ lineHeight: 1 }}>{step.n}</span>
+                  <span aria-hidden className="absolute -inset-1.5 rounded-full border border-[var(--c-bronze)]/25" />
+                </div>
+                <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--c-bronze)]" style={{ fontFamily: "var(--font-mono)" }}>{step.lab}</p>
+                <h3 className="mb-[18px] font-display text-[40px] font-light tracking-[-0.02em] text-[var(--c-porcelain-soft)]" style={{ lineHeight: 1 }}>
+                  {step.italic ? <Italic><span style={{ color: "var(--c-bronze)" }}>{step.title}</span></Italic> : step.title}
+                </h3>
+                <p className="max-w-[30ch] text-[15px] leading-[1.6] text-[var(--c-eucalyptus)]">{step.body}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>
   );
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Services — premium full-bleed list rows on light
+   ───────────────────────────────────────────────────────────── */
+
 function Services() {
   return (
-    <section id="services" className="mx-auto max-w-7xl px-6 py-28 md:py-36">
-      <div className="grid gap-14 lg:grid-cols-12">
-        <div className="lg:col-span-5">
-          <div className="flex items-center gap-3">
-            <Rule />
-            <SectionLabel>Services</SectionLabel>
+    <section id="services" className="bg-[var(--c-porcelain-soft)] py-44 text-[var(--c-ink)]">
+      <div className="mx-auto max-w-7xl px-14">
+        <div className="mb-20 grid items-end gap-20 lg:grid-cols-2">
+          <div>
+            <Eyebrow>04 · Engagements</Eyebrow>
+            <h2 className="mt-6 font-display text-[48px] font-extralight leading-[0.98] tracking-[-0.03em] text-[var(--c-ink)] md:text-[64px] lg:text-[84px]">
+              Three ways<br />
+              to <Italic><span style={{ color: "var(--c-sea-deep)" }}>work together.</span></Italic>
+            </h2>
           </div>
-          <h2 className="mt-7 font-display text-[2.2rem] font-light leading-[1.1] tracking-[-0.015em] text-[var(--c-sea)] md:text-[2.8rem]">
-            Built for teams carrying more than their systems can hold.
-          </h2>
-          <p className="mt-6 max-w-md text-base leading-[1.85] text-[var(--c-sea-text)]/80">
-            Three engagement shapes. One method. Every offering custom-scoped to the
-            room it’s walking into. Never a template. Never a wellness add-on.
+          <p className="max-w-[42ch] text-[17px] leading-[1.6] text-[var(--c-sea-text)]">
+            Each engagement follows the Somatic Strategy arc. Custom-scoped to your context. No off-the-shelf workshops, no scripted retreats.
           </p>
         </div>
 
-        <div className="grid gap-6 lg:col-span-7 lg:grid-cols-1">
-          {SERVICES.map((s) => (
-            <article
-              key={s.n}
-              className="group relative flex flex-col overflow-hidden rounded-3xl border border-[var(--c-sea)]/10 bg-[var(--c-porcelain-soft)] p-8 transition-all duration-200 hover:-translate-y-1 hover:border-[var(--c-sea)]/30 hover:bg-[var(--c-rainfog)]"
-            >
-              <div className="flex items-baseline justify-between">
-                <p className="font-display text-2xl font-light text-[var(--c-bronze)]">
-                  {s.n}
-                </p>
-                <p className="text-[10px] uppercase tracking-[0.28em] text-[var(--c-willow)]">
-                  {s.kicker}
-                </p>
-              </div>
-              <h3 className="mt-5 font-display text-2xl font-normal text-[var(--c-sea)] md:text-[1.75rem]">
-                {s.title}
+        <div className="flex flex-col">
+          {SERVICES.map((s, i) => (
+            <a key={s.n} href="#book"
+              className={`group grid items-center gap-12 px-8 py-12 transition-all duration-300 hover:bg-[var(--c-rainfog)] hover:pl-12 lg:grid-cols-[80px_1fr_1.4fr_1fr_200px] ${i === 0 ? "border-y" : "border-b"} border-[var(--c-sea)]/16`}>
+              <div className="font-display text-[48px] font-light text-[var(--c-bronze)]" style={{ lineHeight: 1 }}>{s.n}</div>
+              <h3 className="font-display text-[36px] font-light tracking-[-0.02em] text-[var(--c-ink)]" style={{ lineHeight: 1 }}>
+                {s.italic ? <Italic><span style={{ color: "var(--c-sea)" }}>{s.title}</span></Italic> : s.title}
               </h3>
-              <p className="mt-4 text-base leading-[1.8] text-[var(--c-sea-text)]/85">
-                {s.body}
-              </p>
-              <BronzeLink href="#book">Let’s talk</BronzeLink>
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--c-sea-text)]" style={{ fontFamily: "var(--font-mono)" }}>{s.kicker}</p>
+              <p className="text-[15px] leading-[1.55] text-[var(--c-sea-text)]">{s.body}</p>
+              <span className="justify-self-start lg:justify-self-end inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--c-ink)]">
+                Let's Talk <span aria-hidden className="transition-all duration-300 group-hover:translate-x-1.5 group-hover:text-[var(--c-bronze)]">→</span>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Fit — three premium tiles on rainfog
+   ───────────────────────────────────────────────────────────── */
+
+function Fit() {
+  return (
+    <section id="fit" className="relative overflow-hidden bg-[var(--c-rainfog)] py-40 text-[var(--c-ink)]">
+      <div aria-hidden className="pointer-events-none absolute inset-0"
+        style={{ background: "radial-gradient(60% 50% at 50% 100%, rgba(199,212,207,0.7), transparent 70%)" }} />
+      <div className="relative mx-auto max-w-7xl px-14">
+        <div className="mb-20 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+          <div>
+            <Eyebrow>05 · Audience</Eyebrow>
+            <h2 className="mt-6 font-display text-[48px] font-extralight leading-none tracking-[-0.025em] text-[var(--c-ink)] md:text-[64px] lg:text-[80px]">
+              Who this<br />
+              is <Italic><span style={{ color: "var(--c-bronze)" }}>for.</span></Italic>
+            </h2>
+          </div>
+          <p className="max-w-[32ch] text-right font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--c-willow)]" style={{ fontFamily: "var(--font-mono)" }}>
+            Three buyer types. Named directly because seeing yourself recognized is the first conversion.
+          </p>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-3">
+          {FIT.map((f, i) => (
+            <article key={f.lab} className="group flex min-h-[340px] flex-col justify-between border border-[var(--c-sea)]/16 bg-[var(--c-porcelain-soft)] p-9 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_48px_rgba(58,79,82,0.12)]">
+              <div className="flex items-start justify-between">
+                <Eyebrow>{f.lab}</Eyebrow>
+                <span className="text-[var(--c-sea-deep)] opacity-60">{i + 1}</span>
+              </div>
+              <div>
+                <h4 className="font-display text-[30px] font-light leading-[1.05] tracking-[-0.015em] text-[var(--c-ink)]">
+                  {f.title}{" "}
+                  <Italic><span style={{ color: "var(--c-sea)" }}>{f.italicTitle}</span></Italic>
+                  {f.suffix}
+                </h4>
+                <p className="mt-4 text-[14px] leading-[1.6] text-[var(--c-sea-text)]">{f.body}</p>
+              </div>
             </article>
           ))}
         </div>
@@ -461,194 +466,184 @@ function Services() {
   );
 }
 
-function Fit() {
-  return (
-    <section id="fit" className="bg-[var(--c-rainfog)]">
-      <div className="mx-auto max-w-7xl px-6 py-28 md:py-32">
-        <div className="grid gap-14 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <div className="flex items-center gap-3">
-              <Rule />
-              <SectionLabel>Who This Is For</SectionLabel>
-            </div>
-            <h2 className="mt-7 font-display text-[2.1rem] font-light leading-[1.1] tracking-[-0.015em] text-[var(--c-sea)] md:text-[2.6rem]">
-              Built for organizations ready to move beyond generic wellness.
-            </h2>
-          </div>
-
-          <div className="lg:col-span-7">
-            <ul className="grid gap-px overflow-hidden rounded-3xl bg-[var(--c-sea)]/10">
-              {FIT.map((item) => (
-                <li
-                  key={item.title}
-                  className="bg-[var(--c-porcelain)] p-7 transition-colors duration-200 hover:bg-[var(--c-eucalyptus)]/55"
-                >
-                  <div className="flex items-baseline justify-between gap-4">
-                    <h3 className="font-display text-xl font-normal text-[var(--c-sea)]">
-                      {item.title}
-                    </h3>
-                    <span aria-hidden className="text-[var(--c-bronze)]">
-                      +
-                    </span>
-                  </div>
-                  <p className="mt-3 text-sm leading-[1.8] text-[var(--c-sea-text)]/85">
-                    {item.body}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+/* ─────────────────────────────────────────────────────────────
+   Social Proof — cinematic editorial feature on dark
+   ───────────────────────────────────────────────────────────── */
 
 function SocialProof() {
   return (
-    <section id="proof" className="px-6 py-24 md:py-32">
-      <figure className="relative mx-auto max-w-5xl overflow-hidden rounded-[2rem] bg-[var(--c-sea)] p-10 text-[var(--c-porcelain)] texture-sea md:p-16">
-        <div className="flex items-center gap-4">
-          <span
-            aria-hidden
-            className="font-display text-6xl font-light leading-none text-[var(--c-bronze)]"
-          >
-            “
-          </span>
-          <p className="text-[10px] uppercase tracking-[0.32em] text-[var(--c-eucalyptus)]">
-            Field Note
-          </p>
+    <section id="proof" className="relative overflow-hidden py-48 text-[var(--c-porcelain-soft)]" style={{ background: "#0F1A1C" }}>
+      <div aria-hidden className="pointer-events-none absolute inset-0" style={{
+        background: `
+          radial-gradient(50% 50% at 80% 20%, rgba(166,128,90,0.15), transparent 60%),
+          radial-gradient(60% 50% at 20% 80%, rgba(77,113,119,0.4), transparent 70%)`,
+      }} />
+      <div className="relative mx-auto max-w-7xl px-14">
+        <div className="mb-20 flex items-end justify-between border-b border-[var(--c-rainfog)]/18 pb-8">
+          <Eyebrow>06 · Field Notes · Featured</Eyebrow>
+          <Eyebrow>Founder Retreat / American Underground</Eyebrow>
         </div>
 
-        <blockquote className="mt-7 font-display text-[1.7rem] font-light leading-[1.25] tracking-[-0.015em] text-[var(--c-porcelain)] md:text-[2.4rem]">
-          We brought The Willow Well in for a startup founder retreat, and it was
-          anything but typical.
-          <span className="mt-6 block text-[1.2rem] leading-[1.55] text-[var(--c-porcelain)]/85 md:text-[1.45rem]">
-            Lee’s intentional approach of combining movement, play, breathwork,
-            internal dialogue, and rest helped create real clarity and alignment.
-            Personally, I walked away with clarity on a challenge I’d been circling
-            for two years and a clear path forward, and I’m incredibly grateful for
-            the experience.
-          </span>
-        </blockquote>
+        <div className="grid items-end gap-24 lg:grid-cols-[1fr_320px]">
+          <div>
+            <span aria-hidden className="-mb-10 block leading-[0.5] text-[var(--c-bronze)] opacity-30" style={{ fontFamily: "var(--font-italic)", fontStyle: "italic", fontSize: 200 }}>"</span>
+            <blockquote className="font-display text-[36px] font-extralight leading-[1.12] tracking-[-0.02em] text-[var(--c-porcelain-soft)] md:text-[52px] lg:text-[68px]">
+              We brought The Willow Well in for a startup founder retreat, and it was anything but typical. Lee's intentional approach helped create real{" "}
+              <Italic><span style={{ color: "var(--c-bronze)" }}>clarity and alignment.</span></Italic> I walked away with clarity on a challenge I'd been circling for two years.
+            </blockquote>
 
-        <figcaption className="mt-10 flex items-center gap-3 text-[11px] uppercase tracking-[0.28em] text-[var(--c-eucalyptus)]/85">
-          <span className="inline-block h-px w-8 bg-[var(--c-bronze)]/70" aria-hidden />
-          Laura Zabinski · Executive Director, American Underground
-        </figcaption>
-      </figure>
+            <figcaption className="mt-14 flex items-center gap-6 border-t border-[var(--c-rainfog)]/18 pt-8">
+              <span className="flex h-16 w-16 items-center justify-center rounded-full text-[22px] text-[var(--c-porcelain-soft)]" style={{ background: "linear-gradient(140deg, var(--c-willow), var(--c-sea))", fontFamily: "var(--font-display)", fontWeight: 300 }}>LZ</span>
+              <span className="flex flex-col gap-1">
+                <span className="font-display text-[20px] font-light text-[var(--c-porcelain-soft)]">Laura Zabinski</span>
+                <span className="text-[12px] tracking-[0.06em] text-[var(--c-eucalyptus)]">Executive Director · American Underground</span>
+              </span>
+            </figcaption>
+          </div>
+
+          <div className="flex flex-col gap-8">
+            {[
+              { l: "Setting",  v: "Multi-day startup founder retreat — immersive engagement." },
+              { l: "Modality", v: "Movement, play, breathwork, internal dialogue, rest." },
+              { l: "Outcome",  v: "Clarity on a two-year strategic question; a clear path forward." },
+            ].map((c) => (
+              <div key={c.l} className="border-l border-[var(--c-bronze)]/40 pl-5">
+                <Eyebrow>{c.l}</Eyebrow>
+                <p className="mt-2.5 font-display text-[18px] font-light leading-[1.4] text-[var(--c-rainfog)]">{c.v}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
+
+/* ─────────────────────────────────────────────────────────────
+   About — Lee. Portrait plate + signature + creds grid
+   ───────────────────────────────────────────────────────────── */
 
 function About() {
   return (
-    <section id="about" className="mx-auto max-w-7xl px-6 py-28 md:py-32">
-      <div className="grid gap-14 lg:grid-cols-12">
-        <div className="lg:col-span-5">
-          <div className="flex items-center gap-3">
-            <Rule />
-            <SectionLabel>About Lee</SectionLabel>
+    <section id="about" className="relative overflow-hidden bg-[var(--c-porcelain-soft)] py-44 text-[var(--c-ink)]">
+      <div className="mx-auto max-w-7xl px-14">
+        <div className="grid items-start gap-24 lg:grid-cols-[1.1fr_1.4fr]">
+          <div className="relative aspect-[4/5] overflow-hidden"
+            style={{
+              background: `
+                radial-gradient(80% 60% at 50% 30%, rgba(199,212,207,0.6), transparent 70%),
+                linear-gradient(160deg, var(--c-willow), var(--c-sea-deep))`,
+            }}>
+            <div aria-hidden className="absolute inset-0 mix-blend-overlay opacity-40"
+              style={{ backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' /></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")" }} />
+            <div className="absolute inset-0 flex items-center justify-center font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--c-porcelain-soft)] opacity-70" style={{ fontFamily: "var(--font-mono)" }}>
+              PORTRAIT · LEE GRAY
+            </div>
+            <div className="absolute bottom-6 left-6 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--c-rainfog)] opacity-85" style={{ fontFamily: "var(--font-mono)" }}>FILM · 35MM · NATURAL LIGHT</div>
+            <div className="absolute right-6 top-6 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--c-rainfog)] opacity-85" style={{ fontFamily: "var(--font-mono)" }}>DURHAM · NC · '26</div>
           </div>
-          <h2 className="mt-7 font-display text-[2.4rem] font-light leading-[1.05] tracking-[-0.02em] text-[var(--c-sea)] md:text-[3rem]">
-            Not a guru.
-            <br />
-            <span className="italic text-[var(--c-bronze)]">A guide.</span>
-          </h2>
 
-          <div className="mt-10">
-            <p className="text-xs font-medium uppercase tracking-[0.28em] text-[var(--c-willow)]">
-              Credentials
+          <div>
+            <Eyebrow>07 · The Practitioner</Eyebrow>
+            <h2 className="mb-12 mt-8 font-display text-[40px] font-extralight leading-none tracking-[-0.025em] text-[var(--c-ink)] md:text-[56px] lg:text-[72px]">
+              I'm not a coach.<br />
+              I'm a <Italic><span style={{ color: "var(--c-sea)" }}>guide.</span></Italic>
+            </h2>
+            <p className="mb-5 max-w-[54ch] font-display text-[17px] font-light leading-[1.65] text-[var(--c-sea-text)]">
+              The Willow Well is built from everything I know about what it actually costs to operate from survival mode at the level my clients operate at — and what shifts when you have the right tools.
             </p>
-            <ul className="mt-5 space-y-2 text-sm leading-[1.85] text-[var(--c-sea-text)]/85">
-              {CREDENTIALS.map((c) => (
-                <li key={c} className="flex gap-3">
-                  <span aria-hidden className="mt-[10px] inline-block h-px w-4 shrink-0 bg-[var(--c-willow)]" />
-                  <span>{c}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+            <p className="mb-8 max-w-[54ch] font-display text-[17px] font-light leading-[1.65] text-[var(--c-sea-text)]">
+              Not inspiration. Actual capacity.
+            </p>
+            <p className="text-[32px] text-[var(--c-bronze)]" style={{ fontFamily: "var(--font-italic)", fontStyle: "italic" }}>— Lee Gray</p>
 
-        <div className="space-y-8 text-lg leading-[1.85] text-[var(--c-sea-text)]/80 lg:col-span-7">
-          <p className="font-display text-[1.5rem] font-light italic leading-[1.4] text-[var(--c-sea)] md:text-[1.8rem]">
-            “I’m not an executive coach. I’m not a guru. I’m a guide, and there’s a
-            meaningful difference.”
-          </p>
-          <p>
-            The Willow Well is built from everything I know about what it actually
-            costs to operate from survival mode at the level my clients operate at,
-            and what shifts when you have the right tools. Not inspiration. Actual
-            capacity.
-          </p>
-          <p>
-            Lee Gray is the founder of The Willow Well and Associate Director at Knox
-            St Studios. She has spent 20+ years working across corporate, nonprofit,
-            and entrepreneurship ecosystems, and now works with leaders and teams who
-            are excellent at their craft and ready to stop running on fumes.
-          </p>
+            <dl className="mt-14 grid grid-cols-1 border-t border-[var(--c-sea)]/16 sm:grid-cols-2">
+              {CREDENTIALS.map((c) => (
+                <div key={c.l} className="flex items-center justify-between gap-4 border-b border-[var(--c-sea)]/16 px-1 py-[18px]">
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--c-willow)]" style={{ fontFamily: "var(--font-mono)" }}>{c.l}</dt>
+                  <dd className="font-display text-[14px] text-[var(--c-ink)]">{c.v}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </div>
       </div>
     </section>
   );
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Book — concentric ring glow on dark
+   ───────────────────────────────────────────────────────────── */
 
 function Book() {
   return (
-    <section id="book" className="bg-[var(--c-sea)] text-[var(--c-porcelain)] texture-sea">
-      <div className="relative mx-auto max-w-5xl px-6 py-28 text-center md:py-36">
-        <div className="pointer-events-none absolute inset-0 opacity-50" aria-hidden />
-        <div className="relative">
-          <div className="flex items-center justify-center gap-3">
-            <span aria-hidden className="inline-block h-px w-8 bg-[var(--c-eucalyptus)]/70 align-middle" />
-            <p className="text-xs font-medium uppercase tracking-[0.28em] text-[var(--c-eucalyptus)]">
-              Start Here
-            </p>
-            <span aria-hidden className="inline-block h-px w-8 bg-[var(--c-eucalyptus)]/70 align-middle" />
-          </div>
+    <section id="book" className="relative overflow-hidden py-44 text-center text-[var(--c-porcelain-soft)]"
+      style={{ background: "linear-gradient(180deg,#0F1A1C 0%, #1A2628 60%, #0F1A1C 100%)" }}>
+      <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(60% 70% at 50% 50%, rgba(166,128,90,0.18), transparent 70%)" }} />
+      <div aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--c-bronze)]/20">
+        <div className="absolute inset-[60px] rounded-full border border-[var(--c-bronze)]/12" />
+        <div className="absolute inset-[140px] rounded-full border border-[var(--c-bronze)]/8" />
+      </div>
 
-          <h2 className="mx-auto mt-7 max-w-3xl font-display text-[2.4rem] font-light leading-[1.08] tracking-[-0.02em] text-[var(--c-porcelain)] md:text-[3.2rem]">
-            Ready to build capacity that lasts?
-          </h2>
+      <div className="relative z-[2] mx-auto max-w-5xl px-14">
+        <Eyebrow>08 · Begin</Eyebrow>
+        <h2 className="mx-auto mt-9 max-w-[22ch] font-display text-[56px] font-extralight leading-[0.94] tracking-[-0.035em] text-[var(--c-porcelain-soft)] md:text-[88px] lg:text-[124px]">
+          Ready to build<br />
+          <Italic><span style={{ color: "var(--c-bronze)" }}>capacity</span></Italic> that lasts?
+        </h2>
+        <p className="mx-auto mb-14 mt-12 max-w-[48ch] font-display text-[18px] font-light leading-[1.55] text-[var(--c-eucalyptus)]">
+          Every engagement starts with a 20-minute discovery call. No pitch. Just a real conversation about whether the fit is right.
+        </p>
+        <PrimaryCTA href="mailto:info@thewillowwellco.com?subject=Discovery%20Call%20Request">
+          Book a Discovery Call
+        </PrimaryCTA>
+        <p className="mt-8 text-[18px] text-[var(--c-willow)]" style={{ fontFamily: "var(--font-italic)", fontStyle: "italic" }}>
+          Same-week engagements are reviewed by request only.
+        </p>
 
-          <p className="mx-auto mt-7 max-w-2xl text-lg leading-[1.85] text-[var(--c-porcelain)]/85">
-            Every engagement starts with a 20-minute discovery call. No pitch. Just a
-            real conversation about what your team needs and whether this is the right
-            room for it.
-          </p>
-
-          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <a
-              href="mailto:info@thewillowwellco.com?subject=Discovery%20Call%20Request"
-              className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-full bg-[var(--c-porcelain)] px-7 py-4 text-sm font-medium tracking-wide text-[var(--c-sea)] transition-colors duration-200 hover:bg-[var(--c-eucalyptus)]"
-            >
-              <span className="relative">Request a Discovery Call</span>
-              <span aria-hidden className="relative transition-transform duration-200 group-hover:translate-x-1">
-                →
-              </span>
-            </a>
-            <a
-              href="mailto:info@thewillowwellco.com"
-              className="inline-flex items-center justify-center gap-3 rounded-full border border-[var(--c-porcelain)]/40 px-7 py-4 text-sm font-medium tracking-wide text-[var(--c-porcelain)] transition-colors duration-200 hover:border-[var(--c-porcelain)]/70 hover:bg-[var(--c-porcelain)]/10"
-            >
-              Email directly
-            </a>
-          </div>
-
-          <p className="mt-10 text-[11px] uppercase tracking-[0.32em] text-[var(--c-eucalyptus)]/80">
-            Same-week engagements are reviewed by request only
-          </p>
+        <div className="mx-auto mt-24 grid max-w-[900px] grid-cols-1 gap-10 border-t border-[var(--c-rainfog)]/18 pt-12 sm:grid-cols-3">
+          {[
+            { l: "Email",     v: "info@thewillowwellco.com" },
+            { l: "Phone",     v: "910.691.2336" },
+            { l: "Based in",  v: "Durham, NC · Travel" },
+          ].map((c) => (
+            <div key={c.l} className="flex flex-col items-center gap-2">
+              <Eyebrow tone="willow">{c.l}</Eyebrow>
+              <span className="font-display text-[18px] text-[var(--c-porcelain-soft)]">{c.v}</span>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Footer — minimal slab
+   ───────────────────────────────────────────────────────────── */
+
+function Footer() {
+  return (
+    <footer className="bg-[#0A1214] py-12 text-[12px] tracking-[0.08em] text-[var(--c-willow)]">
+      <div className="mx-auto flex max-w-7xl flex-col items-start gap-4 px-14 sm:flex-row sm:items-center sm:justify-between">
+        <a href="#top" className="inline-flex items-center gap-3 text-[var(--c-rainfog)]">
+          <span className="text-[var(--c-bronze)]"><Mark className="h-6 w-6" /></span>
+          <span>© 2026 The Willow Well · Somatic Strategy</span>
+        </a>
+        <div>info@thewillowwellco.com · 910.691.2336</div>
+      </div>
+    </footer>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+   App
+   ───────────────────────────────────────────────────────────── */
+
 export default function App() {
   return (
-    <div id="top" className="min-h-screen bg-[var(--c-porcelain)] text-[var(--c-sea-text)]">
-      <Header />
+    <div id="top" className="min-h-screen bg-[var(--c-porcelain-soft)] text-[var(--c-sea-text)]">
       <main>
         <Hero />
         <Problem />
