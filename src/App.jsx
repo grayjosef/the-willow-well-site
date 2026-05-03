@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import React from "react";
 
-const NAV = [
+const NAV_ITEMS = [
   { id: "method", label: "Method" },
   { id: "services", label: "Services" },
   { id: "fit", label: "Fit" },
@@ -10,44 +10,47 @@ const NAV = [
 
 const ARC = [
   {
-    num: "01",
+    n: "01",
     title: "Arrive",
-    copy: "Regulate the room. Nervous system first, before any agenda item.",
+    body: "Regulate the room. Nervous system first, before any agenda item.",
   },
   {
-    num: "02",
+    n: "02",
     title: "Move",
-    copy: "Somatic practice that shifts state through breath, body, and intentional movement.",
+    body: "Somatic practice that shifts state through breath, body, and intentional movement.",
   },
   {
-    num: "03",
+    n: "03",
     title: "Excavate",
-    copy: "Strategic clarity work around values, patterns, and what is driving behavior.",
+    body: "Strategic clarity work around values, patterns, and what is driving behavior.",
   },
   {
-    num: "04",
+    n: "04",
     title: "Commit",
-    copy: "Leave with a real tool and a real intention, not inspiration that evaporates.",
+    body: "Leave with a real tool and a real intention, not inspiration that evaporates.",
   },
 ];
 
 const SERVICES = [
   {
-    eyebrow: "Half-day · Full-day",
+    n: "01",
+    kicker: "HALF-DAY · FULL-DAY",
     title: "Workshops",
-    copy:
+    body:
       "Intensives for corporate teams, accelerator cohorts, and organizational off-sites. Every session follows the Somatic Strategy arc and delivers a tool participants take back to work the same day. Custom-scoped for your context.",
   },
   {
-    eyebrow: "Multi-month",
+    n: "02",
+    kicker: "MULTI-MONTH",
     title: "Cohort Programs",
-    copy:
+    body:
       "Ongoing programs that build capacity over time. Designed for organizations ready to invest in their people beyond a single event — measurable behavioral change, not a one-off.",
   },
   {
-    eyebrow: "Half-day · Two-day",
+    n: "03",
+    kicker: "HALF-DAY · TWO-DAY",
     title: "Retreats",
-    copy:
+    body:
       "Immersive engagements for teams ready to do the deeper work: breathwork, somatic movement, values clarification, strategic wayfinding, closing ceremony. The engagements teams mark time by.",
   },
 ];
@@ -55,486 +58,211 @@ const SERVICES = [
 const FIT = [
   {
     title: "High-growth companies",
-    copy: "People & Culture leaders, CHROs, and L&D directors at organizations where the team is excellent but running on fumes.",
+    body:
+      "People & Culture leaders, CHROs, and L&D directors at organizations where the team is excellent but running on fumes.",
   },
   {
     title: "ESOs & accelerators",
-    copy: "Founder ecosystems and cohort programs that need their leaders to think clearly and decide confidently under pressure.",
+    body:
+      "Founder ecosystems and cohort programs that need their leaders to think clearly and decide confidently under pressure.",
   },
   {
     title: "Mission-driven nonprofits",
-    copy: "Teams carrying the weight of the work — where compassion fatigue is a load-bearing wall, not a wellness footnote.",
+    body:
+      "Teams carrying the weight of the work — where compassion fatigue is a load-bearing wall, not a wellness footnote.",
   },
 ];
 
-function useScrollSpy(ids) {
-  const [active, setActive] = useState(ids[0]);
+const CREDENTIALS = [
+  "200RYT Yoga Certification",
+  "Certified Breathwork Facilitation",
+  "Martha Beck Wayfinder Coach, in training",
+  "Leadership Triangle Goodmon Fellow",
+  "Co-Chair, Member Engagement, Durham Rotary Club",
+  "Associate Director, Knox St Studios",
+];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-        if (visible[0]) {
-          setActive(visible[0].target.id);
-        }
-      },
-      { rootMargin: "-40% 0px -55% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
-    );
-
-    ids.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, [ids]);
-
-  return active;
-}
-
-function Wordmark() {
+function PrimaryCTA({ href, children, className = "" }) {
   return (
-    <a href="#top" className="group inline-flex items-baseline gap-3" aria-label="The Willow Well home">
-      <span
-        aria-hidden="true"
-        className="block h-[1.05em] w-px translate-y-[0.15em] bg-[var(--c-gold)] transition-all group-hover:h-[1.4em]"
-      />
-      <span className="font-display text-[15px] uppercase tracking-[0.34em] text-[var(--c-slate)]">
-        The Willow Well
+    <a
+      href={href}
+      className={
+        "group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-full bg-[var(--c-sea)] px-7 py-4 text-sm font-medium tracking-wide text-[var(--c-porcelain)] shadow-[0_1px_0_rgba(255,255,255,0.25)_inset,0_8px_24px_-12px_rgba(77,113,119,0.55)] transition-colors duration-200 hover:bg-[var(--c-sea-deep)] focus-visible:bg-[var(--c-sea-deep)] " +
+        className
+      }
+    >
+      <span className="relative">{children}</span>
+      <span aria-hidden className="relative transition-transform duration-200 group-hover:translate-x-1">
+        →
       </span>
     </a>
   );
 }
 
-function Nav() {
-  const active = useScrollSpy(NAV.map((n) => n.id));
-
+function SecondaryCTA({ href, children, className = "" }) {
   return (
-    <nav aria-label="Primary" className="hidden md:block">
-      <ul className="flex items-center gap-8">
-        {NAV.map((item) => (
-          <li key={item.id}>
-            <a
-              href={`#${item.id}`}
-              className={`relative text-sm tracking-wide transition-colors ${
-                active === item.id
-                  ? "text-[var(--c-slate)]"
-                  : "text-[var(--c-slate)]/55 hover:text-[var(--c-slate)]"
-              }`}
-            >
-              {item.label}
-              <span
-                aria-hidden="true"
-                className={`absolute -bottom-1 left-0 h-px bg-[var(--c-gold)] transition-all ${
-                  active === item.id ? "w-full" : "w-0"
-                }`}
-              />
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <a
+      href={href}
+      className={
+        "inline-flex items-center justify-center gap-3 rounded-full border border-[var(--c-sea)]/25 bg-transparent px-7 py-4 text-sm font-medium tracking-wide text-[var(--c-sea)] transition-colors duration-200 hover:border-[var(--c-sea)]/50 hover:bg-[var(--c-eucalyptus)]/45 " +
+        className
+      }
+    >
+      {children}
+    </a>
   );
 }
 
-function SectionLabel({ children, tone = "sage" }) {
-  const color = tone === "gold" ? "text-[var(--c-gold)]" : "text-[var(--c-sage)]";
-
+function BronzeLink({ href, children }) {
   return (
-    <p className={`text-[11px] font-medium uppercase tracking-[0.36em] ${color}`}>
-      <span aria-hidden="true" className="mr-3 inline-block h-px w-6 align-middle bg-current opacity-60" />
+    <a
+      href={href}
+      className="mt-8 inline-flex items-center gap-2 text-sm font-medium tracking-wide text-[var(--c-bronze)] transition-opacity duration-200 hover:opacity-80"
+    >
+      {children}
+      <span aria-hidden>→</span>
+    </a>
+  );
+}
+
+function SectionLabel({ children }) {
+  return (
+    <p className="text-xs font-medium uppercase tracking-[0.28em] text-[var(--c-willow)]">
       {children}
     </p>
   );
 }
 
-function GoldButton({ href, children, className = "" }) {
+function Rule() {
+  return <span aria-hidden className="inline-block h-px w-8 bg-[var(--c-willow)] align-middle" />;
+}
+
+function CompassWillow({ className = "h-6 w-6", tone = "sea" }) {
+  const stroke = tone === "porcelain" ? "var(--c-porcelain)" : "var(--c-sea)";
+  const leaf = tone === "porcelain" ? "var(--c-eucalyptus)" : "var(--c-willow)";
+  const tick = "var(--c-bronze)";
+
   return (
-    <a
-      href={href}
-      className={`group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-full bg-[var(--c-gold)] px-7 py-4 text-sm font-medium tracking-wide text-white transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[var(--c-gold)] ${className}`}
+    <svg
+      viewBox="0 0 32 32"
+      role="img"
+      aria-label="Compass Willow mark"
+      className={className}
     >
-      <span className="relative z-10">{children}</span>
-      <span aria-hidden="true" className="relative z-10 transition-transform group-hover:translate-x-1">
-        →
-      </span>
-      <span
-        aria-hidden="true"
-        className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full"
+      <circle cx="16" cy="16" r="12.5" fill="none" stroke={stroke} strokeWidth="1.1" />
+      <line x1="16" y1="3.5" x2="16" y2="6" stroke={tick} strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="16" y1="26" x2="16" y2="28.5" stroke={stroke} strokeWidth="1" strokeLinecap="round" />
+      <line x1="3.5" y1="16" x2="6" y2="16" stroke={stroke} strokeWidth="1" strokeLinecap="round" />
+      <line x1="26" y1="16" x2="28.5" y2="16" stroke={stroke} strokeWidth="1" strokeLinecap="round" />
+      <path
+        d="M10 22 C 13 18, 14 14, 16 9 C 18 14, 19 18, 22 22"
+        fill="none"
+        stroke={leaf}
+        strokeWidth="1.1"
+        strokeLinecap="round"
       />
-    </a>
+      <path d="M13.4 17.5 C 14.4 17.2, 15.3 16.6, 16 15.6" fill="none" stroke={leaf} strokeWidth="0.9" strokeLinecap="round" />
+      <path d="M18.6 17.5 C 17.6 17.2, 16.7 16.6, 16 15.6" fill="none" stroke={leaf} strokeWidth="0.9" strokeLinecap="round" />
+      <circle cx="16" cy="16" r="0.9" fill={tick} />
+    </svg>
   );
 }
 
-function GhostButton({ href, children, className = "", invert = false }) {
-  const base = invert
-    ? "border-[var(--c-cream)]/30 text-[var(--c-cream)] hover:border-[var(--c-cream)]/60"
-    : "border-[var(--c-slate)]/25 text-[var(--c-slate)] hover:border-[var(--c-slate)]/55";
-
+function Header() {
   return (
-    <a
-      href={href}
-      className={`inline-flex items-center justify-center gap-3 rounded-full border px-7 py-4 text-sm font-medium tracking-wide transition-colors ${base} ${className}`}
-    >
-      {children}
-    </a>
-  );
-}
-
-export default function App() {
-  return (
-    <div id="top" className="min-h-screen bg-[var(--c-cream)] text-[var(--c-slate)] antialiased">
+    <>
       <a
         href="#hero"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-[var(--c-slate)] focus:px-4 focus:py-2 focus:text-sm focus:text-[var(--c-cream)]"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-[var(--c-sea)] focus:px-4 focus:py-2 focus:text-xs focus:font-medium focus:tracking-[0.18em] focus:text-[var(--c-porcelain)]"
       >
         Skip to content
       </a>
 
-      <header className="sticky top-0 z-40 border-b border-[var(--c-slate)]/10 bg-[var(--c-cream)]/85 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-          <Wordmark />
-          <Nav />
+      <header className="sticky top-0 z-40 border-b border-[var(--c-sea)]/10 bg-[var(--c-porcelain)]/85 backdrop-blur-md">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-5">
+          <a href="#top" className="group inline-flex items-baseline gap-3">
+            <CompassWillow className="h-5 w-5 translate-y-[3px]" />
+            <span className="font-display text-base tracking-[0.28em] text-[var(--c-sea)]">
+              THE&nbsp;WILLOW&nbsp;WELL
+            </span>
+          </a>
+
+          <nav className="hidden md:block">
+            <ul className="flex items-center gap-7">
+              {NAV_ITEMS.map((item, i) => (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    className={
+                      "relative text-sm tracking-wide transition-colors " +
+                      (i === 0
+                        ? "text-[var(--c-sea)]"
+                        : "text-[var(--c-sea)]/55 hover:text-[var(--c-sea)]")
+                    }
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
           <a
             href="#book"
-            className="rounded-full border border-[var(--c-slate)]/20 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-[var(--c-slate)] transition-colors hover:border-[var(--c-gold)] hover:text-[var(--c-gold)]"
+            className="rounded-full border border-[var(--c-sea)]/25 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-[var(--c-sea)] transition-colors duration-200 hover:border-[var(--c-sea)]/50 hover:bg-[var(--c-eucalyptus)]/45"
           >
             Book Call
           </a>
         </div>
       </header>
+    </>
+  );
+}
 
-      <main>
-        <section id="hero" className="relative overflow-hidden texture-cream">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 opacity-[0.75]"
-            style={{
-              background:
-                "radial-gradient(1100px 600px at 85% -10%, rgba(143,166,138,0.28), transparent 55%), radial-gradient(700px 480px at -10% 110%, rgba(200,148,62,0.18), transparent 55%)",
-            }}
-          />
-
-          <div className="relative mx-auto grid max-w-7xl gap-16 px-6 pb-28 pt-20 lg:grid-cols-12 lg:pb-36 lg:pt-28">
-            <div className="lg:col-span-8">
-              <SectionLabel>Somatic Strategy for high-performing teams</SectionLabel>
-
-              <h1 className="mt-7 font-display text-[2.6rem] font-light leading-[1.02] tracking-[-0.025em] text-[var(--c-slate)] sm:text-[3.4rem] md:text-[4.4rem] lg:text-[5.6rem]">
-                Most organizations <em className="italic text-[var(--c-gold)]/95">optimize</em> everything
-                <br className="hidden sm:block" /> except the human doing the work.
-              </h1>
-
-              <p className="mt-10 max-w-2xl text-lg leading-[1.7] text-[var(--c-slate)]/75 md:text-xl">
-                Workshops, cohort programs, and retreats designed to build capacity that lasts for leaders and
-                teams excellent at their work and running on fumes.
-              </p>
-
-              <div className="mt-12 flex flex-col gap-4 sm:flex-row">
-                <GoldButton href="#book">Book a Discovery Call</GoldButton>
-                <GhostButton href="#services">Explore Services</GhostButton>
-              </div>
-            </div>
-
-            <aside className="relative lg:col-span-4">
-              <div className="relative h-full min-h-[360px] overflow-hidden rounded-[2rem] border border-[var(--c-slate)]/10 bg-[var(--c-slate)] p-1 shadow-2xl shadow-[var(--c-slate)]/10">
-                <div
-                  className="relative flex h-full flex-col justify-between rounded-[1.7rem] p-8 text-[var(--c-cream)]"
-                  style={{
-                    background:
-                      "radial-gradient(420px 260px at 25% 15%, rgba(200,148,62,0.32), transparent 60%), radial-gradient(380px 280px at 85% 5%, rgba(143,166,138,0.42), transparent 60%), linear-gradient(160deg,#3A4A42 0%,#2A3731 100%)",
-                  }}
-                >
-                  <div className="flex items-center justify-between">
-                    <p className="text-[10px] uppercase tracking-[0.4em] text-[var(--c-gold)]">Durham, NC</p>
-                    <span aria-hidden="true" className="text-[10px] tracking-[0.3em] text-[var(--c-cream)]/40">
-                      EST. 2024
-                    </span>
-                  </div>
-
-                  <div>
-                    <p className="font-display text-[1.6rem] leading-[1.18] tracking-[-0.01em]">
-                      Clarity and capacity begin in the body.
-                    </p>
-                    <div className="mt-8 flex items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-[var(--c-cream)]/55">
-                      <span className="h-px w-8 bg-[var(--c-gold)]" />
-                      A practice by Lee Gray
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </aside>
-          </div>
-
-          <div className="border-y border-[var(--c-slate)]/10 bg-[var(--c-cream)]/70">
-            <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-y-3 px-6 py-4 text-[11px] uppercase tracking-[0.3em] text-[var(--c-slate)]/55">
-              <span>Workshops</span>
-              <span aria-hidden="true">·</span>
-              <span>Cohort Programs</span>
-              <span aria-hidden="true">·</span>
-              <span>Retreats</span>
-              <span aria-hidden="true">·</span>
-              <span>Available for travel</span>
-            </div>
-          </div>
-        </section>
-
-        <section id="problem" className="mx-auto max-w-5xl px-6 py-28 md:py-36">
-          <SectionLabel>The Problem</SectionLabel>
-          <p className="mt-8 font-display text-[1.9rem] font-light leading-[1.18] tracking-[-0.02em] text-[var(--c-slate)] sm:text-[2.4rem] md:text-[3.1rem]">
-            Your people aren’t underperforming. They’re{" "}
-            <span className="relative">
-              under-resourced
-              <span aria-hidden="true" className="absolute inset-x-0 bottom-1 -z-10 h-2 bg-[var(--c-gold)]/30" />
-            </span>{" "}
-            at the nervous system level. And no amount of strategic planning fixes a dysregulated team.
-            Somatic Strategy is how you change that.
-          </p>
-        </section>
-
-        <section id="method" className="bg-[var(--c-slate)] text-[var(--c-cream)]">
-          <div className="mx-auto max-w-7xl px-6 py-28 md:py-36">
-            <div className="grid gap-12 lg:grid-cols-12">
-              <div className="lg:col-span-5">
-                <SectionLabel tone="gold">The Method</SectionLabel>
-                <h2 className="mt-7 font-display text-[2.4rem] font-light leading-[1.02] tracking-[-0.02em] text-[var(--c-cream)] md:text-[3.6rem]">
-                  Somatic <em className="italic text-[var(--c-gold)]">Strategy</em>
-                </h2>
-              </div>
-              <div className="lg:col-span-7">
-                <p className="text-lg leading-[1.8] text-[var(--c-cream)]/80 md:text-xl">
-                  Somatic Strategy builds organizational performance capacity through the body by regulating
-                  the nervous system so leaders and teams can think clearly, decide confidently, and sustain
-                  output without burning out.
-                </p>
-                <p className="mt-6 text-base leading-[1.8] text-[var(--c-cream)]/60">
-                  Not a yoga class. Not executive coaching. Not corporate wellness. Operational infrastructure
-                  for the human doing the work.
-                </p>
-              </div>
-            </div>
-
-            <div id="arc" className="mt-20 md:mt-24">
-              <div className="mb-8 flex items-end justify-between">
-                <SectionLabel tone="gold">The Arc</SectionLabel>
-                <span className="hidden text-[11px] uppercase tracking-[0.3em] text-[var(--c-cream)]/45 md:inline">
-                  Every session · Every engagement
-                </span>
-              </div>
-              <div className="grid gap-px overflow-hidden rounded-3xl bg-[var(--c-cream)]/10 md:grid-cols-4">
-                {ARC.map((step) => (
-                  <div key={step.title} className="group relative bg-[var(--c-slate)] p-8 transition-colors hover:bg-[#324039]">
-                    <div className="flex items-center justify-between">
-                      <span className="font-display text-3xl text-[var(--c-gold)]">{step.num}</span>
-                      <span
-                        aria-hidden="true"
-                        className="h-px w-10 bg-[var(--c-cream)]/20 transition-all group-hover:w-16 group-hover:bg-[var(--c-gold)]"
-                      />
-                    </div>
-                    <h3 className="mt-10 font-display text-2xl font-light tracking-[-0.01em] text-[var(--c-cream)]">
-                      {step.title}
-                    </h3>
-                    <p className="mt-4 text-[15px] leading-[1.7] text-[var(--c-cream)]/70">{step.copy}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="services" className="mx-auto max-w-7xl px-6 py-28 md:py-36">
-          <div className="grid gap-10 lg:grid-cols-12">
-            <div className="lg:col-span-5">
-              <SectionLabel>Services</SectionLabel>
-              <h2 className="mt-7 font-display text-[2.4rem] font-light leading-[1.02] tracking-[-0.02em] md:text-[3.4rem]">
-                Built for teams carrying more than their systems can hold.
-              </h2>
-            </div>
-            <p className="text-lg leading-[1.8] text-[var(--c-slate)]/75 lg:col-span-7 lg:pt-16">
-              Three engagement shapes. One method. Every offering custom-scoped to the room it’s walking into.
-              Never a template. Never a wellness add-on.
+function Footer() {
+  return (
+    <footer className="border-t border-[var(--c-sea)]/10 bg-[var(--c-porcelain)]">
+      <div className="mx-auto max-w-7xl px-6 py-14">
+        <div className="grid gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <a href="#top" className="group inline-flex items-baseline gap-3">
+              <CompassWillow className="h-5 w-5 translate-y-[3px]" />
+              <span className="font-display text-base tracking-[0.28em] text-[var(--c-sea)]">
+                THE&nbsp;WILLOW&nbsp;WELL
+              </span>
+            </a>
+            <p className="mt-5 max-w-md text-sm leading-7 text-[var(--c-sea-text)]/75">
+              Somatic Strategy for high-performing teams. Workshops, cohort programs, and
+              retreats, based in Durham, NC and available for travel.
             </p>
           </div>
 
-          <div className="mt-16 grid gap-6 md:grid-cols-3">
-            {SERVICES.map((service, i) => (
-              <article
-                key={service.title}
-                className="group relative flex flex-col overflow-hidden rounded-3xl border border-[var(--c-slate)]/10 bg-white/40 p-8 transition-all hover:-translate-y-1 hover:border-[var(--c-gold)]/40 hover:bg-white/60"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-display text-sm text-[var(--c-slate)]/45">0{i + 1}</span>
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--c-sage)]">{service.eyebrow}</span>
-                </div>
-                <h3 className="mt-10 font-display text-3xl font-light tracking-[-0.015em]">{service.title}</h3>
-                <p className="mt-5 flex-1 text-[15px] leading-[1.75] text-[var(--c-slate)]/75">{service.copy}</p>
-                <a href="#book" className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-[var(--c-gold)]">
-                  Let’s talk <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
+          <div className="lg:col-span-3">
+            <SectionLabel>Contact</SectionLabel>
+            <ul className="mt-4 space-y-2 text-sm text-[var(--c-sea-text)]/80">
+              <li>
+                <a href="mailto:info@thewillowwellco.com" className="transition-colors hover:text-[var(--c-bronze)]">
+                  info@thewillowwellco.com
                 </a>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="fit" className="bg-[var(--c-cream)]">
-          <div className="mx-auto max-w-7xl px-6 py-28 md:py-32">
-            <div className="grid gap-10 lg:grid-cols-12">
-              <div className="lg:col-span-5">
-                <SectionLabel>Who this is for</SectionLabel>
-                <h2 className="mt-7 font-display text-[2.2rem] font-light leading-[1.05] tracking-[-0.02em] md:text-[3rem]">
-                  Built for organizations ready to move beyond generic wellness.
-                </h2>
-              </div>
-              <div className="lg:col-span-7">
-                <ul className="grid gap-px overflow-hidden rounded-3xl bg-[var(--c-slate)]/10">
-                  {FIT.map((item) => (
-                    <li key={item.title} className="bg-[var(--c-cream)] p-7 transition-colors hover:bg-[var(--c-sage)]/15">
-                      <div className="flex items-baseline justify-between gap-6">
-                        <h3 className="font-display text-xl font-light tracking-[-0.01em]">{item.title}</h3>
-                        <span aria-hidden="true" className="text-[var(--c-gold)]">+</span>
-                      </div>
-                      <p className="mt-3 text-[15px] leading-[1.7] text-[var(--c-slate)]/70">{item.copy}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="proof" className="px-6 py-24 md:py-32">
-          <figure className="relative mx-auto max-w-5xl overflow-hidden rounded-[2rem] bg-[var(--c-slate)] p-10 text-[var(--c-cream)] md:p-16">
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute -left-6 -top-16 select-none font-display text-[18rem] leading-none text-[var(--c-gold)]/15"
-            >
-              “
-            </span>
-            <SectionLabel tone="gold">Field note</SectionLabel>
-            <blockquote className="mt-7 font-display text-[1.7rem] font-light leading-[1.25] tracking-[-0.015em] text-[var(--c-cream)] md:text-[2.4rem]">
-              We brought The Willow Well in for a startup founder retreat, and it was anything but typical.
-            </blockquote>
-            <p className="mt-8 max-w-3xl text-[15px] leading-[1.85] text-[var(--c-cream)]/75">
-              Lee’s intentional approach of combining movement, play, breathwork, internal dialogue, and rest
-              helped create real clarity and alignment. Personally, I walked away with clarity on a challenge
-              I’d been circling for two years and a clear path forward, and I’m incredibly grateful for the experience.
-            </p>
-            <figcaption className="mt-10 flex items-center gap-4 text-xs uppercase tracking-[0.28em] text-[var(--c-gold)]">
-              <span aria-hidden="true" className="h-px w-10 bg-[var(--c-gold)]" />
-              Laura Zabinski · Executive Director, American Underground
-            </figcaption>
-          </figure>
-        </section>
-
-        <section id="about" className="mx-auto max-w-7xl px-6 py-28 md:py-32">
-          <div className="grid gap-14 lg:grid-cols-12">
-            <div className="lg:col-span-5">
-              <SectionLabel>About Lee</SectionLabel>
-              <h2 className="mt-7 font-display text-[2.4rem] font-light leading-[1.02] tracking-[-0.02em] md:text-[3.6rem]">
-                Not a guru. <br />
-                <em className="italic text-[var(--c-gold)]">A guide.</em>
-              </h2>
-              <div className="mt-10 space-y-3 text-sm leading-[1.85] text-[var(--c-slate)]/70">
-                <p className="font-medium uppercase tracking-[0.12em] text-[var(--c-slate)]">Credentials</p>
-                <ul className="space-y-2">
-                  <li>200RYT Yoga Certification</li>
-                  <li>Certified Breathwork Facilitation</li>
-                  <li>Martha Beck Wayfinder Coach, in training</li>
-                  <li>Leadership Triangle Goodmon Fellow</li>
-                  <li>Co-Chair, Member Engagement, Durham Rotary Club</li>
-                  <li>Associate Director, Knox St Studios</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="space-y-8 text-lg leading-[1.85] text-[var(--c-slate)]/80 lg:col-span-7">
-              <p className="font-display text-[1.4rem] font-light leading-[1.4] tracking-[-0.01em] text-[var(--c-slate)] md:text-[1.7rem]">
-                “I’m not an executive coach. I’m not a guru. I’m a guide, and there’s a meaningful difference.”
-              </p>
-              <p>
-                The Willow Well is built from everything I know about what it actually costs to operate from survival
-                mode at the level my clients operate at, and what shifts when you have the right tools. Not inspiration.
-                Actual capacity.
-              </p>
-              <p>
-                Lee Gray is the founder of The Willow Well and Associate Director at Knox St Studios. She has spent
-                20+ years working across corporate, nonprofit, and entrepreneurship ecosystems, and now works with
-                leaders and teams who are excellent at their craft and ready to stop running on fumes.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section id="book" className="bg-[var(--c-slate)] text-[var(--c-cream)]">
-          <div className="relative mx-auto max-w-5xl px-6 py-28 text-center md:py-36">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 opacity-50"
-              style={{
-                background: "radial-gradient(600px 320px at 50% -10%, rgba(200,148,62,0.22), transparent 60%)",
-              }}
-            />
-            <div className="relative">
-              <SectionLabel tone="gold">Start here</SectionLabel>
-              <h2 className="mx-auto mt-7 max-w-3xl font-display text-[2.4rem] font-light leading-[1.02] tracking-[-0.02em] text-[var(--c-cream)] md:text-[3.8rem]">
-                Ready to build capacity <br className="hidden md:block" />
-                <em className="italic text-[var(--c-gold)]">that lasts?</em>
-              </h2>
-              <p className="mx-auto mt-8 max-w-xl text-lg leading-[1.7] text-[var(--c-cream)]/75">
-                Every engagement starts with a 20-minute discovery call. No pitch. Just a real conversation about
-                what your team needs and whether this is the right room for it.
-              </p>
-
-              <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <GoldButton href="mailto:info@thewillowwellco.com?subject=Discovery%20Call%20Request">
-                  Request a Discovery Call
-                </GoldButton>
-                <GhostButton href="mailto:info@thewillowwellco.com" invert>
-                  Email directly
-                </GhostButton>
-              </div>
-
-              <p className="mt-10 text-[11px] uppercase tracking-[0.3em] text-[var(--c-cream)]/50">
-                Same-week engagements are reviewed by request only
-              </p>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer className="border-t border-[var(--c-slate)]/10 bg-[var(--c-cream)]">
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-3">
-          <div>
-            <Wordmark />
-            <p className="mt-5 max-w-xs text-sm leading-[1.75] text-[var(--c-slate)]/65">
-              Somatic Strategy for high-performing teams. Workshops, cohort programs, and retreats, based in Durham,
-              NC and available for travel.
-            </p>
+              </li>
+              <li>
+                <a href="tel:+19106912336" className="transition-colors hover:text-[var(--c-bronze)]">
+                  910.691.2336
+                </a>
+              </li>
+              <li>Durham, NC, available for travel</li>
+            </ul>
           </div>
 
-          <div className="text-sm leading-[1.9] text-[var(--c-slate)]/75">
-            <p className="text-[11px] uppercase tracking-[0.3em] text-[var(--c-slate)]/50">Contact</p>
-            <p className="mt-3">
-              <a className="hover:text-[var(--c-gold)]" href="mailto:info@thewillowwellco.com">
-                info@thewillowwellco.com
-              </a>
-            </p>
-            <p>
-              <a className="hover:text-[var(--c-gold)]" href="tel:+19106912336">
-                910.691.2336
-              </a>
-            </p>
-            <p className="text-[var(--c-slate)]/55">Durham, NC, available for travel</p>
-          </div>
-
-          <div className="text-sm leading-[1.9] text-[var(--c-slate)]/75">
-            <p className="text-[11px] uppercase tracking-[0.3em] text-[var(--c-slate)]/50">Navigate</p>
-            <ul className="mt-3 space-y-1">
-              {NAV.map((item) => (
+          <div className="lg:col-span-4">
+            <SectionLabel>Navigate</SectionLabel>
+            <ul className="mt-4 grid grid-cols-2 gap-y-2 text-sm text-[var(--c-sea-text)]/80">
+              {NAV_ITEMS.map((item) => (
                 <li key={item.id}>
-                  <a className="hover:text-[var(--c-gold)]" href={`#${item.id}`}>
+                  <a
+                    href={`#${item.id}`}
+                    className="transition-colors hover:text-[var(--c-bronze)]"
+                  >
                     {item.label}
                   </a>
                 </li>
@@ -543,13 +271,395 @@ export default function App() {
           </div>
         </div>
 
-        <div className="border-t border-[var(--c-slate)]/10">
-          <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-3 px-6 py-6 text-[11px] uppercase tracking-[0.3em] text-[var(--c-slate)]/45 md:flex-row md:items-center">
-            <span>© {new Date().getFullYear()} The Willow Well</span>
-            <span>Clarity and capacity begin in the body.</span>
+        <div className="mt-12 flex flex-col gap-3 border-t border-[var(--c-eucalyptus)] pt-6 text-xs uppercase tracking-[0.22em] text-[var(--c-willow)] md:flex-row md:items-center md:justify-between">
+          <p>© 2026 The Willow Well</p>
+          <p>Clarity and capacity begin in the body.</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function Hero() {
+  return (
+    <section id="hero" className="relative overflow-hidden texture-porcelain">
+      <div className="pointer-events-none absolute inset-0 opacity-[0.75]" aria-hidden />
+      <div className="relative mx-auto grid max-w-7xl gap-16 px-6 pb-28 pt-20 lg:grid-cols-12 lg:pb-36 lg:pt-28">
+        <div className="lg:col-span-8">
+          <div className="flex items-center gap-3">
+            <Rule />
+            <SectionLabel>Somatic Strategy for High-Performing Teams</SectionLabel>
+          </div>
+
+          <h1 className="mt-7 font-display text-[2.6rem] font-light leading-[1.04] tracking-[-0.02em] text-[var(--c-sea)] sm:text-[3.2rem] md:text-[3.8rem] lg:text-[4.4rem]">
+            Most organizations{" "}
+            <em className="font-normal italic text-[var(--c-bronze)]">optimize</em>{" "}
+            everything except the human doing the work.
+          </h1>
+
+          <p className="mt-8 max-w-2xl text-lg leading-[1.75] text-[var(--c-sea-text)]/85">
+            Workshops, cohort programs, and retreats designed to build capacity that
+            lasts for leaders and teams excellent at their work and running on fumes.
+          </p>
+
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <PrimaryCTA href="#book">Book a Discovery Call</PrimaryCTA>
+            <SecondaryCTA href="#services">Explore Services</SecondaryCTA>
           </div>
         </div>
-      </footer>
+
+        <aside className="lg:col-span-4">
+          <div className="relative h-full min-h-[260px] overflow-hidden rounded-[2rem] bg-[var(--c-sea)] p-8 text-[var(--c-porcelain)] texture-sea">
+            <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.32em] text-[var(--c-bronze)]">
+              <span>Durham, NC</span>
+              <span className="text-[var(--c-eucalyptus)]/85">Est. 2024</span>
+            </div>
+            <div className="mt-12 flex justify-center">
+              <CompassWillow className="h-20 w-20 opacity-90" tone="porcelain" />
+            </div>
+            <p className="mt-12 font-display text-[1.25rem] font-light italic leading-snug text-[var(--c-porcelain)]/95">
+              Clarity and capacity begin in the body.
+            </p>
+            <p className="mt-6 text-[10px] uppercase tracking-[0.32em] text-[var(--c-eucalyptus)]/80">
+              A practice by Lee Gray
+            </p>
+          </div>
+        </aside>
+      </div>
+
+      <div className="border-y border-[var(--c-sea)]/10 bg-[var(--c-rainfog)]/70">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-6 gap-y-2 px-6 py-5 text-[11px] uppercase tracking-[0.28em] text-[var(--c-sea)]/65">
+          <span>Workshops</span>
+          <span aria-hidden>·</span>
+          <span>Cohort Programs</span>
+          <span aria-hidden>·</span>
+          <span>Retreats</span>
+          <span aria-hidden>·</span>
+          <span>Available for travel</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Problem() {
+  return (
+    <section id="problem" className="mx-auto max-w-5xl px-6 py-28 md:py-36">
+      <div className="flex items-center gap-3">
+        <Rule />
+        <SectionLabel>The Problem</SectionLabel>
+      </div>
+      <p className="mt-8 font-display text-[1.9rem] font-light leading-[1.3] tracking-[-0.012em] text-[var(--c-sea)] md:text-[2.6rem]">
+        Your people aren’t underperforming. They’re{" "}
+        <span className="italic text-[var(--c-bronze)]">under-resourced</span> at the
+        nervous system level. And no amount of strategic planning fixes a dysregulated
+        team. Somatic Strategy is how you change that.
+      </p>
+    </section>
+  );
+}
+
+function Method() {
+  return (
+    <section id="method" className="bg-[var(--c-sea)] text-[var(--c-porcelain)] texture-sea">
+      <div className="mx-auto max-w-7xl px-6 py-28 md:py-36">
+        <div className="grid gap-14 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <div className="flex items-center gap-3">
+              <span aria-hidden className="inline-block h-px w-8 bg-[var(--c-eucalyptus)]/70 align-middle" />
+              <p className="text-xs font-medium uppercase tracking-[0.28em] text-[var(--c-eucalyptus)]">
+                The Method
+              </p>
+            </div>
+            <h2 className="mt-7 font-display text-[2.4rem] font-light leading-[1.05] tracking-[-0.02em] text-[var(--c-porcelain)] md:text-[3rem]">
+              Somatic Strategy
+            </h2>
+            <p className="mt-6 text-lg leading-[1.85] text-[var(--c-porcelain)]/85">
+              Somatic Strategy builds organizational performance capacity through the
+              body by regulating the nervous system so leaders and teams can think
+              clearly, decide confidently, and sustain output without burning out.
+            </p>
+            <p className="mt-6 text-base leading-[1.85] text-[var(--c-eucalyptus)]/80">
+              Not a yoga class. Not executive coaching. Not corporate wellness.
+              Operational infrastructure for the human doing the work.
+            </p>
+          </div>
+
+          <div className="lg:col-span-7">
+            <p className="text-xs font-medium uppercase tracking-[0.28em] text-[var(--c-eucalyptus)]">
+              The Arc
+            </p>
+            <ol className="mt-6 grid gap-px overflow-hidden rounded-3xl bg-[var(--c-porcelain)]/10 sm:grid-cols-2">
+              {ARC.map((step) => (
+                <li
+                  key={step.n}
+                  className="bg-[var(--c-sea)]/60 p-7 transition-colors hover:bg-[var(--c-sea-deep)]/60"
+                >
+                  <p className="font-display text-2xl font-light text-[var(--c-bronze)]">
+                    {step.n}
+                  </p>
+                  <h3 className="mt-3 font-display text-xl font-normal text-[var(--c-porcelain)]">
+                    {step.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-[1.75] text-[var(--c-porcelain)]/80">
+                    {step.body}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Services() {
+  return (
+    <section id="services" className="mx-auto max-w-7xl px-6 py-28 md:py-36">
+      <div className="grid gap-14 lg:grid-cols-12">
+        <div className="lg:col-span-5">
+          <div className="flex items-center gap-3">
+            <Rule />
+            <SectionLabel>Services</SectionLabel>
+          </div>
+          <h2 className="mt-7 font-display text-[2.2rem] font-light leading-[1.1] tracking-[-0.015em] text-[var(--c-sea)] md:text-[2.8rem]">
+            Built for teams carrying more than their systems can hold.
+          </h2>
+          <p className="mt-6 max-w-md text-base leading-[1.85] text-[var(--c-sea-text)]/80">
+            Three engagement shapes. One method. Every offering custom-scoped to the
+            room it’s walking into. Never a template. Never a wellness add-on.
+          </p>
+        </div>
+
+        <div className="grid gap-6 lg:col-span-7 lg:grid-cols-1">
+          {SERVICES.map((s) => (
+            <article
+              key={s.n}
+              className="group relative flex flex-col overflow-hidden rounded-3xl border border-[var(--c-sea)]/10 bg-[var(--c-porcelain-soft)] p-8 transition-all duration-200 hover:-translate-y-1 hover:border-[var(--c-sea)]/30 hover:bg-[var(--c-rainfog)]"
+            >
+              <div className="flex items-baseline justify-between">
+                <p className="font-display text-2xl font-light text-[var(--c-bronze)]">
+                  {s.n}
+                </p>
+                <p className="text-[10px] uppercase tracking-[0.28em] text-[var(--c-willow)]">
+                  {s.kicker}
+                </p>
+              </div>
+              <h3 className="mt-5 font-display text-2xl font-normal text-[var(--c-sea)] md:text-[1.75rem]">
+                {s.title}
+              </h3>
+              <p className="mt-4 text-base leading-[1.8] text-[var(--c-sea-text)]/85">
+                {s.body}
+              </p>
+              <BronzeLink href="#book">Let’s talk</BronzeLink>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Fit() {
+  return (
+    <section id="fit" className="bg-[var(--c-rainfog)]">
+      <div className="mx-auto max-w-7xl px-6 py-28 md:py-32">
+        <div className="grid gap-14 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <div className="flex items-center gap-3">
+              <Rule />
+              <SectionLabel>Who This Is For</SectionLabel>
+            </div>
+            <h2 className="mt-7 font-display text-[2.1rem] font-light leading-[1.1] tracking-[-0.015em] text-[var(--c-sea)] md:text-[2.6rem]">
+              Built for organizations ready to move beyond generic wellness.
+            </h2>
+          </div>
+
+          <div className="lg:col-span-7">
+            <ul className="grid gap-px overflow-hidden rounded-3xl bg-[var(--c-sea)]/10">
+              {FIT.map((item) => (
+                <li
+                  key={item.title}
+                  className="bg-[var(--c-porcelain)] p-7 transition-colors duration-200 hover:bg-[var(--c-eucalyptus)]/55"
+                >
+                  <div className="flex items-baseline justify-between gap-4">
+                    <h3 className="font-display text-xl font-normal text-[var(--c-sea)]">
+                      {item.title}
+                    </h3>
+                    <span aria-hidden className="text-[var(--c-bronze)]">
+                      +
+                    </span>
+                  </div>
+                  <p className="mt-3 text-sm leading-[1.8] text-[var(--c-sea-text)]/85">
+                    {item.body}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SocialProof() {
+  return (
+    <section id="proof" className="px-6 py-24 md:py-32">
+      <figure className="relative mx-auto max-w-5xl overflow-hidden rounded-[2rem] bg-[var(--c-sea)] p-10 text-[var(--c-porcelain)] texture-sea md:p-16">
+        <div className="flex items-center gap-4">
+          <span
+            aria-hidden
+            className="font-display text-6xl font-light leading-none text-[var(--c-bronze)]"
+          >
+            “
+          </span>
+          <p className="text-[10px] uppercase tracking-[0.32em] text-[var(--c-eucalyptus)]">
+            Field Note
+          </p>
+        </div>
+
+        <blockquote className="mt-7 font-display text-[1.7rem] font-light leading-[1.25] tracking-[-0.015em] text-[var(--c-porcelain)] md:text-[2.4rem]">
+          We brought The Willow Well in for a startup founder retreat, and it was
+          anything but typical.
+          <span className="mt-6 block text-[1.2rem] leading-[1.55] text-[var(--c-porcelain)]/85 md:text-[1.45rem]">
+            Lee’s intentional approach of combining movement, play, breathwork,
+            internal dialogue, and rest helped create real clarity and alignment.
+            Personally, I walked away with clarity on a challenge I’d been circling
+            for two years and a clear path forward, and I’m incredibly grateful for
+            the experience.
+          </span>
+        </blockquote>
+
+        <figcaption className="mt-10 flex items-center gap-3 text-[11px] uppercase tracking-[0.28em] text-[var(--c-eucalyptus)]/85">
+          <span className="inline-block h-px w-8 bg-[var(--c-bronze)]/70" aria-hidden />
+          Laura Zabinski · Executive Director, American Underground
+        </figcaption>
+      </figure>
+    </section>
+  );
+}
+
+function About() {
+  return (
+    <section id="about" className="mx-auto max-w-7xl px-6 py-28 md:py-32">
+      <div className="grid gap-14 lg:grid-cols-12">
+        <div className="lg:col-span-5">
+          <div className="flex items-center gap-3">
+            <Rule />
+            <SectionLabel>About Lee</SectionLabel>
+          </div>
+          <h2 className="mt-7 font-display text-[2.4rem] font-light leading-[1.05] tracking-[-0.02em] text-[var(--c-sea)] md:text-[3rem]">
+            Not a guru.
+            <br />
+            <span className="italic text-[var(--c-bronze)]">A guide.</span>
+          </h2>
+
+          <div className="mt-10">
+            <p className="text-xs font-medium uppercase tracking-[0.28em] text-[var(--c-willow)]">
+              Credentials
+            </p>
+            <ul className="mt-5 space-y-2 text-sm leading-[1.85] text-[var(--c-sea-text)]/85">
+              {CREDENTIALS.map((c) => (
+                <li key={c} className="flex gap-3">
+                  <span aria-hidden className="mt-[10px] inline-block h-px w-4 shrink-0 bg-[var(--c-willow)]" />
+                  <span>{c}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="space-y-8 text-lg leading-[1.85] text-[var(--c-sea-text)]/80 lg:col-span-7">
+          <p className="font-display text-[1.5rem] font-light italic leading-[1.4] text-[var(--c-sea)] md:text-[1.8rem]">
+            “I’m not an executive coach. I’m not a guru. I’m a guide, and there’s a
+            meaningful difference.”
+          </p>
+          <p>
+            The Willow Well is built from everything I know about what it actually
+            costs to operate from survival mode at the level my clients operate at,
+            and what shifts when you have the right tools. Not inspiration. Actual
+            capacity.
+          </p>
+          <p>
+            Lee Gray is the founder of The Willow Well and Associate Director at Knox
+            St Studios. She has spent 20+ years working across corporate, nonprofit,
+            and entrepreneurship ecosystems, and now works with leaders and teams who
+            are excellent at their craft and ready to stop running on fumes.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Book() {
+  return (
+    <section id="book" className="bg-[var(--c-sea)] text-[var(--c-porcelain)] texture-sea">
+      <div className="relative mx-auto max-w-5xl px-6 py-28 text-center md:py-36">
+        <div className="pointer-events-none absolute inset-0 opacity-50" aria-hidden />
+        <div className="relative">
+          <div className="flex items-center justify-center gap-3">
+            <span aria-hidden className="inline-block h-px w-8 bg-[var(--c-eucalyptus)]/70 align-middle" />
+            <p className="text-xs font-medium uppercase tracking-[0.28em] text-[var(--c-eucalyptus)]">
+              Start Here
+            </p>
+            <span aria-hidden className="inline-block h-px w-8 bg-[var(--c-eucalyptus)]/70 align-middle" />
+          </div>
+
+          <h2 className="mx-auto mt-7 max-w-3xl font-display text-[2.4rem] font-light leading-[1.08] tracking-[-0.02em] text-[var(--c-porcelain)] md:text-[3.2rem]">
+            Ready to build capacity that lasts?
+          </h2>
+
+          <p className="mx-auto mt-7 max-w-2xl text-lg leading-[1.85] text-[var(--c-porcelain)]/85">
+            Every engagement starts with a 20-minute discovery call. No pitch. Just a
+            real conversation about what your team needs and whether this is the right
+            room for it.
+          </p>
+
+          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <a
+              href="mailto:info@thewillowwellco.com?subject=Discovery%20Call%20Request"
+              className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-full bg-[var(--c-porcelain)] px-7 py-4 text-sm font-medium tracking-wide text-[var(--c-sea)] transition-colors duration-200 hover:bg-[var(--c-eucalyptus)]"
+            >
+              <span className="relative">Request a Discovery Call</span>
+              <span aria-hidden className="relative transition-transform duration-200 group-hover:translate-x-1">
+                →
+              </span>
+            </a>
+            <a
+              href="mailto:info@thewillowwellco.com"
+              className="inline-flex items-center justify-center gap-3 rounded-full border border-[var(--c-porcelain)]/40 px-7 py-4 text-sm font-medium tracking-wide text-[var(--c-porcelain)] transition-colors duration-200 hover:border-[var(--c-porcelain)]/70 hover:bg-[var(--c-porcelain)]/10"
+            >
+              Email directly
+            </a>
+          </div>
+
+          <p className="mt-10 text-[11px] uppercase tracking-[0.32em] text-[var(--c-eucalyptus)]/80">
+            Same-week engagements are reviewed by request only
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default function App() {
+  return (
+    <div id="top" className="min-h-screen bg-[var(--c-porcelain)] text-[var(--c-sea-text)]">
+      <Header />
+      <main>
+        <Hero />
+        <Problem />
+        <Method />
+        <Services />
+        <Fit />
+        <SocialProof />
+        <About />
+        <Book />
+      </main>
+      <Footer />
     </div>
   );
 }
