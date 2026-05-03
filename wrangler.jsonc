@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "willow-vite",
+  "name": "the-willow-well-site",
   "compatibility_date": "2026-05-03",
   "observability": {
     "enabled": true
