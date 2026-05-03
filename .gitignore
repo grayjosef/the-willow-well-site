@@ -24,3 +24,10 @@ install-*.sh
 install-*.sh:Zone.Identifier
 src/App.jsx.bak6
 index.html.bak2
+diagnose-*.sh
+diagnose-*.sh:Zone.Identifier
+*:Zone.Identifier
+src/*.bak
+src/*.bak[0-9]
+src/*.preMobileFix
+index.html.bak[0-9]
