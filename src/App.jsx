@@ -1,11 +1,16 @@
 import React from "react";
 
 /* ============================================================
-   The Willow Well — Cinematic Atmosphere
-   Drop-in replacement for src/App.jsx
-   Keeps NAV_ITEMS / data shapes; switches the visual register to
-   the Cinematic direction (dark hero with breathing compass,
-   contour lines, light/dark cadence).
+   The Willow Well — Cohesive Mashup
+   - HERO: Editorial Quiet layout (asymmetric grid + circular stamp +
+     4-column footer row + fadeUp cascade), painted in the Cinematic
+     dark palette with Fraunces ultralight + Instrument Serif italics.
+   - METHOD: Cinematic dark band (dotted bronze arc, glass numbered
+     markers, four movements).
+   - SERVICES: Editorial Quiet 3-column hairline-divided card grid
+     ("i. / ii. / iii.") rendered with Cinematic typography &
+     italic accents.
+   - PROBLEM / FIT / PROOF / ABOUT / BOOK / FOOTER: Cinematic Atmosphere.
    ============================================================ */
 
 const NAV_ITEMS = [
@@ -24,9 +29,41 @@ const ARC = [
 ];
 
 const SERVICES = [
-  { n: "i.",   kicker: "HALF-DAY · FULL-DAY · ON-SITE",  title: "Workshops",        italic: false, body: "Half-day and full-day intensives for corporate teams, accelerator cohorts, and organizational off-sites. Every session delivers a tool participants take back to work the same day." },
-  { n: "ii.",  kicker: "6 MONTHS · TWICE WEEKLY",         title: "Cohort Programs",  italic: true,  body: "Ongoing programs that build capacity over time. The Rooted Practice at Kate's Korner Learning Center is the model — measurable behavioral change." },
-  { n: "iii.", kicker: "HALF-DAY · TWO-DAY · IMMERSIVE", title: "Retreats",         italic: false, body: "Half-day to two-day immersive experiences for teams ready to do the deeper work. Breathwork, somatic movement, values clarification, strategic wayfinding." },
+  {
+    n: "i.", title: "Workshops", italic: false,
+    fmt: "Half-day · Full-day · On-site",
+    body: "Half-day and full-day intensives for corporate teams, accelerator cohorts, and organizational off-sites. Every session follows the arc and delivers a tool participants take back to work the same day.",
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.2">
+        <rect x="4" y="6" width="24" height="20" rx="1" />
+        <path d="M4 12 L28 12" />
+        <path d="M9 18 L23 18 M9 22 L19 22" />
+      </svg>
+    ),
+  },
+  {
+    n: "ii.", title: "Cohort", italic: true, suffix: " Programs",
+    fmt: "6 months · Twice weekly",
+    body: "Ongoing programs that build capacity over time. The Rooted Practice at Kate's Korner Learning Center is the model: a six-month staff wellness cohort with measurable behavioral change.",
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.2">
+        <circle cx="16" cy="16" r="12" />
+        <path d="M4 16 L28 16 M16 4 Q 22 16 16 28 Q 10 16 16 4" />
+      </svg>
+    ),
+  },
+  {
+    n: "iii.", title: "Retreats", italic: false,
+    fmt: "Half-day · Two-day · Immersive",
+    body: "Half-day to two-day immersive experiences for teams ready to do the deeper work. Breathwork, somatic movement, values clarification, strategic wayfinding, closing ceremony.",
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.2">
+        <path d="M4 26 L12 14 L18 20 L28 6" />
+        <path d="M4 26 L28 26" />
+        <circle cx="22" cy="10" r="2" fill="currentColor" />
+      </svg>
+    ),
+  },
 ];
 
 const FIT = [
@@ -44,8 +81,15 @@ const CREDENTIALS = [
   { l: "Fellow",      v: "Goodmon · Leadership Triangle" },
 ];
 
+const HERO_FOOTROW = [
+  { lab: "01 / Built for", base: "High-growth ", em: "companies" },
+  { lab: "02 / Built for", base: "Accelerator ", em: "cohorts" },
+  { lab: "03 / Built for", base: "Mission-driven ", em: "nonprofits" },
+  { lab: "Engagements",    base: "Workshops · Cohorts · ", em: "Retreats" },
+];
+
 /* ─────────────────────────────────────────────────────────────
-   Reusable atoms
+   Atoms
    ───────────────────────────────────────────────────────────── */
 
 function Mark({ className = "h-7 w-7" }) {
@@ -163,16 +207,16 @@ function PrimaryCTA({ href, children, variant = "bronze" }) {
   );
 }
 
-function GhostCTA({ href, children, light = true }) {
+function GhostCTA({ href, children }) {
   return (
-    <a href={href} className={`inline-flex items-center gap-2 border-b pb-1.5 text-[12px] font-medium uppercase tracking-[0.16em] transition-colors duration-300 ${light ? "border-[var(--c-bronze)] text-[var(--c-porcelain-soft)] hover:text-[var(--c-bronze)]" : "border-[var(--c-bronze)] text-[var(--c-sea-text)] hover:text-[var(--c-bronze)]"}`}>
+    <a href={href} className="inline-flex items-center gap-2 border-b border-[var(--c-bronze)] pb-1.5 text-[12px] font-medium uppercase tracking-[0.16em] text-[var(--c-eucalyptus)] transition-colors duration-300 hover:text-[var(--c-bronze)]">
       {children}
     </a>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Header — sits inside the dark hero, transparent
+   Header — transparent over dark hero, with mobile menu
    ───────────────────────────────────────────────────────────── */
 
 function Header() {
@@ -184,7 +228,7 @@ function Header() {
       </a>
       <header className="relative z-30">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 border-b border-[var(--c-eucalyptus)]/12 px-6 py-6 sm:px-14">
-          <a href="#top" aria-label="The Willow Well — home" className="group inline-flex items-center gap-3 text-[var(--c-rainfog)]">
+          <a href="#top" aria-label="The Willow Well — home" className="inline-flex items-center gap-3 text-[var(--c-rainfog)]">
             <span aria-hidden="true"><Mark className="h-7 w-7" /></span>
             <span className="font-display text-[15px] font-light uppercase tracking-[0.18em]">The Willow Well</span>
           </a>
@@ -213,9 +257,7 @@ function Header() {
             className="md:hidden inline-flex h-10 w-10 items-center justify-center border border-[var(--c-eucalyptus)]/30 text-[var(--c-rainfog)]"
           >
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-              {open
-                ? <path d="M6 6 L18 18 M18 6 L6 18" />
-                : <path d="M4 8 L20 8 M4 16 L20 16" />}
+              {open ? <path d="M6 6 L18 18 M18 6 L6 18" /> : <path d="M4 8 L20 8 M4 16 L20 16" />}
             </svg>
           </button>
         </div>
@@ -238,12 +280,12 @@ function Header() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Hero — cinematic dark with breathing orb + drifting compass
+   HERO — Editorial Quiet layout, Cinematic palette + animation cascade
    ───────────────────────────────────────────────────────────── */
 
 function Hero() {
   return (
-    <section id="hero" className="relative min-h-[980px] overflow-hidden text-[var(--c-rainfog)]"
+    <section id="hero" className="relative overflow-hidden text-[var(--c-rainfog)]"
       style={{
         background: `
           radial-gradient(80% 60% at 50% 100%, rgba(166,128,90,0.18), transparent 60%),
@@ -251,8 +293,15 @@ function Hero() {
           radial-gradient(60% 50% at 15% 30%, rgba(63,95,100,0.6), transparent 70%),
           linear-gradient(180deg, #0F1A1C 0%, #1A2628 60%, #0F1A1C 100%)`,
       }}>
-      {/* noise */}
       <div className="noise-overlay relative" aria-hidden />
+      {/* faint 12-col grid mask, editorial */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] opacity-50"
+        style={{
+          backgroundImage: "linear-gradient(to right, rgba(199,212,207,0.04) 1px, transparent 1px)",
+          backgroundSize: "calc(100% / 12) 100%",
+          maskImage: "linear-gradient(180deg, transparent, #000 35%, #000 80%, transparent)",
+          WebkitMaskImage: "linear-gradient(180deg, transparent, #000 35%, #000 80%, transparent)",
+        }} />
       {/* contour lines */}
       <div className="pointer-events-none absolute inset-0 z-[1] opacity-40" aria-hidden>
         <svg viewBox="0 0 1600 900" preserveAspectRatio="none" className="h-full w-full">
@@ -261,74 +310,99 @@ function Hero() {
             <path d="M0 760 Q 400 640 800 740 T 1600 700" />
             <path d="M0 800 Q 400 680 800 780 T 1600 740" />
             <path d="M0 840 Q 400 720 800 820 T 1600 780" />
-            <path d="M0 880 Q 400 760 800 860 T 1600 820" />
             <path d="M0 200 Q 400 120 800 180 T 1600 160" opacity="0.6" />
-            <path d="M0 160 Q 400  80 800 140 T 1600 120" opacity="0.4" />
           </g>
         </svg>
       </div>
-      {/* breathing orb */}
-      <div aria-hidden className="anim-breathe pointer-events-none absolute left-1/2 top-[55%] z-[1] h-[680px] w-[680px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-        style={{ background: "radial-gradient(circle at 50% 40%, rgba(199,212,207,0.25), rgba(77,113,119,0.1) 40%, transparent 70%)", filter: "blur(2px)" }} />
-      {/* drifting compass mark — positioned below H1, inside the orb halo */}
-      <div aria-hidden className="anim-drift pointer-events-none absolute left-1/2 top-[62%] z-[2] h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2" style={{ color: "rgba(199,212,207,0.32)" }}>
-        <Mark className="h-full w-full" />
-      </div>
 
-      <div className="relative z-[5] mx-auto max-w-7xl px-14">
+      <div className="relative z-[5] mx-auto max-w-7xl px-6 sm:px-14">
         <Header />
 
-        <div className="flex flex-col items-center pt-36 text-center">
-          <Eyebrow flank>Somatic Strategy · Durham, NC · Est. 2024</Eyebrow>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-16 lg:gap-20 items-end pt-28 pb-16 lg:pt-36 lg:pb-24">
+          {/* LEFT — copy column */}
+          <div>
+            <div className="anim-fade-up" style={{ animationDelay: "0s" }}>
+              <Eyebrow flank>Somatic Strategy · Est. Durham, NC</Eyebrow>
+            </div>
 
-          <h1 className="anim-fade-up mt-9 max-w-[14ch] font-display text-[72px] font-extralight leading-[0.9] tracking-[-0.035em] text-[var(--c-porcelain-soft)] sm:text-[96px] md:text-[124px] lg:text-[152px]">
-            Clarity and capacity<br />
-            begin in the <span style={{ fontFamily: "var(--font-italic)", color: "var(--c-bronze)", fontWeight: 400 }}>body.</span>
-          </h1>
+            <h1 className="anim-fade-up mt-9 max-w-[13ch] font-display font-extralight tracking-[-0.03em] text-[var(--c-porcelain-soft)] text-[64px] sm:text-[88px] md:text-[112px] lg:text-[124px]"
+                style={{ animationDelay: ".1s", lineHeight: 0.94 }}>
+              Clarity and capacity<br />
+              begin in the <Italic><span style={{ color: "var(--c-bronze)" }}>body.</span></Italic>
+            </h1>
 
-          <p className="anim-fade-up mt-12 max-w-[600px] text-[18px] leading-[1.55] text-[var(--c-eucalyptus)]" style={{ animationDelay: ".2s" }}>
-            Operational infrastructure for leaders and teams who are excellent at their work — and running on fumes. Workshops, cohort programs, and retreats that build capacity that lasts.
-          </p>
+            <p className="anim-fade-up mt-10 max-w-[540px] text-[19px] leading-[1.5] text-[var(--c-eucalyptus)]" style={{ animationDelay: ".25s" }}>
+              Operational infrastructure for leaders and teams who are excellent at their work — and running on fumes. Workshops, cohort programs, and retreats that build capacity that lasts.
+            </p>
 
-          <div className="anim-fade-up mt-14 flex flex-col items-center gap-6 sm:flex-row" style={{ animationDelay: ".4s" }}>
-            <PrimaryCTA href="#book">Book a Discovery Call</PrimaryCTA>
-            <GhostCTA href="#method">See the method</GhostCTA>
+            <div className="anim-fade-up mt-12 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-7" style={{ animationDelay: ".4s" }}>
+              <PrimaryCTA href="#book">Book a Discovery Call</PrimaryCTA>
+              <GhostCTA href="#method">See the method</GhostCTA>
+            </div>
           </div>
-        </div>
-      </div>
 
-      {/* bottom rail */}
-      <div className="absolute bottom-8 left-0 right-0 z-[5] flex items-center justify-between px-6 sm:px-14 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--c-willow)]" style={{ fontFamily: "var(--font-mono)" }}>
-        <div className="inline-flex items-center gap-2.5">
-          <svg viewBox="0 0 24 24" className="anim-fall h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M12 5 L12 19 M6 13 L12 19 L18 13" />
-          </svg>
-          <span>Scroll · The Premise</span>
+          {/* RIGHT — meta column with rotating stamp */}
+          <aside className="anim-fade-up flex flex-col items-start gap-8 border-t border-[var(--c-eucalyptus)]/20 pt-9 lg:items-end lg:border-l lg:border-t-0 lg:pl-9 lg:pt-0 lg:text-right" style={{ animationDelay: ".55s" }}>
+            <div className="relative inline-flex h-[136px] w-[136px] items-center justify-center rounded-full border border-[var(--c-eucalyptus)]/35 text-[var(--c-eucalyptus)]">
+              <svg viewBox="0 0 140 140" className="anim-rot absolute inset-0 h-full w-full" aria-hidden="true">
+                <defs>
+                  <path id="stamp-path" d="M 70,70 m -54,0 a 54,54 0 1,1 108,0 a 54,54 0 1,1 -108,0" />
+                </defs>
+                <text fill="currentColor" style={{ fontSize: "9px", letterSpacing: "2.6px", fontFamily: "var(--font-mono)" }}>
+                  <textPath href="#stamp-path">SOMATIC · STRATEGY · FOR · CLARITY · &amp; · CAPACITY · </textPath>
+                </text>
+              </svg>
+              <div className="text-center" style={{ fontFamily: "var(--font-italic)" }}>
+                <div className="text-[12px] tracking-[0.06em] text-[var(--c-willow)]" style={{ fontFamily: "var(--font-mono)" }}>est.</div>
+                <div className="text-[20px] text-[var(--c-bronze)]">2024</div>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1.5 lg:items-end">
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--c-willow)]" style={{ fontFamily: "var(--font-mono)" }}>Practitioner</span>
+              <span className="font-display text-[20px] font-light text-[var(--c-porcelain-soft)]">Lee Gray</span>
+            </div>
+
+            <div className="flex flex-col gap-1.5 lg:items-end">
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--c-willow)]" style={{ fontFamily: "var(--font-mono)" }}>Available</span>
+              <span className="font-display text-[20px] font-light text-[var(--c-porcelain-soft)]">Q3 · Q4 · 2026</span>
+            </div>
+          </aside>
         </div>
-        <div className="hidden sm:block">For high-performing teams · CHRO · L&amp;D · ESO</div>
-        <div>01 / 09</div>
+
+        {/* hero footer row — 4 columns of buyer types */}
+        <div className="anim-fade-up grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 border-t border-[var(--c-eucalyptus)]/20 pt-9 pb-16" style={{ animationDelay: ".7s" }}>
+          {HERO_FOOTROW.map((item) => (
+            <div key={item.lab}>
+              <span className="block mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--c-willow)]" style={{ fontFamily: "var(--font-mono)" }}>{item.lab}</span>
+              <span className="font-display text-[20px] font-light leading-[1.2] text-[var(--c-porcelain-soft)] block">
+                {item.base}<Italic><span style={{ color: "var(--c-bronze)" }}>{item.em}</span></Italic>
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Problem — light editorial
+   PROBLEM — Cinematic light editorial
    ───────────────────────────────────────────────────────────── */
 
 function Problem() {
   return (
     <section id="problem" className="relative overflow-hidden bg-[var(--c-porcelain-soft)] py-44 text-[var(--c-ink)]">
-      <div aria-hidden className="pointer-events-none absolute -left-32 top-1/2 h-[600px] w-[600px] -translate-y-1/2 opacity-50 text-[var(--c-eucalyptus)]">
+      <div aria-hidden className="pointer-events-none absolute -left-32 top-1/2 hidden h-[600px] w-[600px] -translate-y-1/2 opacity-50 text-[var(--c-eucalyptus)] sm:block">
         <Mark className="h-full w-full" />
       </div>
-      <div className="relative z-[2] mx-auto max-w-7xl px-14">
+      <div className="relative z-[2] mx-auto max-w-7xl px-6 sm:px-14">
         <div className="mb-20 flex items-center justify-between border-t border-[var(--c-sea)]/35 pt-6">
           <Eyebrow tone="text">02 · The Premise</Eyebrow>
           <Eyebrow tone="text">North · 02</Eyebrow>
         </div>
 
-        <h2 className="max-w-[18ch] font-display text-[48px] font-extralight leading-[1.02] tracking-[-0.025em] text-[var(--c-ink)] md:text-[72px] lg:text-[96px]">
+        <h2 className="max-w-[18ch] font-display text-[40px] font-extralight leading-[1.02] tracking-[-0.025em] text-[var(--c-ink)] sm:text-[56px] md:text-[72px] lg:text-[96px]">
           Your people aren't{" "}
           <span className="relative text-[var(--c-willow)]">
             underperforming.
@@ -339,7 +413,7 @@ function Problem() {
           nervous system level.
         </h2>
 
-        <p className="mt-20 max-w-[54ch] border-l-2 border-[var(--c-bronze)] pl-6 font-display text-[24px] font-light leading-[1.4] text-[var(--c-sea-text)]">
+        <p className="mt-20 max-w-[54ch] border-l-2 border-[var(--c-bronze)] pl-6 font-display text-[22px] font-light leading-[1.4] text-[var(--c-sea-text)] sm:text-[24px]">
           And no amount of strategic planning fixes a dysregulated team. Somatic Strategy is how you change that — by treating capacity as the upstream variable, not the lagging indicator.
         </p>
       </div>
@@ -348,7 +422,7 @@ function Problem() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Method — dark second-act with horizontal arc
+   METHOD — Cinematic dark second-act
    ───────────────────────────────────────────────────────────── */
 
 function Method() {
@@ -357,11 +431,11 @@ function Method() {
       style={{ background: "linear-gradient(180deg,#0F1A1C 0%, #16252A 100%)" }}>
       <div aria-hidden className="pointer-events-none absolute inset-0"
         style={{ background: "radial-gradient(60% 80% at 50% 0%, rgba(166,128,90,0.12), transparent 70%)" }} />
-      <div className="relative mx-auto max-w-7xl px-14">
-        <div className="mb-28 grid items-end gap-20 lg:grid-cols-2">
+      <div className="relative mx-auto max-w-7xl px-6 sm:px-14">
+        <div className="mb-28 grid items-end gap-16 lg:grid-cols-2 lg:gap-20">
           <div>
             <Eyebrow>03 · Somatic Strategy</Eyebrow>
-            <h2 className="mt-8 font-display text-[48px] font-extralight leading-[0.96] tracking-[-0.03em] text-[var(--c-porcelain-soft)] md:text-[64px] lg:text-[84px]">
+            <h2 className="mt-8 font-display text-[44px] font-extralight leading-[0.96] tracking-[-0.03em] text-[var(--c-porcelain-soft)] sm:text-[56px] md:text-[64px] lg:text-[84px]">
               Four movements.<br />
               One <Italic><span style={{ color: "var(--c-bronze)" }}>arc.</span></Italic>
             </h2>
@@ -373,7 +447,6 @@ function Method() {
         </div>
 
         <div className="relative">
-          {/* dotted flowing arc — only meaningful when 4-col layout is active */}
           <div aria-hidden className="pointer-events-none absolute left-0 right-0 top-[62px] z-[1] hidden h-[140px] lg:block">
             <svg viewBox="0 0 1200 140" preserveAspectRatio="none" className="h-full w-full overflow-visible">
               <path d="M 80 70 Q 380 10 600 70 T 1120 70" stroke="rgba(166,128,90,0.5)" strokeWidth="1" fill="none" strokeDasharray="3 5" />
@@ -407,40 +480,41 @@ function Method() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Services — premium full-bleed list rows on light
+   SERVICES — Editorial Quiet 3-column hairline grid + Cinematic type
    ───────────────────────────────────────────────────────────── */
 
 function Services() {
   return (
     <section id="services" className="bg-[var(--c-porcelain-soft)] py-44 text-[var(--c-ink)]">
-      <div className="mx-auto max-w-7xl px-14">
-        <div className="mb-20 grid items-end gap-20 lg:grid-cols-2">
-          <div>
-            <Eyebrow>04 · Engagements</Eyebrow>
-            <h2 className="mt-6 font-display text-[48px] font-extralight leading-[0.98] tracking-[-0.03em] text-[var(--c-ink)] md:text-[64px] lg:text-[84px]">
-              Three ways<br />
-              to <Italic><span style={{ color: "var(--c-sea-deep)" }}>work together.</span></Italic>
-            </h2>
-          </div>
-          <p className="max-w-[42ch] text-[17px] leading-[1.6] text-[var(--c-sea-text)]">
-            Each engagement follows the Somatic Strategy arc. Custom-scoped to your context. No off-the-shelf workshops, no scripted retreats.
+      <div className="mx-auto max-w-7xl px-6 sm:px-14">
+        <div className="mb-20">
+          <Eyebrow>04 · Engagements</Eyebrow>
+          <h2 className="mt-6 font-display text-[44px] font-extralight leading-[0.98] tracking-[-0.025em] text-[var(--c-ink)] sm:text-[56px] md:text-[64px] lg:text-[68px]">
+            Three ways to <Italic><span style={{ color: "var(--c-sea-deep)" }}>work together.</span></Italic>
+          </h2>
+          <p className="mt-6 max-w-[52ch] text-[17px] leading-[1.55] text-[var(--c-sea-text)]">
+            Each engagement follows the Somatic Strategy arc. Custom-scoped to context. No off-the-shelf workshops, no scripted retreats.
           </p>
         </div>
 
-        <div className="flex flex-col">
+        <div className="grid border-y border-[var(--c-sea)]/30 lg:grid-cols-3">
           {SERVICES.map((s, i) => (
-            <a key={s.n} href="#book"
-              className={`group grid items-center gap-12 px-8 py-12 transition-all duration-300 hover:bg-[var(--c-rainfog)] hover:pl-12 lg:grid-cols-[80px_1fr_1.4fr_1fr_200px] ${i === 0 ? "border-y" : "border-b"} border-[var(--c-sea)]/16`}>
-              <div className="font-display text-[48px] font-light text-[var(--c-bronze)]" style={{ lineHeight: 1 }}>{s.n}</div>
-              <h3 className="font-display text-[36px] font-light tracking-[-0.02em] text-[var(--c-ink)]" style={{ lineHeight: 1 }}>
-                {s.italic ? <Italic><span style={{ color: "var(--c-sea)" }}>{s.title}</span></Italic> : s.title}
+            <article key={s.n} className={`group relative px-9 pt-12 pb-14 transition-colors duration-300 hover:bg-[var(--c-rainfog)] ${i < SERVICES.length - 1 ? "border-b border-[var(--c-sea)]/16 lg:border-b-0 lg:border-r" : ""}`}>
+              <div className="mb-16 flex items-start justify-between">
+                <span className="font-display text-[18px] font-light text-[var(--c-bronze)]">{s.n}</span>
+                <span aria-hidden className="block h-8 w-8 text-[var(--c-sea-deep)] opacity-70">{s.icon}</span>
+              </div>
+              <h3 className="font-display text-[36px] font-light leading-none tracking-[-0.015em] text-[var(--c-ink)]">
+                {s.italic
+                  ? <><Italic><span style={{ color: "var(--c-sea)" }}>{s.title}</span></Italic>{s.suffix}</>
+                  : s.title}
               </h3>
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--c-sea-text)]" style={{ fontFamily: "var(--font-mono)" }}>{s.kicker}</p>
-              <p className="text-[15px] leading-[1.55] text-[var(--c-sea-text)]">{s.body}</p>
-              <span className="justify-self-start lg:justify-self-end inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--c-ink)]">
-                Let's Talk <span aria-hidden className="transition-all duration-300 group-hover:translate-x-1.5 group-hover:text-[var(--c-bronze)]">→</span>
-              </span>
-            </a>
+              <p className="mt-2 mb-6 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--c-sea-text)]" style={{ fontFamily: "var(--font-mono)" }}>{s.fmt}</p>
+              <p className="mb-9 text-[15px] leading-[1.55] text-[var(--c-sea-text)]">{s.body}</p>
+              <a href="#book" className="inline-flex items-center gap-2 border-b border-[var(--c-sea-deep)] pb-1 text-[11px] font-medium uppercase tracking-[0.18em] text-[var(--c-sea-deep)] transition-colors hover:border-[var(--c-bronze)] hover:text-[var(--c-bronze)]">
+                Let's Talk <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+              </a>
+            </article>
           ))}
         </div>
       </div>
@@ -449,7 +523,7 @@ function Services() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Fit — three premium tiles on rainfog
+   FIT — Cinematic
    ───────────────────────────────────────────────────────────── */
 
 function Fit() {
@@ -457,16 +531,15 @@ function Fit() {
     <section id="fit" className="relative overflow-hidden bg-[var(--c-rainfog)] py-40 text-[var(--c-ink)]">
       <div aria-hidden className="pointer-events-none absolute inset-0"
         style={{ background: "radial-gradient(60% 50% at 50% 100%, rgba(199,212,207,0.7), transparent 70%)" }} />
-      <div className="relative mx-auto max-w-7xl px-14">
+      <div className="relative mx-auto max-w-7xl px-6 sm:px-14">
         <div className="mb-20 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <div>
             <Eyebrow>05 · Audience</Eyebrow>
-            <h2 className="mt-6 font-display text-[48px] font-extralight leading-none tracking-[-0.025em] text-[var(--c-ink)] md:text-[64px] lg:text-[80px]">
-              Who this<br />
-              is <Italic><span style={{ color: "var(--c-bronze)" }}>for.</span></Italic>
+            <h2 className="mt-6 font-display text-[44px] font-extralight leading-none tracking-[-0.025em] text-[var(--c-ink)] sm:text-[56px] md:text-[64px] lg:text-[80px]">
+              Who this<br />is <Italic><span style={{ color: "var(--c-bronze)" }}>for.</span></Italic>
             </h2>
           </div>
-          <p className="max-w-[32ch] text-right font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--c-willow)]" style={{ fontFamily: "var(--font-mono)" }}>
+          <p className="max-w-[32ch] md:text-right font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--c-willow)]" style={{ fontFamily: "var(--font-mono)" }}>
             Three buyer types. Named directly because seeing yourself recognized is the first conversion.
           </p>
         </div>
@@ -495,27 +568,27 @@ function Fit() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Social Proof — cinematic editorial feature on dark
+   PROOF — Cinematic
    ───────────────────────────────────────────────────────────── */
 
 function SocialProof() {
   return (
-    <section id="proof" className="relative overflow-hidden py-48 text-[var(--c-porcelain-soft)]" style={{ background: "#0F1A1C" }}>
+    <section id="proof" className="relative overflow-hidden py-44 text-[var(--c-porcelain-soft)] sm:py-48" style={{ background: "#0F1A1C" }}>
       <div aria-hidden className="pointer-events-none absolute inset-0" style={{
         background: `
           radial-gradient(50% 50% at 80% 20%, rgba(166,128,90,0.15), transparent 60%),
           radial-gradient(60% 50% at 20% 80%, rgba(77,113,119,0.4), transparent 70%)`,
       }} />
-      <div className="relative mx-auto max-w-7xl px-14">
-        <div className="mb-20 flex items-end justify-between border-b border-[var(--c-rainfog)]/18 pb-8">
+      <div className="relative mx-auto max-w-7xl px-6 sm:px-14">
+        <div className="mb-20 flex flex-col gap-4 border-b border-[var(--c-rainfog)]/18 pb-8 sm:flex-row sm:items-end sm:justify-between">
           <Eyebrow>06 · Field Notes · Featured</Eyebrow>
           <Eyebrow>Founder Retreat / American Underground</Eyebrow>
         </div>
 
-        <div className="grid items-end gap-24 lg:grid-cols-[1fr_320px]">
+        <div className="grid items-end gap-16 lg:grid-cols-[1fr_320px] lg:gap-24">
           <div>
             <span aria-hidden className="-mb-10 block leading-[0.5] text-[var(--c-bronze)] opacity-30" style={{ fontFamily: "var(--font-italic)", fontStyle: "italic", fontSize: 200 }}>"</span>
-            <blockquote className="font-display text-[36px] font-extralight leading-[1.12] tracking-[-0.02em] text-[var(--c-porcelain-soft)] md:text-[52px] lg:text-[68px]">
+            <blockquote className="font-display text-[32px] font-extralight leading-[1.12] tracking-[-0.02em] text-[var(--c-porcelain-soft)] sm:text-[40px] md:text-[52px] lg:text-[68px]">
               We brought The Willow Well in for a startup founder retreat, and it was anything but typical. Lee's intentional approach helped create real{" "}
               <Italic><span style={{ color: "var(--c-bronze)" }}>clarity and alignment.</span></Italic> I walked away with clarity on a challenge I'd been circling for two years.
             </blockquote>
@@ -548,14 +621,14 @@ function SocialProof() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   About — Lee. Portrait plate + signature + creds grid
+   ABOUT — Cinematic
    ───────────────────────────────────────────────────────────── */
 
 function About() {
   return (
     <section id="about" className="relative overflow-hidden bg-[var(--c-porcelain-soft)] py-44 text-[var(--c-ink)]">
-      <div className="mx-auto max-w-7xl px-14">
-        <div className="grid items-start gap-24 lg:grid-cols-[1.1fr_1.4fr]">
+      <div className="mx-auto max-w-7xl px-6 sm:px-14">
+        <div className="grid items-start gap-16 lg:grid-cols-[1.1fr_1.4fr] lg:gap-24">
           <div className="relative aspect-[4/5] overflow-hidden"
             style={{
               background: `
@@ -573,9 +646,8 @@ function About() {
 
           <div>
             <Eyebrow>07 · The Practitioner</Eyebrow>
-            <h2 className="mb-12 mt-8 font-display text-[40px] font-extralight leading-none tracking-[-0.025em] text-[var(--c-ink)] md:text-[56px] lg:text-[72px]">
-              I'm not a coach.<br />
-              I'm a <Italic><span style={{ color: "var(--c-sea)" }}>guide.</span></Italic>
+            <h2 className="mb-12 mt-8 font-display text-[40px] font-extralight leading-none tracking-[-0.025em] text-[var(--c-ink)] sm:text-[48px] md:text-[56px] lg:text-[72px]">
+              I'm not a coach.<br />I'm a <Italic><span style={{ color: "var(--c-sea)" }}>guide.</span></Italic>
             </h2>
             <p className="mb-5 max-w-[54ch] font-display text-[17px] font-light leading-[1.65] text-[var(--c-sea-text)]">
               The Willow Well is built from everything I know about what it actually costs to operate from survival mode at the level my clients operate at — and what shifts when you have the right tools.
@@ -583,7 +655,7 @@ function About() {
             <p className="mb-8 max-w-[54ch] font-display text-[17px] font-light leading-[1.65] text-[var(--c-sea-text)]">
               Not inspiration. Actual capacity.
             </p>
-            <p className="text-[32px] text-[var(--c-bronze)]" style={{ fontFamily: "var(--font-italic)", fontStyle: "italic" }}>— Lee Gray</p>
+            <p className="text-[28px] text-[var(--c-bronze)] sm:text-[32px]" style={{ fontFamily: "var(--font-italic)", fontStyle: "italic" }}>— Lee Gray</p>
 
             <dl className="mt-14 grid grid-cols-1 border-t border-[var(--c-sea)]/16 sm:grid-cols-2">
               {CREDENTIALS.map((c) => (
@@ -601,7 +673,7 @@ function About() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Book — concentric ring glow on dark
+   BOOK — Cinematic
    ───────────────────────────────────────────────────────────── */
 
 function Book() {
@@ -609,23 +681,21 @@ function Book() {
     <section id="book" className="relative overflow-hidden py-44 text-center text-[var(--c-porcelain-soft)]"
       style={{ background: "linear-gradient(180deg,#0F1A1C 0%, #1A2628 60%, #0F1A1C 100%)" }}>
       <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(60% 70% at 50% 50%, rgba(166,128,90,0.18), transparent 70%)" }} />
-      <div aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--c-bronze)]/20">
+      <div aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--c-bronze)]/20 sm:block">
         <div className="absolute inset-[60px] rounded-full border border-[var(--c-bronze)]/12" />
         <div className="absolute inset-[140px] rounded-full border border-[var(--c-bronze)]/8" />
       </div>
 
-      <div className="relative z-[2] mx-auto max-w-5xl px-14">
+      <div className="relative z-[2] mx-auto max-w-5xl px-6 sm:px-14">
         <Eyebrow>08 · Begin</Eyebrow>
-        <h2 className="mx-auto mt-9 max-w-[22ch] font-display text-[56px] font-extralight leading-[0.94] tracking-[-0.035em] text-[var(--c-porcelain-soft)] md:text-[88px] lg:text-[124px]">
+        <h2 className="mx-auto mt-9 max-w-[22ch] font-display text-[48px] font-extralight leading-[0.94] tracking-[-0.03em] text-[var(--c-porcelain-soft)] sm:text-[64px] md:text-[88px] lg:text-[124px]">
           Ready to build<br />
           <Italic><span style={{ color: "var(--c-bronze)" }}>capacity</span></Italic> that lasts?
         </h2>
         <p className="mx-auto mb-14 mt-12 max-w-[48ch] font-display text-[18px] font-light leading-[1.55] text-[var(--c-eucalyptus)]">
           Every engagement starts with a 20-minute discovery call. No pitch. Just a real conversation about whether the fit is right.
         </p>
-        <PrimaryCTA href="mailto:info@thewillowwellco.com?subject=Discovery%20Call%20Request">
-          Book a Discovery Call
-        </PrimaryCTA>
+        <PrimaryCTA href="mailto:info@thewillowwellco.com?subject=Discovery%20Call%20Request">Book a Discovery Call</PrimaryCTA>
         <p className="mt-8 text-[18px] text-[var(--c-willow)]" style={{ fontFamily: "var(--font-italic)", fontStyle: "italic" }}>
           Same-week engagements are reviewed by request only.
         </p>
@@ -648,13 +718,13 @@ function Book() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Footer — minimal slab
+   FOOTER
    ───────────────────────────────────────────────────────────── */
 
 function Footer() {
   return (
     <footer className="bg-[#0A1214] py-12 text-[12px] tracking-[0.08em] text-[var(--c-willow)]">
-      <div className="mx-auto flex max-w-7xl flex-col items-start gap-4 px-14 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto flex max-w-7xl flex-col items-start gap-4 px-6 sm:px-14 sm:flex-row sm:items-center sm:justify-between">
         <a href="#top" aria-label="The Willow Well — home" className="inline-flex items-center gap-3 text-[var(--c-rainfog)]">
           <span aria-hidden="true" className="text-[var(--c-bronze)]"><Mark className="h-6 w-6" /></span>
           <span>© 2026 The Willow Well · Somatic Strategy</span>
