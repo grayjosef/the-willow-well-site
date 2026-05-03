@@ -176,18 +176,19 @@ function GhostCTA({ href, children, light = true }) {
    ───────────────────────────────────────────────────────────── */
 
 function Header() {
+  const [open, setOpen] = React.useState(false);
   return (
     <>
       <a href="#hero" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-[var(--c-bronze)] focus:px-4 focus:py-2 focus:text-xs focus:uppercase focus:tracking-[0.18em] focus:text-[var(--c-ink-deep)]">
         Skip to content
       </a>
       <header className="relative z-30">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 border-b border-[var(--c-eucalyptus)]/12 px-14 py-6">
-          <a href="#top" className="group inline-flex items-center gap-3 text-[var(--c-rainfog)]">
-            <Mark className="h-7 w-7" />
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 border-b border-[var(--c-eucalyptus)]/12 px-6 py-6 sm:px-14">
+          <a href="#top" aria-label="The Willow Well — home" className="group inline-flex items-center gap-3 text-[var(--c-rainfog)]">
+            <span aria-hidden="true"><Mark className="h-7 w-7" /></span>
             <span className="font-display text-[15px] font-light uppercase tracking-[0.18em]">The Willow Well</span>
           </a>
-          <nav className="hidden md:block">
+          <nav className="hidden md:block" aria-label="Primary">
             <ul className="flex items-center gap-10">
               {NAV_ITEMS.slice(0, -1).map((item) => (
                 <li key={item.id}>
@@ -203,7 +204,34 @@ function Header() {
               </li>
             </ul>
           </nav>
+          <button
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            onClick={() => setOpen((o) => !o)}
+            className="md:hidden inline-flex h-10 w-10 items-center justify-center border border-[var(--c-eucalyptus)]/30 text-[var(--c-rainfog)]"
+          >
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+              {open
+                ? <path d="M6 6 L18 18 M18 6 L6 18" />
+                : <path d="M4 8 L20 8 M4 16 L20 16" />}
+            </svg>
+          </button>
         </div>
+        {open && (
+          <div id="mobile-menu" className="md:hidden border-b border-[var(--c-eucalyptus)]/15 bg-[#0F1A1C]/95 backdrop-blur">
+            <ul className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-6">
+              {NAV_ITEMS.map((item) => (
+                <li key={item.id}>
+                  <a href={`#${item.id}`} onClick={() => setOpen(false)} className="block py-2 text-[14px] uppercase tracking-[0.14em] text-[var(--c-eucalyptus)]">
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </header>
     </>
   );
@@ -240,10 +268,10 @@ function Hero() {
         </svg>
       </div>
       {/* breathing orb */}
-      <div aria-hidden className="anim-breathe pointer-events-none absolute left-1/2 top-[46%] z-[1] h-[680px] w-[680px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+      <div aria-hidden className="anim-breathe pointer-events-none absolute left-1/2 top-[55%] z-[1] h-[680px] w-[680px] -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{ background: "radial-gradient(circle at 50% 40%, rgba(199,212,207,0.25), rgba(77,113,119,0.1) 40%, transparent 70%)", filter: "blur(2px)" }} />
-      {/* drifting compass mark behind wordmark */}
-      <div aria-hidden className="anim-drift pointer-events-none absolute left-1/2 top-[46%] z-[2] h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2" style={{ color: "rgba(199,212,207,0.55)" }}>
+      {/* drifting compass mark — positioned below H1, inside the orb halo */}
+      <div aria-hidden className="anim-drift pointer-events-none absolute left-1/2 top-[62%] z-[2] h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2" style={{ color: "rgba(199,212,207,0.32)" }}>
         <Mark className="h-full w-full" />
       </div>
 
@@ -270,7 +298,7 @@ function Hero() {
       </div>
 
       {/* bottom rail */}
-      <div className="absolute bottom-8 left-0 right-0 z-[5] flex items-center justify-between px-14 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--c-willow)]" style={{ fontFamily: "var(--font-mono)" }}>
+      <div className="absolute bottom-8 left-0 right-0 z-[5] flex items-center justify-between px-6 sm:px-14 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--c-willow)]" style={{ fontFamily: "var(--font-mono)" }}>
         <div className="inline-flex items-center gap-2.5">
           <svg viewBox="0 0 24 24" className="anim-fall h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M12 5 L12 19 M6 13 L12 19 L18 13" />
@@ -345,8 +373,8 @@ function Method() {
         </div>
 
         <div className="relative">
-          {/* dotted flowing arc */}
-          <div className="pointer-events-none absolute left-0 right-0 top-[62px] z-[1] h-[140px]">
+          {/* dotted flowing arc — only meaningful when 4-col layout is active */}
+          <div aria-hidden className="pointer-events-none absolute left-0 right-0 top-[62px] z-[1] hidden h-[140px] lg:block">
             <svg viewBox="0 0 1200 140" preserveAspectRatio="none" className="h-full w-full overflow-visible">
               <path d="M 80 70 Q 380 10 600 70 T 1120 70" stroke="rgba(166,128,90,0.5)" strokeWidth="1" fill="none" strokeDasharray="3 5" />
               <circle cx="80"   cy="70" r="3" fill="#A6805A" />
@@ -451,11 +479,11 @@ function Fit() {
                 <span className="text-[var(--c-sea-deep)] opacity-60">{i + 1}</span>
               </div>
               <div>
-                <h4 className="font-display text-[30px] font-light leading-[1.05] tracking-[-0.015em] text-[var(--c-ink)]">
+                <h3 className="font-display text-[30px] font-light leading-[1.05] tracking-[-0.015em] text-[var(--c-ink)]">
                   {f.title}{" "}
                   <Italic><span style={{ color: "var(--c-sea)" }}>{f.italicTitle}</span></Italic>
                   {f.suffix}
-                </h4>
+                </h3>
                 <p className="mt-4 text-[14px] leading-[1.6] text-[var(--c-sea-text)]">{f.body}</p>
               </div>
             </article>
@@ -560,7 +588,7 @@ function About() {
             <dl className="mt-14 grid grid-cols-1 border-t border-[var(--c-sea)]/16 sm:grid-cols-2">
               {CREDENTIALS.map((c) => (
                 <div key={c.l} className="flex items-center justify-between gap-4 border-b border-[var(--c-sea)]/16 px-1 py-[18px]">
-                  <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--c-willow)]" style={{ fontFamily: "var(--font-mono)" }}>{c.l}</dt>
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--c-sea-text)]" style={{ fontFamily: "var(--font-mono)" }}>{c.l}</dt>
                   <dd className="font-display text-[14px] text-[var(--c-ink)]">{c.v}</dd>
                 </div>
               ))}
@@ -627,8 +655,8 @@ function Footer() {
   return (
     <footer className="bg-[#0A1214] py-12 text-[12px] tracking-[0.08em] text-[var(--c-willow)]">
       <div className="mx-auto flex max-w-7xl flex-col items-start gap-4 px-14 sm:flex-row sm:items-center sm:justify-between">
-        <a href="#top" className="inline-flex items-center gap-3 text-[var(--c-rainfog)]">
-          <span className="text-[var(--c-bronze)]"><Mark className="h-6 w-6" /></span>
+        <a href="#top" aria-label="The Willow Well — home" className="inline-flex items-center gap-3 text-[var(--c-rainfog)]">
+          <span aria-hidden="true" className="text-[var(--c-bronze)]"><Mark className="h-6 w-6" /></span>
           <span>© 2026 The Willow Well · Somatic Strategy</span>
         </a>
         <div>info@thewillowwellco.com · 910.691.2336</div>
