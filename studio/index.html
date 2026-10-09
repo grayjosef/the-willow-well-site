@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+
+<title>Studio — The Willow Well</title>
+
+<link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+
+<style>
+  :root {
+    --c-porcelain: #FAF8F5;
+    --c-sea-text: #1E2A2E;
+    --c-willow: #5A7A7A;
+    --c-bronze: #B8935A;
+    --c-rainfog: #E8EDEA;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--c-porcelain); color: var(--c-sea-text); }
+  .st-wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .st-login { max-width: 400px; margin: 100px auto; padding: 40px; background: white; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+  .st-login h1 { font-size: 24px; margin-bottom: 8px; }
+  .st-login p { color: var(--c-willow); margin-bottom: 24px; font-size: 14px; }
+  .st-login input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 16px; font-size: 16px; }
+  .st-login button { width: 100%; padding: 12px; background: var(--c-sea-text); color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
+  .st-login button:hover { opacity: 0.9; }
+  .st-top { background: white; border-bottom: 1px solid #eee; padding: 16px 0; position: sticky; top: 0; z-index: 10; }
+  .st-top-inner { display: flex; align-items: center; gap: 16px; }
+  .st-brand { font-weight: 700; font-size: 18px; }
+  .st-brand small { display: block; font-weight: 400; font-size: 12px; color: var(--c-willow); }
+  .st-search { flex: 1; max-width: 400px; padding: 10px 16px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
+  .st-btn { padding: 10px 20px; border: 1px solid #ddd; background: white; border-radius: 8px; cursor: pointer; font-size: 14px; }
+  .st-btn:hover { background: #f5f5f5; }
+  .st-btn-primary { background: var(--c-sea-text); color: white; border-color: var(--c-sea-text); }
+  .st-main { padding: 32px 0; }
+  .st-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .st-card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+  .st-card-num { font-size: 32px; font-weight: 700; }
+  .st-card-label { font-size: 13px; color: var(--c-willow); margin-top: 4px; }
+  .st-panel { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 24px; }
+  .st-panel-head { font-size: 16px; font-weight: 600; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #eee; }
+  .st-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f5f5f5; }
+  .st-row:last-child { border-bottom: none; }
+  .st-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+  .st-badge-discovery { background: #E8F4FD; color: #1A73E8; }
+  .st-badge-proposal { background: #FFF3E0; color: #E65100; }
+  .st-badge-active { background: #E8F5E9; color: #2E7D32; }
+  .st-badge-complete { background: #F5F5F5; color: #757575; }
+  .st-empty { text-align: center; padding: 40px; color: var(--c-willow); }
+  .st-error { background: #FFEBEE; color: #C62828; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; }
+  .st-banner { background: #FFF8E1; border: 1px solid #FFE082; padding: 16px; border-radius: 8px; margin-bottom: 24px; font-size: 14px; }
+  .st-cols { display: grid; grid-template-columns: 1fr 1.5fr; gap: 24px; }
+  @media (max-width: 768px) { .st-cols { grid-template-columns: 1fr; } }
+  .st-detail-label { font-size: 12px; color: var(--c-willow); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 16px; }
+  .st-detail-value { font-size: 15px; margin-top: 4px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="studio.jsx"></script>
+</body>
+</html>

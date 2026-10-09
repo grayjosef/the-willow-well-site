@@ -807,6 +807,12 @@ function Footer() {
         </a>
         <div>info@thewillowwellco.com · 910.691.2336</div>
       </div>
+      <div className="mx-auto max-w-7xl px-6 sm:px-14 mt-6 pt-6 border-t border-white/10">
+        <a href="https://bullcitysystems.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-[var(--c-willow)]/60 hover:text-[var(--c-willow)] transition-colors">
+          <span className="text-[10px] uppercase tracking-[0.2em]">Powered by</span>
+          <span className="font-semibold text-[var(--c-rainfog)]">Bull City Systems</span>
+        </a>
+      </div>
     </footer>
   );
 }
