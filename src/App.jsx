@@ -328,12 +328,12 @@ function Hero() {
  <Eyebrow flank>Somatic Strategy · Durham, NC · Est. 2024</Eyebrow>
 
  <h1 className="anim-fade-up mt-9 max-w-[14ch] font-display text-[72px] font-extralight leading-[0.9] tracking-[-0.035em] text-[var(--c-porcelain-soft)] sm:text-[96px] md:text-[124px] lg:text-[152px]">
- Clarity and capacity<br />
- begin in the <span style={{ fontFamily: "var(--font-italic)", color: "var(--c-bronze)", fontWeight: 400 }}>body.</span>
+ Your best people are<br />
+ burning <span style={{ fontFamily: "var(--font-italic)", color: "var(--c-bronze)", fontWeight: 400 }}>out.</span>
  </h1>
 
  <p className="anim-fade-up mt-12 max-w-[600px] text-[18px] leading-[1.55] text-[var(--c-eucalyptus)]" style={{ animationDelay: ".2s" }}>
- Operational infrastructure for leaders and teams who are excellent at their work , and running on fumes. Workshops, cohort programs, and retreats that build capacity that lasts.
+ Somatic Strategy rebuilds capacity from the nervous system up, using breath, body, and intentional practice to help leaders and teams think clearly, decide confidently, and sustain performance. Workshops, cohort programs, and retreats in Durham, NC and beyond.
  </p>
 
  <div className="anim-fade-up mt-14 flex flex-col items-center gap-6 sm:flex-row" style={{ animationDelay: ".4s" }}>
@@ -401,12 +401,12 @@ function Hero() {
 
  <h1 className="anim-fade-up mt-9 max-w-[13ch] font-display font-extralight tracking-[-0.03em] text-[var(--c-porcelain-soft)] text-[64px] sm:text-[88px] md:text-[112px] lg:text-[124px]"
  style={{ animationDelay: ".1s", lineHeight: 0.94 }}>
- Clarity and capacity<br />
- begin in the <Italic><span style={{ color: "var(--c-bronze)" }}>body.</span></Italic>
+ Your best people are<br />
+ burning <Italic><span style={{ color: "var(--c-bronze)" }}>out.</span></Italic>
  </h1>
 
  <p className="anim-fade-up mt-10 max-w-[540px] text-[19px] leading-[1.5] text-[var(--c-eucalyptus)]" style={{ animationDelay: ".25s" }}>
- Operational infrastructure for leaders and teams who are excellent at their work , and running on fumes. Workshops, cohort programs, and retreats that build capacity that lasts.
+ Somatic Strategy rebuilds capacity from the nervous system up, using breath, body, and intentional practice to help leaders and teams think clearly, decide confidently, and sustain performance. Workshops, cohort programs, and retreats in Durham, NC and beyond.
  </p>
 
  <div className="anim-fade-up mt-12 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-7" style={{ animationDelay: ".4s" }}>
@@ -644,6 +644,39 @@ function Fit() {
 }
 
 /* ─────────────────────────────────────────────────────────────
+ OUTCOMES , what changes
+ ───────────────────────────────────────────────────────────── */
+
+function Outcomes() {
+ const items = [
+ { t: "Teams that regulate together", d: "When a team shares a language for nervous system state, conflict deescalates faster, meetings get shorter, and the ambient tension that was slowing everything down starts to lift." },
+ { t: "Leaders who don't transmit stress", d: "A regulated leader sets the emotional temperature for everyone around them. Your people take their cues from your body before they hear your words." },
+ { t: "Capacity you can measure", d: "Fewer sick days. Lower turnover. Faster recovery after hard quarters. The metrics your CFO already tracks start moving in the right direction." },
+ ];
+ return (
+ <section id="outcomes" className="relative overflow-hidden bg-[var(--c-porcelain-soft)] py-40 text-[var(--c-ink)]">
+ <div className="relative mx-auto max-w-7xl px-6 sm:px-14">
+ <div className="mb-20">
+ <Eyebrow>06 · Outcomes</Eyebrow>
+ <h2 className="mt-6 font-display text-[44px] font-extralight leading-none tracking-[-0.025em] text-[var(--c-ink)] sm:text-[56px] md:text-[64px] lg:text-[80px]">
+ What actually<br /><Italic><span style={{ color: "var(--c-bronze)" }}>changes.</span></Italic>
+ </h2>
+ </div>
+ <div className="grid gap-6 md:grid-cols-3">
+ {items.map((item, i) => (
+ <article key={i} className="border border-[var(--c-sea)]/16 bg-white p-9">
+ <span className="font-display text-[48px] font-extralight text-[var(--c-bronze)]">0{i + 1}</span>
+ <h3 className="mt-4 font-display text-[24px] font-light leading-[1.1] text-[var(--c-ink)]">{item.t}</h3>
+ <p className="mt-4 text-[14px] leading-[1.6] text-[var(--c-sea-text)]">{item.d}</p>
+ </article>
+ ))}
+ </div>
+ </div>
+ </section>
+ );
+}
+
+/* ─────────────────────────────────────────────────────────────
  PROOF , Cinematic
  ───────────────────────────────────────────────────────────── */
 
@@ -749,6 +782,39 @@ function About() {
 }
 
 /* ─────────────────────────────────────────────────────────────
+ FAQ
+ ───────────────────────────────────────────────────────────── */
+
+function Faq() {
+ const items = [
+ { q: "How is this different from executive coaching?", a: "Executive coaching works on mindset and strategy. Somatic Strategy works on the nervous system underneath all of that. A coached leader with a dysregulated nervous system still transmits stress to their team. We address the physiology first, so the coaching and strategy actually land." },
+ { q: "Is this therapy?", a: "No. This is not therapy, counseling, or mental health treatment. It's capacity building for high-performing professionals, using breath, body awareness, and intentional practice. If you need therapy, we'll tell you that honestly on the discovery call." },
+ { q: "What does a workshop actually look like?", a: "Half-day or full-day intensives for your team, on-site or at our Durham space. Every session follows the four-movement arc: arrive, move, excavate, commit. Your people leave with a real tool they can use the same day, not just inspiration." },
+ { q: "Who is this not for?", a: "If you're looking for a motivational speaker, a yoga class, or a quick fix, this isn't it. This is for leaders who are serious about building sustainable capacity and willing to do the work." },
+ ];
+ return (
+ <section id="faq" className="relative overflow-hidden bg-[var(--c-rainfog)] py-40 text-[var(--c-ink)]">
+ <div className="relative mx-auto max-w-4xl px-6 sm:px-14">
+ <div className="mb-16 text-center">
+ <Eyebrow>08 · Questions</Eyebrow>
+ <h2 className="mt-6 font-display text-[40px] font-extralight leading-none tracking-[-0.025em] text-[var(--c-ink)] sm:text-[52px]">
+ Asked <Italic><span style={{ color: "var(--c-bronze)" }}>often.</span></Italic>
+ </h2>
+ </div>
+ <div className="space-y-6">
+ {items.map((item, i) => (
+ <details key={i} className="group border border-[var(--c-sea)]/16 bg-[var(--c-porcelain-soft)] p-7">
+ <summary className="cursor-pointer font-display text-[20px] font-light text-[var(--c-ink)]">{item.q}</summary>
+ <p className="mt-4 text-[15px] leading-[1.65] text-[var(--c-sea-text)]">{item.a}</p>
+ </details>
+ ))}
+ </div>
+ </div>
+ </section>
+ );
+}
+
+/* ─────────────────────────────────────────────────────────────
  BOOK , Cinematic
  ───────────────────────────────────────────────────────────── */
 
@@ -830,8 +896,10 @@ export default function App() {
  <Method />
  <Services />
  <Fit />
+ <Outcomes />
  <SocialProof />
  <About />
+ <Faq />
  <Book />
  </main>
  <Footer />
