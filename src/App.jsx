@@ -1,7 +1,7 @@
 import React from "react";
 
 /* ============================================================
- The Willow Well , Cohesive Mashup
+ The Willow Well, Cohesive Mashup
  - HERO: Editorial Quiet layout (asymmetric grid + circular stamp +
  4-column footer row + fadeUp cascade), painted in the Cinematic
  dark palette with Fraunces ultralight + Instrument Serif italics.
@@ -22,10 +22,10 @@ const NAV_ITEMS = [
 ];
 
 const ARC = [
- { n: "01", lab: "Movement One", title: "Arrive", italic: false, body: "Regulate the room. Nervous system first , before any agenda item is touched." },
- { n: "02", lab: "Movement Two", title: "Move", italic: true, body: "Somatic practice that shifts state , breath, body, intentional movement." },
- { n: "03", lab: "Movement Three", title: "Excavate", italic: false, body: "Strategic clarity work , values, patterns, what's actually driving behavior." },
- { n: "04", lab: "Movement Four", title: "Commit", italic: true, body: "Leave with a real tool and a real intention , not inspiration that evaporates." },
+ { n: "01", lab: "Movement One", title: "Arrive", italic: false, body: "Regulate the room. Nervous system first, before any agenda item is touched." },
+ { n: "02", lab: "Movement Two", title: "Move", italic: true, body: "Somatic practice that shifts state, breath, body, intentional movement." },
+ { n: "03", lab: "Movement Three", title: "Excavate", italic: false, body: "Strategic clarity work, values, patterns, what's actually driving behavior." },
+ { n: "04", lab: "Movement Four", title: "Commit", italic: true, body: "Leave with a real tool and a real intention, not inspiration that evaporates." },
 ];
 
 const SERVICES = [
@@ -67,9 +67,9 @@ const SERVICES = [
 ];
 
 const FIT = [
- { lab: "Audience · 01", title: "High-growth", italicTitle: "companies.", body: "Mid-to-large teams where People & Culture leaders watch their best people erode under sustained pressure , and where retention is now a performance problem." },
- { lab: "Audience · 02", title: "ESOs &", italicTitle: "accelerator", suffix: " programs.", body: "Founder cohorts who need real tools for sustainable performance , not another panel on burnout. Lee is credible inside the founder ecosystem; this lands." },
- { lab: "Audience · 03", title: "Mission-driven", italicTitle: "nonprofits.", body: "Organizations carrying compassion fatigue at the staff level. The work translates: capacity, clarity, sustainability , without the corporate framing." },
+ { lab: "Audience · 01", title: "High-growth", italicTitle: "companies.", body: "Mid-to-large teams where People & Culture leaders watch their best people erode under sustained pressure, and where retention is now a performance problem." },
+ { lab: "Audience · 02", title: "ESOs &", italicTitle: "accelerator", suffix: " programs.", body: "Founder cohorts who need real tools for sustainable performance, not another panel on burnout. Lee is credible inside the founder ecosystem; this lands." },
+ { lab: "Audience · 03", title: "Mission-driven", italicTitle: "nonprofits.", body: "Organizations carrying compassion fatigue at the staff level. The work translates: capacity, clarity, sustainability, without the corporate framing." },
 ];
 
 const CREDENTIALS = [
@@ -217,7 +217,7 @@ function GhostCTA({ href, children }) {
 }
 
 /* ─────────────────────────────────────────────────────────────
- Header , transparent over dark hero, with mobile menu
+ Header, transparent over dark hero, with mobile menu
  ───────────────────────────────────────────────────────────── */
 
 function Header() {
@@ -229,7 +229,7 @@ function Header() {
  </a>
  <header className="relative z-30">
  <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 border-b border-[var(--c-eucalyptus)]/12 px-6 py-6 sm:px-14">
- <a href="#top" aria-label="The Willow Well , home" className="inline-flex items-center gap-3 text-[var(--c-rainfog)]">
+ <a href="#top" aria-label="The Willow Well, home" className="inline-flex items-center gap-3 text-[var(--c-rainfog)]">
  <span aria-hidden="true"><Mark className="h-7 w-7" /></span>
  <span className="font-display text-[13px] sm:text-[15px] font-light uppercase tracking-[0.18em]">The Willow Well</span>
  </a>
@@ -281,13 +281,13 @@ function Header() {
 }
 
 /* ─────────────────────────────────────────────────────────────
- HERO , Editorial Quiet layout, Cinematic palette + animation cascade
+ HERO, Editorial Quiet layout, Cinematic palette + animation cascade
  ───────────────────────────────────────────────────────────── */
 
 function Hero() {
  return (
  <div id="hero">
- {/* Desktop hero (>= lg / 1024px) , original centered watermark layout */}
+ {/* Desktop hero (>= lg / 1024px), original centered watermark layout */}
  <div className="hidden lg:block">
 <section className="relative min-h-[980px] overflow-hidden text-[var(--c-rainfog)]"
  style={{
@@ -316,7 +316,7 @@ function Hero() {
  {/* breathing orb */}
  <div aria-hidden className="anim-breathe pointer-events-none absolute left-1/2 top-[55%] z-[1] h-[680px] w-[680px] -translate-x-1/2 -translate-y-1/2 rounded-full"
  style={{ background: "radial-gradient(circle at 50% 40%, rgba(199,212,207,0.25), rgba(77,113,119,0.1) 40%, transparent 70%)", filter: "blur(2px)" }} />
- {/* drifting compass mark , positioned below H1, inside the orb halo */}
+ {/* drifting compass mark, positioned below H1, inside the orb halo */}
  <div aria-hidden className="anim-drift pointer-events-none absolute left-1/2 top-[62%] z-[2] h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2" style={{ color: "rgba(199,212,207,0.32)" }}>
  <Mark className="h-full w-full" />
  </div>
@@ -357,7 +357,7 @@ function Hero() {
  </section>
  </div>
 
- {/* Mobile + tablet hero (< lg / 1024px) , asymmetric layout with rotating stamp */}
+ {/* Mobile + tablet hero (< lg / 1024px), asymmetric layout with rotating stamp */}
  <div className="lg:hidden">
 <section className="relative overflow-hidden text-[var(--c-rainfog)]"
  style={{
@@ -393,7 +393,7 @@ function Hero() {
  <Header />
 
  <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-16 lg:gap-20 items-end pt-28 pb-16 lg:pt-36 lg:pb-24">
- {/* LEFT , copy column */}
+ {/* LEFT, copy column */}
  <div>
  <div className="anim-fade-up" style={{ animationDelay: "0s" }}>
  <Eyebrow flank>Somatic Strategy · Est. Durham, NC</Eyebrow>
@@ -415,7 +415,7 @@ function Hero() {
  </div>
  </div>
 
- {/* RIGHT , meta column with rotating stamp */}
+ {/* RIGHT, meta column with rotating stamp */}
  <aside className="anim-fade-up flex flex-col items-center text-center gap-8 border-t border-[var(--c-eucalyptus)]/20 pt-9 lg:items-end lg:text-right lg:border-l lg:border-t-0 lg:pl-9 lg:pt-0" style={{ animationDelay: ".55s" }}>
  <div className="relative inline-flex h-[112px] w-[112px] lg:h-[136px] lg:w-[136px] items-center justify-center rounded-full border border-[var(--c-eucalyptus)]/35 text-[var(--c-eucalyptus)]">
  <svg viewBox="0 0 140 140" className="anim-rot absolute inset-0 h-full w-full" aria-hidden="true">
@@ -444,7 +444,7 @@ function Hero() {
  </aside>
  </div>
 
- {/* hero footer row , 4 columns of buyer types */}
+ {/* hero footer row, 4 columns of buyer types */}
  <div className="anim-fade-up grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 border-t border-[var(--c-eucalyptus)]/20 pt-9 pb-16" style={{ animationDelay: ".7s" }}>
  {HERO_FOOTROW.map((item) => (
  <div key={item.lab}>
@@ -463,7 +463,7 @@ function Hero() {
 }
 
 /* ─────────────────────────────────────────────────────────────
- PROBLEM , Cinematic light editorial
+ PROBLEM, Cinematic light editorial
  ───────────────────────────────────────────────────────────── */
 
 function Problem() {
@@ -485,12 +485,12 @@ function Problem() {
  <span aria-hidden className="absolute -left-[2%] -right-[2%] top-[54%] h-[3px] bg-[var(--c-bronze)]" />
  </span>
  <br />
- They're <Italic><span style={{ color: "var(--c-bronze)" }}>under-resourced</span></Italic> , at the<br />
+ They're <Italic><span style={{ color: "var(--c-bronze)" }}>under-resourced</span></Italic>, at the<br />
  nervous system level.
  </h2>
 
  <p className="mt-20 max-w-[54ch] border-l-2 border-[var(--c-bronze)] pl-6 font-display text-[22px] font-light leading-[1.4] text-[var(--c-sea-text)] sm:text-[24px]">
- And no amount of strategic planning fixes a dysregulated team. Somatic Strategy is how you change that , by treating capacity as the upstream variable, not the lagging indicator.
+ And no amount of strategic planning fixes a dysregulated team. Somatic Strategy is how you change that, by treating capacity as the upstream variable, not the lagging indicator.
  </p>
  </div>
  </section>
@@ -498,7 +498,7 @@ function Problem() {
 }
 
 /* ─────────────────────────────────────────────────────────────
- METHOD , Cinematic dark second-act
+ METHOD, Cinematic dark second-act
  ───────────────────────────────────────────────────────────── */
 
 function Method() {
@@ -517,7 +517,7 @@ function Method() {
  </h2>
  </div>
  <p className="max-w-[46ch] text-[18px] leading-[1.55] text-[var(--c-eucalyptus)]">
- The practice of building organizational performance capacity through the body , regulating the nervous system so leaders and teams can think clearly, decide confidently, and sustain output without burning out.{" "}
+ The practice of building organizational performance capacity through the body, regulating the nervous system so leaders and teams can think clearly, decide confidently, and sustain output without burning out.{" "}
  <span style={{ color: "var(--c-rainfog)" }}><Italic>Every engagement follows this arc.</Italic></span>
  </p>
  </div>
@@ -556,7 +556,7 @@ function Method() {
 }
 
 /* ─────────────────────────────────────────────────────────────
- SERVICES , Editorial Quiet 3-column hairline grid + Cinematic type
+ SERVICES, Editorial Quiet 3-column hairline grid + Cinematic type
  ───────────────────────────────────────────────────────────── */
 
 function Services() {
@@ -599,7 +599,7 @@ function Services() {
 }
 
 /* ─────────────────────────────────────────────────────────────
- FIT , Cinematic
+ FIT, Cinematic
  ───────────────────────────────────────────────────────────── */
 
 function Fit() {
@@ -644,7 +644,7 @@ function Fit() {
 }
 
 /* ─────────────────────────────────────────────────────────────
- OUTCOMES , what changes
+ OUTCOMES, what changes
  ───────────────────────────────────────────────────────────── */
 
 function Outcomes() {
@@ -677,7 +677,7 @@ function Outcomes() {
 }
 
 /* ─────────────────────────────────────────────────────────────
- PROOF , Cinematic
+ PROOF, Cinematic
  ───────────────────────────────────────────────────────────── */
 
 function SocialProof() {
@@ -713,7 +713,7 @@ function SocialProof() {
 
  <div className="flex flex-col gap-8">
  {[
- { l: "Setting", v: "Multi-day startup founder retreat , immersive engagement." },
+ { l: "Setting", v: "Multi-day startup founder retreat, immersive engagement." },
  { l: "Modality", v: "Movement, play, breathwork, internal dialogue, rest." },
  { l: "Outcome", v: "Clarity on a two-year strategic question; a clear path forward." },
  ].map((c) => (
@@ -730,7 +730,7 @@ function SocialProof() {
 }
 
 /* ─────────────────────────────────────────────────────────────
- ABOUT , Cinematic
+ ABOUT, Cinematic
  ───────────────────────────────────────────────────────────── */
 
 function About() {
@@ -759,12 +759,12 @@ function About() {
  I'm not a coach.<br />I'm a <Italic><span style={{ color: "var(--c-sea)" }}>guide.</span></Italic>
  </h2>
  <p className="mb-5 max-w-[54ch] font-display text-[17px] font-light leading-[1.65] text-[var(--c-sea-text)]">
- The Willow Well is built from everything I know about what it actually costs to operate from survival mode at the level my clients operate at , and what shifts when you have the right tools.
+ The Willow Well is built from everything I know about what it actually costs to operate from survival mode at the level my clients operate at, and what shifts when you have the right tools.
  </p>
  <p className="mb-8 max-w-[54ch] font-display text-[17px] font-light leading-[1.65] text-[var(--c-sea-text)]">
  Not inspiration. Actual capacity.
  </p>
- <p className="text-[28px] text-[var(--c-bronze)] sm:text-[32px]" style={{ fontFamily: "var(--font-italic)", fontStyle: "italic" }}>, Lee Gray</p>
+ <p className="text-[28px] text-[var(--c-bronze)] sm:text-[32px]" style={{ fontFamily: "var(--font-italic)", fontStyle: "italic" }}>Lee Gray</p>
 
  <dl className="mt-14 grid grid-cols-1 border-t border-[var(--c-sea)]/16 sm:grid-cols-2">
  {CREDENTIALS.map((c) => (
@@ -815,7 +815,7 @@ function Faq() {
 }
 
 /* ─────────────────────────────────────────────────────────────
- BOOK , Cinematic
+ BOOK, Cinematic
  ───────────────────────────────────────────────────────────── */
 
 function Book() {
@@ -867,7 +867,7 @@ function Footer() {
  return (
  <footer className="bg-[#0A1214] py-12 text-[12px] tracking-[0.08em] text-[var(--c-willow)]">
  <div className="mx-auto flex max-w-7xl flex-col items-start gap-4 px-6 sm:px-14 sm:flex-row sm:items-center sm:justify-between">
- <a href="#top" aria-label="The Willow Well , home" className="inline-flex items-center gap-3 py-2 text-[var(--c-rainfog)]">
+ <a href="#top" aria-label="The Willow Well, home" className="inline-flex items-center gap-3 py-2 text-[var(--c-rainfog)]">
  <span aria-hidden="true" className="text-[var(--c-bronze)]"><Mark className="h-6 w-6" /></span>
  <span>© 2026 The Willow Well · Somatic Strategy</span>
  </a>
