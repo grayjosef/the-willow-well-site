@@ -11,5 +11,11 @@
   },
   "compatibility_flags": [
     "nodejs_compat"
+  ]  ,
+  "kv_namespaces": [
+    {
+      "binding": "WW_DATA",
+      "id": "9486d01f060a47a5a75d489eb9d027a6"
+    }
   ]
 }

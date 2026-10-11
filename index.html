@@ -87,5 +87,22 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      // Willow Well first-party page-view analytics (no cookies, no third parties)
+      (function () {
+        try {
+          var ref = document.referrer || "";
+          try {
+            if (ref && new URL(ref).hostname === location.hostname) ref = "";
+          } catch (e) { ref = ""; }
+          fetch("/api/track", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ path: location.pathname, referrer: ref }),
+            keepalive: true,
+          }).catch(function () {});
+        } catch (e) {}
+      })();
+    </script>
   </body>
 </html>
